@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "dbuild": "cd discord && tsc --build",
-    "dstart": "node discord/build/index.js"
+    "dstart": "node discord/build/index.js",
+    "restart":"cd discord && tsc --build && node ./build/index.js"
   },
   "dependencies": {
     "@discordjs/rest": "^1.1.0",
@@ -18,7 +19,6 @@
     "daisyui": "^2.31.0",
     "discord.js": "14.3.0",
     "dotenv": "^16.0.2",
-    "mongoose": "^6.5.4",
     "next": "12.3.1",
     "react": "18.2.0",
     "react-dom": "18.2.0"
