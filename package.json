@@ -6,9 +6,18 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "dbuild": "cd discord && tsc --build",
+    "dstart": "node discord/build/index.js"
   },
   "dependencies": {
+    "@discordjs/rest": "^1.1.0",
+    "@types/node": "^18.7.14",
+    "chalk": "^4.1.2",
+    "daisyui": "^2.31.0",
+    "discord.js": "14.3.0",
+    "dotenv": "^16.0.2",
+    "mongoose": "^6.5.4",
     "next": "12.3.1",
     "react": "18.2.0",
     "react-dom": "18.2.0"
@@ -19,6 +28,8 @@
     "@types/react-dom": "18.0.6",
     "eslint": "8.25.0",
     "eslint-config-next": "12.3.1",
+    "prisma": "^4.4.0",
+    "ts-node": "^10.9.1",
     "typescript": "4.8.4"
   }
 }
