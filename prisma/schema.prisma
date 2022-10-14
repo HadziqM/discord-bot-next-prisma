@@ -8,15 +8,15 @@ datasource db {
 }
 
 model users {
-  id             Int          @id @default(autoincrement())
-  username       String       @unique
+  id             Int       @id @default(autoincrement())
+  username       String    @unique
   password       String
-  rights         Int          @default(846)
+  rights         Int       @default(846)
   item_box       Bytes?
-  last_character Int?         @default(0)
-  last_login     DateTime?    @db.Timestamp(6)
-  return_expires DateTime?    @db.Timestamp(6)
-  characters     characters[]
+  last_character Int?      @default(0)
+  last_login     DateTime? @db.Timestamp(6)
+  return_expires DateTime? @db.Timestamp(6)
+  // characters     characters[]
 }
 
 model account_ban {
@@ -161,15 +161,15 @@ model characters {
   cafe_time                                                      Int?                 @default(0)
   netcafe_points                                                 Int?                 @default(0)
   boost_time                                                     DateTime?            @db.Timestamp(6)
-  users                                                          users?               @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  // users                                                          users?               @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   guild_applications_charactersToguild_applications_actor_id     guild_applications[] @relation("charactersToguild_applications_actor_id")
   guild_applications_charactersToguild_applications_character_id guild_applications[] @relation("charactersToguild_applications_character_id")
-  guild_characters                                               guild_characters?
-  login_boost_state                                              login_boost_state[]
-  lucky_box_state                                                lucky_box_state[]
+  // guild_characters                                               guild_characters?
+  // login_boost_state                                              login_boost_state[]
+  // lucky_box_state                                                lucky_box_state[]
   mail                                                           mail[]
-  shop_item_state                                                shop_item_state[]
-  stepup_state                                                   stepup_state[]
+  // shop_item_state                                                shop_item_state[]
+  // stepup_state                                                   stepup_state[]
 }
 
 model discord {
@@ -297,8 +297,7 @@ model gacha_shop_items {
   itemtype   Int[]
   itemid     Int[]
   quantity   Int[]
-
-  @@id([shophash, entrytype, itemhash, currtype, currnumber, currquant, percentage, rarityicon, rollscount, itemcount, dailylimit, itemtype, itemid, quantity])
+  // @@id([shophash, entrytype, itemhash, currtype, currnumber, currquant, percentage, rarityicon, rollscount, itemcount, dailylimit, itemtype, itemid, quantity])
 }
 
 model gook {
@@ -345,16 +344,16 @@ model guild_applications {
 }
 
 model guild_characters {
-  id               Int         @id @default(autoincrement())
+  id               Int       @id @default(autoincrement())
   guild_id         BigInt?
-  character_id     BigInt?     @unique(map: "guild_character_unique_index")
-  joined_at        DateTime?   @default(now()) @db.Timestamp(6)
-  avoid_leadership Boolean     @default(false)
-  order_index      Int         @default(1)
-  recruiter        Boolean     @default(false)
-  souls            Int?        @default(0)
-  characters       characters? @relation(fields: [character_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  guilds           guilds?     @relation(fields: [guild_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  character_id     BigInt?   @unique(map: "guild_character_unique_index")
+  joined_at        DateTime? @default(now()) @db.Timestamp(6)
+  avoid_leadership Boolean   @default(false)
+  order_index      Int       @default(1)
+  recruiter        Boolean   @default(false)
+  souls            Int?      @default(0)
+  // characters       characters? @relation(fields: [character_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  // guilds           guilds?     @relation(fields: [guild_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model guild_hunts {
@@ -413,7 +412,7 @@ model guilds {
   pugi_outfit_3      Int                  @default(0)
   pugi_outfits       Int                  @default(0)
   guild_applications guild_applications[]
-  guild_characters   guild_characters[]
+  // guild_characters   guild_characters[]
 }
 
 model history {
@@ -426,12 +425,12 @@ model history {
 
 model login_boost_state {
   char_id    BigInt
-  week_req   Int        @db.SmallInt
-  week_count Int        @db.SmallInt
+  week_req   Int     @db.SmallInt
+  week_count Int     @db.SmallInt
   available  Boolean
   end_time   Int
-  ID         Int        @id @default(autoincrement())
-  characters characters @relation(fields: [char_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  ID         Int     @id @default(autoincrement())
+  // characters characters @relation(fields: [char_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@unique([char_id, week_req], map: "id_week")
 }
@@ -439,8 +438,8 @@ model login_boost_state {
 model lucky_box_state {
   char_id       BigInt
   shophash      Int
-  used_itemhash Int[]
-  characters    characters @relation(fields: [char_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  used_itemhash Int
+  // characters    characters @relation(fields: [char_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@id([used_itemhash, shophash, char_id])
   @@unique([char_id, shophash], map: "lucky_box_state_id_shophash")
@@ -610,7 +609,7 @@ model shop_item_state {
   char_id      BigInt
   itemhash     Int
   usedquantity Int
-  characters   characters @relation(fields: [char_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  // characters   characters @relation(fields: [char_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@id([char_id, itemhash, usedquantity])
   @@unique([char_id, itemhash], map: "shop_item_state_id_itemhash")
@@ -640,8 +639,8 @@ model stepup_state {
   char_id          BigInt
   shophash         Int
   step_progression Int
-  step_time        DateTime   @db.Timestamp(6)
-  characters       characters @relation(fields: [char_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  step_time        DateTime @db.Timestamp(6)
+  // characters       characters @relation(fields: [char_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@id([step_time, step_progression, shophash, char_id])
   @@unique([char_id, shophash], map: "stepup_state_id_shophash")
