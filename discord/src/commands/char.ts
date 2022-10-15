@@ -14,7 +14,7 @@ const command : Command = {
             where: {
               id: id,
             },
-          }) : {};
+          }).catch(async (e) =>{console.log(e)}) : null;
         await prisma.$disconnect()
         message.channel.send(discord != null ? {embeds: [
             new EmbedBuilder()
@@ -23,9 +23,8 @@ const command : Command = {
             .setColor(getThemeColor("text"))
         ]}: "charachter not found")
     },
-    cooldown: 10,
     aliases: ["sayhello"],
-    permissions: ["Administrator", PermissionFlagsBits.ManageEmojisAndStickers] // to test
+    permissions: ["Administrator", PermissionFlagsBits.ManageEmojisAndStickers]
 }
 
 export default command
