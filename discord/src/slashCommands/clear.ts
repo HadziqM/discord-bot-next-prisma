@@ -11,6 +11,7 @@ const ClearCommand : SlashCommand = {
         .setMinValue(1)
         .setName("messagecount")
         .setDescription("Message amount to be cleared")
+        .setRequired(true)
     })
     .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages),
     execute: interaction => {

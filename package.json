@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --hostname localhost --port 3000",
+    "dev": "next dev --hostname localhost --port 8080",
     "build": "next build && next start --hostname 127.0.0.1 --port 80",
     "start": "next start --hostname 127.0.0.1 --port 80",
     "dbuild": "cd discord && tsc --build",

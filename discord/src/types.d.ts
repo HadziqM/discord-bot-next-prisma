@@ -1,5 +1,4 @@
 import { SlashCommandBuilder, CommandInteraction, Collection, PermissionResolvable, Message } from "discord.js"
-import mongoose from "mongoose"
 
 export interface SlashCommand {
     command: SlashCommandBuilder | any,
@@ -36,10 +35,8 @@ declare global {
     namespace NodeJS {
         interface ProcessEnv {
             TOKEN: string,
-            CLIENT_ID: string,
+            DISCORD_CLIENT_ID: string,
             PREFIX: string,
-            MONGO_URI: string,
-            MONGO_DATABASE_NAME: string
         }
     }
 }

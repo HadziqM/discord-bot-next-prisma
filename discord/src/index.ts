@@ -15,5 +15,11 @@ const handlersDir = join(__dirname, "./handlers")
 readdirSync(handlersDir).forEach(handler => {
     require(`${handlersDir}/${handler}`)(client)
 })
-
+client.on('interactionCreate', async interaction => {
+    if (interaction.isButton()){
+    switch (interaction.customId){
+        case "primary":{interaction.reply("hello").catch(e=>console.log(e));await interaction.message.delete().catch(e=>console.log(e))}
+        case "secondary":{await interaction.message.delete().catch(e=>console.log(e))}
+    }}
+});
 client.login(process.env.TOKEN)
