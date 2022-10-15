@@ -173,10 +173,10 @@ model discord {
   bounty_expert      Boolean  @default(false)
   gacha              Int      @default(0)
   pity               Int      @default(0)
-  boostcd            BigInt   @default(0)
+  boostcd            Int      @default(0)
   newbie             Boolean  @default(true)
   latest_bounty      String?  @db.VarChar(10)
-  latest_bounty_time BigInt   @default(0)
+  latest_bounty_time Int      @default(0)
 }
 
 model distribution {
