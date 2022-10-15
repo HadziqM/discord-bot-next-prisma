@@ -15,39 +15,39 @@ const command : SlashCommand = {
     execute: async (interaction) => {
         console.log(__dirname)
         interaction.deferReply()
-        const attachment:any = new AttachmentBuilder(__dirname + "\\icon\\b.png")
         const did = interaction.user.id
         const charachter :any =  did ? await prisma.discord.findFirst({where:{discord_id:String(did)}}).catch(e=>console.log(e)):null
         const discord:any = charachter ? await prisma.characters.findFirst({where:{id:charachter.char_id}}).catch(e=>console.log(e)):null
         await prisma.$disconnect()
         const row:any = new ActionRowBuilder()
-			.addComponents(
-				new ButtonBuilder()
-					.setCustomId('primary')
-					.setLabel('Click me!')
-					.setStyle(ButtonStyle.Primary),
+        .addComponents(
+            new ButtonBuilder()
+            .setCustomId('primary')
+            .setLabel('Click me!')
+            .setStyle(ButtonStyle.Primary),
 			);
-        const col:any = new ActionRowBuilder()
+            const col:any = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
 					.setCustomId('secondary')
 					.setLabel('Dont Click me!')
 					.setStyle(ButtonStyle.Secondary),
-			);
-        await prisma.$disconnect()
-        await new Promise(r => setTimeout(r, 2000));
-        interaction.editReply(discord?{
-            embeds: [
-                new EmbedBuilder()
-                .setAuthor({name: `${interaction.user.username}`})
-                .setDescription(`found account \n 📡 name: ${discord.name}`)
-                .setColor(getThemeColor("text"))
-                .setThumbnail('attachment://favicon.png')
-                .setImage('attachment://favicon.png')
-            ],components:[row,col],attachments:attachment
-        }:"youare not registered").catch((e)=> console.log(e))
-    },
-    cooldown: 10
-}
-
-export default command
+                    );
+                    await prisma.$disconnect()
+                    await new Promise(r => setTimeout(r, 2000));
+                    const attachment: any = new AttachmentBuilder('./icon/B.png')
+                    interaction.editReply(discord?{
+                        embeds: [
+                            new EmbedBuilder()
+                            .setAuthor({name: `${interaction.user.username}`})
+                            .setDescription(`found account \n 📡 name: ${discord.name}`)
+                            .setColor(getThemeColor("text"))
+                            .setThumbnail('attachment://B.png')
+                            .setImage('attachment://B.png')
+                        ],components:[row,col],attachments:attachment,files:[{attachment:"./icon/B.png"}]
+                    }:"youare not registered").catch((e)=> console.log(e))
+                },
+                cooldown: 10
+            }
+            
+            export default command
