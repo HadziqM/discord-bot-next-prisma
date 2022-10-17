@@ -158,6 +158,8 @@ model characters {
   // mail                                                           mail[]
   // shop_item_state                                                shop_item_state[]
   // stepup_state                                                   stepup_state[]
+  // guild_characters     guild_characters?   @relation(fields: [guild_charactersId], references: [id])
+  // guild_charactersId   Int?
 }
 
 model discord {
@@ -333,18 +335,18 @@ model distributions_accepted {
 //   @@index([application_type], map: "guild_application_type_index")
 // }
 
-// model guild_characters {
-//   id               Int         @id @default(autoincrement())
-//   guild_id         BigInt?
-//   character_id     BigInt?     @unique(map: "guild_character_unique_index")
-//   joined_at        DateTime?   @default(now()) @db.Timestamp(6)
-//   avoid_leadership Boolean     @default(false)
-//   order_index      Int         @default(1)
-//   recruiter        Boolean     @default(false)
-//   souls            Int?        @default(0)
-//   characters       characters? @relation(fields: [character_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-//   guilds           guilds?     @relation(fields: [guild_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-// }
+model guild_characters {
+  id               Int       @id @default(autoincrement())
+  guild_id         Int
+  character_id     Int       @unique(map: "guild_character_unique_index")
+  joined_at        DateTime? @default(now()) @db.Timestamp(6)
+  avoid_leadership Boolean   @default(false)
+  order_index      Int       @default(1)
+  recruiter        Boolean   @default(false)
+  souls            Int?      @default(0)
+  // guilds           guilds?   @relation(fields: [guildsId], references: [id])
+  // guildsId         Int?
+}
 
 // model guild_hunts {
 //   id          Int     @id @default(autoincrement())
@@ -401,6 +403,7 @@ model guilds {
   pugi_outfit_2 Int       @default(0)
   pugi_outfit_3 Int       @default(0)
   pugi_outfits  Int       @default(0)
+  // guild_characters guild_characters[]
 }
 
 // model history {
