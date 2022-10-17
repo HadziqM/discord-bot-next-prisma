@@ -5,15 +5,10 @@ import { BotEvent } from "../types";
 
 const event: BotEvent = {
     name: "messageCreate",
-    execute: async (message: Message) => {
+    execute: (message: Message) => {
         if (!message.member || message.member.user.bot) return;
         if (!message.guild) return;
         let prefix = process.env.PREFIX
-        // if (mongoose.connection.readyState === 1) {
-        //     let guildPrefix = await getGuildOption(message.guild, "prefix") 
-        //         if (guildPrefix) prefix = guildPrefix;
-        // }
-
         if (!message.content.startsWith(prefix)) return;
         if (message.channel.type !== ChannelType.GuildText) return;
 
