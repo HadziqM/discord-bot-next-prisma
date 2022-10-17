@@ -59,24 +59,21 @@ const command : SlashCommand = {
 			)
         await prisma.$disconnect()
         const attachment: any = new AttachmentBuilder(iconlist[charachter.weapon_type])
+        const embed = new EmbedBuilder()
+        .setAuthor({name: `${charachter.name}`})
+        .setFooter({text:`owned by ${interaction.user.username}`, iconURL:`${interaction.user.displayAvatarURL()}`})
+        .setColor(getThemeColor("text"))
+        .setThumbnail(`attachment://${iconlist[charachter.weapon_type].replace('./icon/','')}`)
+        .addFields(
+        {name:"User", value:`Username:${user.username}\nUser_ID:${user.id}\nChar_Id:${charachter.id}\nLast Login:<t:${charachter.last_login}:R>`,inline:false},
+        {name:"Character", value:`Gender:${gender}\nHRP:${charachter.hrp}\nGR:${charachter.gr}`,inline:false},
+        {name:"Guild", value:`Guild:${guild.name}\nGuild_ID:${guild.id}\nLeader_Id:${guild.leader_id}`,inline:false})
         await new Promise(r => setTimeout(r, 2000));
         interaction.editReply(discord?{
-            embeds: [
-                new EmbedBuilder()
-                .setAuthor({name: `${charachter.name}`})
-                .setFooter({text:`owned by ${interaction.user.username}`, iconURL:`${interaction.user.displayAvatarURL()}`})
-                .setColor(getThemeColor("text"))
-                .setThumbnail(`attachment://${iconlist[charachter.weapon_type].replace('./icon/','')}`)
-                .addFields(
-                {name:"User", value:`Username:${user.username}\nUser_ID:${user.id}\nChar_Id:${charachter.id}\nLast Login:<t:${charachter.last_login}:R>`,inline:false},
-                {name:"Character", value:`Gender:${gender}\nHRP:${charachter.hrp}\nGR:${charachter.gr}`,inline:false},
-                {name:"Guild", value:`Guild:${guild.name}\nGuild_ID:${guild.id}\nLeader_Id:${guild.leader_id}`,inline:false})
-            ],components:[row1,row2,row3],files: [attachment]
+            embeds: [embed],components:[row1,row2,row3],files: [attachment]
         }:"youare not registered").catch((e)=> console.log(e))
-        await new Promise(r => setTimeout(r, 10000));
-        interaction.editReply({embeds:[],components:[],files:[],content:"timeout"})
+        await new Promise(()=>setTimeout(()=>interaction.editReply({components:[]}),10000))
     },
     cooldown: 10
 }
-            
-            export default command
+export default command

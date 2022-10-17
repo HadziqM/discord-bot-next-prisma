@@ -23,7 +23,7 @@ const ClearCommand : SlashCommand = {
             if (deletedMessages?.size === 0) interaction.reply("No messages were deleted.")       
             else interaction.reply(`Successfully deleted ${deletedMessages?.size} message(s)`)
             setTimeout(() => interaction.deleteReply(), 5000)
-        })
+        }) 
     },
     cooldown: 10
 }

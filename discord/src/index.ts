@@ -6,6 +6,7 @@ import { config } from "dotenv";
 import { readdirSync } from "fs";
 import { join } from "path";
 import get_save from './lib/savefile'
+import trans from './lib/transmog'
 
 config()
 
@@ -22,9 +23,9 @@ client.on('interactionCreate', async interaction => {
     if (interaction.isButton()){
         if(interaction.user.id != interaction.message.interaction?.user.id){await interaction.reply({content:"this button isnt for you",ephemeral:true}).catch(e=>console.log(e));return}
         switch (interaction.customId){
-            case "primary":{interaction.reply("hello").catch(e=>console.log(e));await interaction.message.delete().catch(e=>console.log(e))}
-            case "nothing":{await interaction.message.delete().catch(e=>console.log(e));await interaction.reply({content:"understanable have a nice day",ephemeral:true}).catch(e=>console.log(e))}
-            case "save":{await interaction.reply({content:"check your DM",ephemeral:true});await interaction.user.send(({files:[{attachment: await get_save(interaction.user.id),name:"pleasework.bin"}]})).catch(async (e)=>await interaction.reply({content:"Error while sending DM\nMake sure direct message is enabled",ephemeral:true}))}
+            case "nothing":{await interaction.message.delete().catch(e=>console.log(e));await interaction.reply({content:"understanable have a nice day",ephemeral:true}).catch(e=>console.log(e));break}
+            case "save":{await interaction.reply({content:"check your DM",ephemeral:true});(await get_save(interaction.user.id)).map(async (e:any) => (e !== "nothing") && await interaction.user.send({ files: [{ attachment: e[0],name:e[1] }] }).catch(e=>console.log(e)));break}
+            case "transmog":{await interaction.reply({content:"unlocked your transmog",ephemeral:true});await trans(interaction.user.id);break}
     }}
 });
 client.login(process.env.TOKEN)
