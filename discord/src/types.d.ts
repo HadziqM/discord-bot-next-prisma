@@ -35,8 +35,11 @@ declare global {
     namespace NodeJS {
         interface ProcessEnv {
             TOKEN: string,
-            DISCORD_CLIENT_ID: string,
+            CLIENT_ID: string,
             PREFIX: string,
+            TRANSVER_SAVE_LOG_CHANNEL:string,
+            USER_CREATE_LOG_CHANNEL:string,
+            EROR_LOG_CHANNEL:string
         }
     }
 }

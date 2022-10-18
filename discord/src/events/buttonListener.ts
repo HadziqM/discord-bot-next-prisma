@@ -1,4 +1,3 @@
-import { Interaction } from "discord.js";
 import { BotEvent } from "../types";
 import get_save from '../lib/savefile'
 import trans from '../lib/transmog'
@@ -34,7 +33,6 @@ const event : BotEvent = {
                 case "boost_on":{const boost = await Boost_on(interaction.user.id);boost[0]?interaction.reply({content:"Turn On Your Login Boost",ephemeral:true}):interaction.reply({content:`cooldown till <t:${boost[1]}:R>`,ephemeral:true});break}
                 case "boost_off":{await Boost_off(interaction.user.id);await interaction.reply({content:"Turn Off Your Login Boost",ephemeral:true});break}
         }}
-
     }
 }
 export default event

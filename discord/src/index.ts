@@ -19,7 +19,7 @@ readdirSync(handlersDir).forEach(handler => {
 
 // Caught Unhandled Errors
 process.on('unhandledRejection', async (error) => {
-    const ch = client.channels.cache.get('1031774270512169070')
+    const ch = client.channels.cache.get(String(process.env.EROR_LOG_CHANNEL))
     if (ch?.isTextBased()){ch.send(String(error))}
     console.error('unhandledRejection', error);
 });

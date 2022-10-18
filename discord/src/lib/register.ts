@@ -3,7 +3,7 @@ import Hash from './crypto/hash'
 
 const prisma = new PrismaClient();
 
-export default async function Bind(username:string,password:string) {
+export default async function Regis(username:string,password:string) {
     const user=await prisma.users.findFirst({where:{username:username}})
     if (user !== null) {await prisma.$disconnect();return false}
     const hash = await Hash(password)
