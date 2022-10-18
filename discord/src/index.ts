@@ -8,7 +8,6 @@ import { join } from "path";
 
 
 config()
-
 client.slashCommands = new Collection<string, SlashCommand>()
 client.commands = new Collection<string, Command>()
 client.cooldowns = new Collection<string, number>()
