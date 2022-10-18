@@ -9,7 +9,9 @@ type colorType = "text" | "variable" | "error"
 const themeColors = {
     text: "#ff8e4d",
     variable: "#ff624d",
-    error: "#f5426c"
+    error: "#f5426c",
+    data:"#00008b",
+    blood:"#8b0000"
 }
 
 export const getThemeColor = (color: colorType) => Number(`0x${themeColors[color].substring(1)}`)

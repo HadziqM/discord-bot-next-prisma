@@ -13,7 +13,8 @@ const ClearCommand : SlashCommand = {
         .setDescription("Message amount to be cleared")
         .setRequired(true)
     })
-    .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages),
+    .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
+    ,
     execute: interaction => {
         let messageCount = Number(interaction.options.get("messagecount")?.value)
         interaction.channel?.messages.fetch({limit: messageCount})
@@ -25,7 +26,7 @@ const ClearCommand : SlashCommand = {
             setTimeout(() => interaction.deleteReply(), 5000)
         }) 
     },
-    cooldown: 10
+    cooldown: 10,
 }
 
 export default ClearCommand;

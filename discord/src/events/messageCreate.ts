@@ -51,7 +51,7 @@ const event: BotEvent = {
             message.client.cooldowns.set(`${command.name}-${message.member.user.username}`, Date.now() + command.cooldown * 1000)
         }
 
-        command.execute(message, args)
+        try{command.execute(message, args)}catch(e){console.log(e)}
     }
 }
 

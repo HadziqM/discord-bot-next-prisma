@@ -20,8 +20,8 @@ const event : BotEvent = {
             }, command.cooldown * 1000)
         } else if (command.cooldown && !cooldown) {
             interaction.client.cooldowns.set(`${interaction.commandName}-${interaction.user.username}`, Date.now() + command.cooldown * 1000)
-        } 
-        command.execute(interaction)
+        }
+        try{ command.execute(interaction)}catch(e){console.log(e)}       
     }
 }
 
