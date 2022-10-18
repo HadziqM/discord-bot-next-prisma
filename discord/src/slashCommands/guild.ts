@@ -1,19 +1,26 @@
-import { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits } from "discord.js"
+import { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits,ButtonBuilder, ActionRowBuilder, ButtonStyle } from "discord.js"
 import { getThemeColor } from "../functions";
 import { SlashCommand } from "../types";
 import Guild from '../lib/guild'
+import client from "../index";
+import { INTERNALS } from "next/dist/server/web/spec-extension/request";
 
+const row2:any = new ActionRowBuilder()
+        .addComponents(
+            new ButtonBuilder()
+            .setCustomId('wtf')
+            .setLabel('wtf')
+            .setStyle(ButtonStyle.Secondary),
+			)
 const command : SlashCommand = {
     command: new SlashCommandBuilder()
-    .setName("ping")
+    .setName("guild")
     .setDescription("Shows the bot's ping")
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     ,
     execute: async interaction => {
-        interaction.deferReply()
-        const guild = await Guild()
-        console.log(guild[0])
-        await new Promise(()=>setTimeout(async ()=>interaction.editReply({files:[{attachment:(await guild[0]).icon}]}),2000))
+        interaction.reply({components:[row2]})
+        
     },
     cooldown: 10
 }
