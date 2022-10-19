@@ -2,6 +2,15 @@ import {PrismaClient} from "@prisma/client";
 
 const prisma = new PrismaClient();
 
+function level(rp:number){
+    if (rp <= 48){return Math.floor(rp/24)}
+    else if (rp <= 288){return Math.floor(rp/48)+1}
+    else if (rp <= 504){return Math.floor(rp/72)+3}
+    else if (rp <= 1080){return Math.floor((rp-24)/96)+5}
+    else if (rp < 1200){return 16}
+    else {return 17}
+}
+
 export default async function Guild() {
     const user=await prisma.guilds.findMany({orderBy:{id:'asc'}})
     // const guild = Promise.all(user.map(async (e) => {
@@ -32,7 +41,8 @@ export default async function Guild() {
                         lead:char?.name,
                         lead_discord:mention,
                         created:Math.floor(new Date(Number(user[i].created_at)).getTime()/1000),
-                        rp:user[i].rank_rp}
+                        rp:user[i].rank_rp,
+                        level:level(user[i].rank_rp)}
         data.push(data1)
     }
     await prisma.$disconnect()

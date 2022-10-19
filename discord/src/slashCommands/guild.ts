@@ -33,12 +33,12 @@ row2.addComponents(
  return row2
 }
 async function build_embed(data:any){
-    const disc = data.discord === "Leader Not Registered"? data.lead_discord: await client.users.fetch(data.lead_discord)
+    const disc = data.lead_discord === "Leader Not Registered"? data.lead_discord: await client.users.fetch(data.lead_discord)
     let embed = new EmbedBuilder()
         .setAuthor({name: `${data.name}`})
         .setColor(getThemeColor("text"))
         .addFields(
-            {name:"General Details",value:` 🆔 Guild_id: ${data.id}\n 🏛️ Created: <t:${data.created}:R> \n 🧑‍🤝‍🧑 Member Count: ${data.member}/60 \n 🎖️ Rank Point : ${data.rp}`},
+            {name:"General Details",value:` 🆔 Guild_id: ${data.id}\n 🏛️ Created: <t:${data.created}:R> \n 🧑‍🤝‍🧑 Member Count: ${data.member}/60 \n 🎖️ Rank Point : ${data.rp} \n 🏰 Level : ${data.level}`},
             {name:"Leader Details",value:` 🆔 Leader_id: ${data.lead_id}\n 🏷️ Leader Name: ${data.lead} \n 🎮 Leader Discord: ${String(disc)}`},
         )
     if (disc !== "Leader Not Registered"){embed.setFooter({ text: `lead by ${disc.username}`, iconURL: `${disc.displayAvatarURL()}` })}
@@ -58,9 +58,8 @@ const command : SlashCommand = {
         let embed = await build_embed(data[state-1])
         interaction.reply({embeds:[embed],components:[button]})
         if (!interaction.channel?.isTextBased()) return
-        const collector = interaction.channel.createMessageComponentCollector({ componentType: ComponentType.Button, time: 150000 })
+        const collector = interaction.channel.createMessageComponentCollector({ componentType: ComponentType.Button, time: 400000 })
         collector.on('collect', async i => {
-            console.log(i.customId)
             switch (i.customId){
                 case `p${interaction.user.id}`:{
                     state -= 1;
@@ -69,6 +68,7 @@ const command : SlashCommand = {
                     embed = await build_embed(data[state-1]);
                     await interaction.editReply({embeds:[embed],components:[button]})
                     i.deferUpdate()
+                    break
                 }
                 case `n${interaction.user.id}`:{
                     state += 1;
@@ -76,6 +76,7 @@ const command : SlashCommand = {
                     embed = await build_embed(data[state-1]);
                     await interaction.editReply({embeds:[embed],components:[button]})
                     i.deferUpdate()
+                    break
                 }
                 default:{break}
             }

@@ -13,9 +13,9 @@ export default async function Embed(char_id:number) {
     const gid:any = charachter ? await prisma.guild_characters.findFirst({where:{character_id:char_id}}).catch(e=>console.log(e)):"no guild"
     const guild:any  = gid ? await prisma.guilds.findFirst({where:{id:gid.guild_id}}).catch(e=>console.log(e)): gid === "no guild" ? "no id":null
     await prisma.$disconnect()
-    const attachment: any =  new AttachmentBuilder(iconlist[charachter.weapon_type])
+    const attachment:any =  new AttachmentBuilder(iconlist[charachter.weapon_type])
     const gender =discord ? discord.is_male ? "Male" : "Female" : "not Registered"
-    const embed = new EmbedBuilder()
+    const embed:any = new EmbedBuilder()
         .setAuthor({name: `${charachter.name}`})
         .setColor(getThemeColor("text"))
         .setThumbnail(`attachment://${iconlist[charachter.weapon_type].replace('./icon/','')}`)

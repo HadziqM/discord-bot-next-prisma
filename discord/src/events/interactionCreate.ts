@@ -4,6 +4,9 @@ import { BotEvent } from "../types";
 const event : BotEvent = {
     name: "interactionCreate",
     execute: (interaction: Interaction) => {
+        if(interaction.isUserContextMenuCommand()){
+            interaction.client.slashCommands.get(interaction.commandName)?.execute(interaction)
+        }
         if (!interaction.isChatInputCommand()) return;
         let command = interaction.client.slashCommands.get(interaction.commandName)
         let cooldown = interaction.client.cooldowns.get(`${interaction.commandName}-${interaction.user.username}`)

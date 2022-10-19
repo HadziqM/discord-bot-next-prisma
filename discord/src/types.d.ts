@@ -1,9 +1,15 @@
-import { SlashCommandBuilder, CommandInteraction, Collection, PermissionResolvable, Message } from "discord.js"
+import { SlashCommandBuilder,ContextMenuCommandBuilder, CommandInteraction, Collection, PermissionResolvable, Message, Interaction } from "discord.js"
 
 export interface SlashCommand {
     command: SlashCommandBuilder | any,
     execute: (interaction : CommandInteraction) => void,
     cooldown?: number // in seconds
+}
+
+export interface ContextMenu{
+    command: ContextMenuCommandBuilder | any,
+    execute : (Interaction : CommandInteraction) => void,
+    cooldown?:number,
 }
 
 export interface Command {
