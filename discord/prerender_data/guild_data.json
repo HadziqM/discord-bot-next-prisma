@@ -1,0 +1,444 @@
+{
+  "guild": [
+    {
+      "member": 50,
+      "name": "Lunatic_333",
+      "id": 31,
+      "lead_id": 118,
+      "lead": "Nonagon",
+      "lead_discord": "190495573881782272",
+      "created": 1647080760,
+      "rp": 11648
+    },
+    {
+      "member": 57,
+      "name": "WorldServant",
+      "id": 62,
+      "lead_id": 267,
+      "lead": "World Sekai",
+      "lead_discord": "545185457861033995",
+      "created": 1651166087,
+      "rp": 10326
+    },
+    {
+      "member": 53,
+      "name": "OverdriveEX",
+      "id": 145,
+      "lead_id": 124,
+      "lead": "Admin",
+      "lead_discord": "Leader Not Registered",
+      "created": 1655984722,
+      "rp": 11278
+    },
+    {
+      "member": 1,
+      "name": "HertzCheatGuild",
+      "id": 165,
+      "lead_id": 835,
+      "lead": "hmmm",
+      "lead_discord": "Leader Not Registered",
+      "created": 1657089859,
+      "rp": 10000
+    },
+    {
+      "member": 56,
+      "name": "ShiroBlanc",
+      "id": 196,
+      "lead_id": 843,
+      "lead": "gitgud2",
+      "lead_discord": "455622761168109569",
+      "created": 1657917128,
+      "rp": 10000
+    },
+    {
+      "member": 4,
+      "name": "YIAZMAT",
+      "id": 199,
+      "lead_id": 629,
+      "lead": "RafaNadal",
+      "lead_discord": "462335687585169428",
+      "created": 1658088710,
+      "rp": 10000
+    },
+    {
+      "member": 2,
+      "name": "Nubitol",
+      "id": 215,
+      "lead_id": 918,
+      "lead": "Ecclesia",
+      "lead_discord": "Leader Not Registered",
+      "created": 1658696628,
+      "rp": 10000
+    },
+    {
+      "member": 1,
+      "name": "Hamka-Chan",
+      "id": 216,
+      "lead_id": 1012,
+      "lead": "Sugi",
+      "lead_discord": "196450666229530625",
+      "created": 1658841550,
+      "rp": 10000
+    },
+    {
+      "member": 1,
+      "name": "DuckyPlosion",
+      "id": 218,
+      "lead_id": 1019,
+      "lead": "Pepino",
+      "lead_discord": "Leader Not Registered",
+      "created": 1658893992,
+      "rp": 10000
+    },
+    {
+      "member": 1,
+      "name": "WORKING!!",
+      "id": 220,
+      "lead_id": 1037,
+      "lead": "Ganancia",
+      "lead_discord": "Leader Not Registered",
+      "created": 1659129921,
+      "rp": 10000
+    },
+    {
+      "member": 2,
+      "name": "SOLO>w<",
+      "id": 221,
+      "lead_id": 1001,
+      "lead": "FuFuOwO",
+      "lead_discord": "Leader Not Registered",
+      "created": 1659273433,
+      "rp": 10000
+    },
+    {
+      "member": 1,
+      "name": "IncredibleName",
+      "id": 227,
+      "lead_id": 944,
+      "lead": "Caz",
+      "lead_discord": "285970315761287178",
+      "created": 1659579408,
+      "rp": 10000
+    },
+    {
+      "member": 25,
+      "name": "メイド・イン・ヘブン",
+      "id": 230,
+      "lead_id": 1588,
+      "lead": "Karaage",
+      "lead_discord": "947568476418084885",
+      "created": 1659672872,
+      "rp": 10000
+    },
+    {
+      "member": 1,
+      "name": "TMG",
+      "id": 253,
+      "lead_id": 648,
+      "lead": "fakbo",
+      "lead_discord": "640571354311163916",
+      "created": 1660461996,
+      "rp": 10000
+    },
+    {
+      "member": 1,
+      "name": "Eternal∞Union",
+      "id": 254,
+      "lead_id": 1173,
+      "lead": "ゆん",
+      "lead_discord": "Leader Not Registered",
+      "created": 1660535287,
+      "rp": 10005
+    },
+    {
+      "member": 2,
+      "name": "UWU",
+      "id": 255,
+      "lead_id": 1167,
+      "lead": "Vio",
+      "lead_discord": "118906401723514881",
+      "created": 1660545790,
+      "rp": 10000
+    },
+    {
+      "member": 1,
+      "name": "XONTOL",
+      "id": 256,
+      "lead_id": 1164,
+      "lead": "MoMo~",
+      "lead_discord": "Leader Not Registered",
+      "created": 1660606220,
+      "rp": 10000
+    },
+    {
+      "member": 5,
+      "name": "LuPiccioneTheMammt",
+      "id": 258,
+      "lead_id": 1267,
+      "lead": "Cikuozzo",
+      "lead_discord": "535877259739922443",
+      "created": 1661115176,
+      "rp": 10136
+    },
+    {
+      "member": 20,
+      "name": "GuardianDiva",
+      "id": 260,
+      "lead_id": 1193,
+      "lead": "Serenity",
+      "lead_discord": "703943067429896212",
+      "created": 1661361130,
+      "rp": 10340
+    },
+    {
+      "member": 3,
+      "name": "FightingGameBoomers",
+      "id": 261,
+      "lead_id": 1247,
+      "lead": "Hyze",
+      "lead_discord": "214049903314337794",
+      "created": 1661650804,
+      "rp": 10000
+    },
+    {
+      "member": 1,
+      "name": "Impresso",
+      "id": 262,
+      "lead_id": 1239,
+      "lead": "SirTummy",
+      "lead_discord": "Leader Not Registered",
+      "created": 1661754396,
+      "rp": 10000
+    },
+    {
+      "member": 3,
+      "name": "Dark-Star-Corporation",
+      "id": 263,
+      "lead_id": 1275,
+      "lead": "Lordsax-DkSr",
+      "lead_discord": "495945969041539072",
+      "created": 1661881911,
+      "rp": 10126
+    },
+    {
+      "member": 2,
+      "name": "DAI",
+      "id": 264,
+      "lead_id": 1263,
+      "lead": "Shinoa",
+      "lead_discord": "360550957123239937",
+      "created": 1662073843,
+      "rp": 10000
+    },
+    {
+      "member": 2,
+      "name": "Beeeeeeeeeeeeeeeeeeeees!",
+      "id": 268,
+      "lead_id": 1392,
+      "lead": "Aezla",
+      "lead_discord": "295773406626971650",
+      "created": 1662521526,
+      "rp": 10000
+    },
+    {
+      "member": 11,
+      "name": "ShigukenDivison",
+      "id": 270,
+      "lead_id": 1412,
+      "lead": "Sushi",
+      "lead_discord": "358158882138226689",
+      "created": 1662657533,
+      "rp": 10300
+    },
+    {
+      "member": 1,
+      "name": "maw",
+      "id": 271,
+      "lead_id": 1449,
+      "lead": "maxmans",
+      "lead_discord": "Leader Not Registered",
+      "created": 1662681024,
+      "rp": 0
+    },
+    {
+      "member": 15,
+      "name": "Nakama",
+      "id": 279,
+      "lead_id": 1540,
+      "lead": "Tessia",
+      "lead_discord": "581603809336492033",
+      "created": 1663260728,
+      "rp": 2132
+    },
+    {
+      "member": 1,
+      "name": "Nightfall",
+      "id": 289,
+      "lead_id": 1512,
+      "lead": "Tear",
+      "lead_discord": "164536614452854784",
+      "created": 1663753289,
+      "rp": 0
+    },
+    {
+      "member": 1,
+      "name": "erewerrwer",
+      "id": 290,
+      "lead_id": 1444,
+      "lead": "Rider(FZUBW)",
+      "lead_discord": "528190498733555712",
+      "created": 1663766808,
+      "rp": 348
+    },
+    {
+      "member": 1,
+      "name": "Hellblade",
+      "id": 292,
+      "lead_id": 1576,
+      "lead": "Spinorex",
+      "lead_discord": "344058283155390465",
+      "created": 1663849186,
+      "rp": 514
+    },
+    {
+      "member": 1,
+      "name": "Brotherhood_of_Khezu",
+      "id": 294,
+      "lead_id": 1633,
+      "lead": "Aloysius",
+      "lead_discord": "Leader Not Registered",
+      "created": 1663902501,
+      "rp": 50
+    },
+    {
+      "member": 1,
+      "name": "BigBird",
+      "id": 297,
+      "lead_id": 1708,
+      "lead": "Rasputin",
+      "lead_discord": "216229543155859457",
+      "created": 1664111370,
+      "rp": 50
+    },
+    {
+      "member": 3,
+      "name": "MakuhitaFanClub",
+      "id": 298,
+      "lead_id": 1600,
+      "lead": "Sephyr",
+      "lead_discord": "217557221595152385",
+      "created": 1664119847,
+      "rp": 755
+    },
+    {
+      "member": 1,
+      "name": "MHMG",
+      "id": 299,
+      "lead_id": 1757,
+      "lead": "Genshin",
+      "lead_discord": "212565229782040576",
+      "created": 1664130590,
+      "rp": 0
+    },
+    {
+      "member": 1,
+      "name": "Forgiveness",
+      "id": 303,
+      "lead_id": 1835,
+      "lead": "KillerQueen",
+      "lead_discord": "Leader Not Registered",
+      "created": 1664344284,
+      "rp": 0
+    },
+    {
+      "member": 1,
+      "name": "ゆずソフトモン狩部",
+      "id": 305,
+      "lead_id": 1855,
+      "lead": "アイビー",
+      "lead_discord": "703955779622797382",
+      "created": 1664576064,
+      "rp": 100
+    },
+    {
+      "member": 1,
+      "name": "ゆずソフトモン狩部",
+      "id": 307,
+      "lead_id": 1894,
+      "lead": "Lenn",
+      "lead_discord": "606817309650190397",
+      "created": 1664585633,
+      "rp": 174
+    },
+    {
+      "member": 2,
+      "name": "LastHunters",
+      "id": 308,
+      "lead_id": 1899,
+      "lead": "Silvya",
+      "lead_discord": "Leader Not Registered",
+      "created": 1664619276,
+      "rp": 0
+    },
+    {
+      "member": 1,
+      "name": "Raiders",
+      "id": 320,
+      "lead_id": 1598,
+      "lead": "Black_Aurora",
+      "lead_discord": "Leader Not Registered",
+      "created": 1665241905,
+      "rp": 82
+    },
+    {
+      "member": 15,
+      "name": "Roadrunner",
+      "id": 322,
+      "lead_id": 1575,
+      "lead": "Sera",
+      "lead_discord": "758421990163480667",
+      "created": 1665250448,
+      "rp": 1530
+    },
+    {
+      "member": 1,
+      "name": "Luna",
+      "id": 329,
+      "lead_id": 2023,
+      "lead": "Athersoft",
+      "lead_discord": "Leader Not Registered",
+      "created": 1665388503,
+      "rp": 54
+    },
+    {
+      "member": 5,
+      "name": "/mhg/",
+      "id": 342,
+      "lead_id": 2236,
+      "lead": "Dark Raven",
+      "lead_discord": "214253371308113930",
+      "created": 1665822625,
+      "rp": 534
+    },
+    {
+      "member": 1,
+      "name": "123",
+      "id": 344,
+      "lead_id": 2139,
+      "lead": "chicken",
+      "lead_discord": "Leader Not Registered",
+      "created": 1665825644,
+      "rp": 0
+    },
+    {
+      "member": 1,
+      "name": "BLK-Hunters",
+      "id": 345,
+      "lead_id": 1883,
+      "lead": "Manfredx3d",
+      "lead_discord": "Leader Not Registered",
+      "created": 1665896412,
+      "rp": 0
+    }
+  ]
+}
