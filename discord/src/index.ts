@@ -5,6 +5,7 @@ import { Command, SlashCommand } from "./types";
 import { config } from "dotenv";
 import { readdirSync } from "fs";
 import { join } from "path";
+import Guild from './lib/guild'
 
 
 config()
@@ -22,5 +23,7 @@ process.on('unhandledRejection', async (error) => {
     if (ch?.isTextBased()){ch.send(String(error))}
     console.error('unhandledRejection', error);
 });
+
+
 client.login(process.env.TOKEN)
 export default client
