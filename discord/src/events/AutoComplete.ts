@@ -1,7 +1,7 @@
 import { Interaction } from "discord.js";
 import { BotEvent } from "../types";
 import Glist from '../lib/guildlist'
-var ggd: string[];
+var ggd: any;
 (async ()=>{
     ggd = await Glist()
 })();
@@ -13,7 +13,7 @@ const event : BotEvent = {
             case 'join_guild':{
                 const focusedValue = interaction.options.getFocused().toLocaleLowerCase();
                 console.log(focusedValue)
-                let filtered = ggd.filter((c)=>{
+                let filtered = ggd.filter((c:any)=>{
                     if (c.toLocaleLowerCase().startsWith(focusedValue)){return c}
                 })
                 console.log(filtered)

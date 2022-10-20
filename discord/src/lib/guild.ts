@@ -14,7 +14,6 @@ function level(rp:number){
 export default async function Guild() {
     const user=await prisma.guilds.findMany({orderBy:{id:'asc'},select:{name:true,id:true,leader_id:true,created_at:true,rank_rp:true}})
     const guild = Promise.all(user.map(async (e) => {
-        console.log(e.id)
         const char = await prisma.characters.findFirst({where:{id:e.leader_id},select:{name:true}})
         const discord = await prisma.discord.findFirst({where:{char_id:e.leader_id},select:{discord_id:true}})
         const mention  = discord === null ? "Leader Not Registered" : discord.discord_id
