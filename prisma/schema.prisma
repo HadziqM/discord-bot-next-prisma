@@ -7,6 +7,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model blog {
+  id            Int    @id @default(autoincrement())
+  title         String @db.VarChar(255)
+  thumbnail_url String @db.VarChar(255)
+  discord_name  String @db.VarChar(255)
+  avatar_url    String @db.VarChar(255)
+  content       String
+  created       Int
+  category      String @db.VarChar(255)
+}
+
 model bounty {
   id           Int     @id @default(autoincrement())
   title        String  @db.VarChar(255)
