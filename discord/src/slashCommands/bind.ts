@@ -14,13 +14,13 @@ const command : SlashCommand = {
     execute: async interaction => {
         const username = String(interaction.options.get("username")?.value)
         const password = String(interaction.options.get("password")?.value)
-        const discord = await prisma.discord.findFirst({where:{discord_id:interaction.user.id}}).catch(e=>console.log(e))
-        const user:any = await prisma.users.findFirst({where:{username:username}}).catch(e=>console.log(e))
+        const discord = await prisma.discord.findFirst({where:{discord_id:interaction.user.id},select:{char_id:true}}).catch(e=>console.log(e))
+        const user:any = await prisma.users.findFirst({where:{username:username},select:{id:true}}).catch(e=>console.log(e))
         if (discord!==null) {await prisma.$disconnect();return interaction.reply({content:"you are already registered",ephemeral:true})};
         if (user===null) {await prisma.$disconnect();return interaction.reply({content:"cant find username",ephemeral:true})};
         if (await Decrypt(password,String(user.password))){
             interaction.deferReply({ephemeral:true})
-            const character = await prisma.characters.findFirst({where:{user_id:user.id}}).catch(e=>console.log(e))
+            const character = await prisma.characters.findFirst({where:{user_id:user.id},select:{id:true}}).catch(e=>console.log(e))
             const embed  = await Embed(Number(character?.id))
             const row1:any = new ActionRowBuilder()
                 .addComponents(

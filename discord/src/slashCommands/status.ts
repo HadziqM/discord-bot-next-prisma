@@ -9,13 +9,12 @@ const command : SlashCommand = {
     .setDescription("Show Server Status on database")
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
     execute: async interaction => {
-        interaction.reply({content:'scanning all database,please wait since it will take a while',ephemeral:true})
         const status = await Status()
         const embed = new EmbedBuilder()
         .setAuthor({name: 'Server Status'})
         .setDescription(`🧑‍🦰 Users : ${status.user} \n ⚔️ Characters: ${status.channel} \n 💳 Registered: ${status.registered}`)
         .setColor(getThemeColor('variable'))
-        await new Promise(()=>setTimeout(()=>interaction.followUp({embeds:[embed]}),2000))
+        interaction.reply({embeds:[embed]})
     },
     cooldown: 10
 }

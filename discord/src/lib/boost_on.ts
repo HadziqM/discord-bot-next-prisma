@@ -3,7 +3,7 @@ import {PrismaClient} from "@prisma/client";
 const prisma = new PrismaClient();
 
 export default async function Boost_on(did:string) {
-    const char = await prisma.discord.findFirst({where:{discord_id:did}}).catch(e=>console.log(e))
+    const char = await prisma.discord.findFirst({where:{discord_id:did},select:{char_id:true,boostcd:true}}).catch(e=>console.log(e))
     const now = Math.floor(new Date().getTime()/1000)
     const still = Number(char?.boostcd) + (7*24*60*60)
     if (still >= now) return [false,still];

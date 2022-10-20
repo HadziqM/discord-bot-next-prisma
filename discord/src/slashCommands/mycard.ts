@@ -1,19 +1,10 @@
-import { SlashCommandBuilder} from "discord.js"
+import { APIActionRowComponent, SlashCommandBuilder} from "discord.js"
 import { SlashCommand } from "../types";
 import {ButtonBuilder,ButtonStyle,ActionRowBuilder} from 'discord.js'
-import {PrismaClient } from "@prisma/client";
 import Embed from '../lib/char_embbed'
+import Check from '../lib/registercheck'
 
-const prisma = new PrismaClient();
-
-const command : SlashCommand = {
-    command: new SlashCommandBuilder()
-    .setName("mycard")
-    .setDescription("show your hunter status")
-    ,
-    execute: async (interaction) => {
-        interaction.deferReply()
-        const row1:any = new ActionRowBuilder()
+const row1 = new ActionRowBuilder<ButtonBuilder>()
         .addComponents(
             new ButtonBuilder()
             .setCustomId('save')
@@ -26,7 +17,7 @@ const command : SlashCommand = {
                 .setLabel('Apply Transmog')
                 .setStyle(ButtonStyle.Primary),
                 );
-        const row2:any = new ActionRowBuilder()
+        const row2 = new ActionRowBuilder<ButtonBuilder>()
         .addComponents(
             new ButtonBuilder()
             .setCustomId('boost_on')
@@ -39,22 +30,28 @@ const command : SlashCommand = {
                 .setLabel('Turn Login Boost Off')
                 .setStyle(ButtonStyle.Secondary),
                 );
-        const row3:any = new ActionRowBuilder()
+        const row3 = new ActionRowBuilder<ButtonBuilder>()
         .addComponents(
             new ButtonBuilder()
             .setCustomId('nothing')
             .setLabel('Do Nothing')
             .setStyle(ButtonStyle.Danger),
             )
-        const char = await prisma.discord.findFirst({where:{discord_id:interaction.user.id}}).catch(e=>console.log(e)) ?? null
-        if (char === null) {
+
+const command : SlashCommand = {
+    command: new SlashCommandBuilder()
+    .setName("mycard")
+    .setDescription("show your hunter status")
+    ,
+    execute: async (interaction) => {
+        const char = await Check(interaction.user.id)
+        if (!char) {
             await new Promise(r => setTimeout(r, 3000));
             return interaction.editReply("youare not registered")
         } 
-        let lib = await Embed(Number(char?.char_id))
+        let lib = await Embed(char)
         lib[0].setFooter({ text: `owned by ${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL()}` });
-        await new Promise(r => setTimeout(r, 2000));
-        interaction.editReply({
+        interaction.reply({
             embeds: [lib[0]],components:[row1,row2,row3],files: [lib[1]]
         }).catch((e)=> console.log(e))
         await new Promise(()=>setTimeout(()=>interaction.editReply({components:[]}),10000))
