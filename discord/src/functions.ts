@@ -4,7 +4,7 @@ import { Guild, GuildMember, PermissionFlagsBits, PermissionResolvable, Permissi
 // import { GuildOption } from "./types"
 // import mongoose from "mongoose";
 
-type colorType = "text" | "variable" | "error"
+type colorType = "text" | "variable" | "error" | 'data' | 'blood'
 
 const themeColors = {
     text: "#ff8e4d",
