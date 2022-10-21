@@ -12,7 +12,7 @@ const command : SlashCommand = {
         interaction.reply({
             embeds: [
                 new EmbedBuilder()
-                .setAuthor({name: `${interaction.user.username}`})
+                .setAuthor({name: `${interaction.client.user?.username}`})
                 .setDescription(`🏓 Pong! \n 📡 Ping: ${interaction.client.ws.ping}`)
                 .setColor(getThemeColor("text"))
             ]
