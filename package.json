@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev --hostname localhost --port 8080",
-    "build": "next build && next start --hostname 127.0.0.1 --port 80",
-    "start": "next start --hostname 127.0.0.1 --port 80",
+    "build": "next build && next start --hostname 127.0.0.1 --port 8080",
+    "start": "next start --hostname 127.0.0.1 --port 8080",
     "setup": "prisma generate && cd discord && tsc --build",
     "dbuild": "cd discord && tsc --build",
     "dstart": "node discord/build/index.js",
@@ -17,6 +17,7 @@
     "@discordjs/rest": "^1.1.0",
     "@prisma/client": "^4.5.0",
     "@types/node": "^18.8.5",
+    "@vercel/og": "^0.0.19",
     "bcrypt": "^5.1.0",
     "chalk": "^4.1.2",
     "daisyui": "^2.31.0",
