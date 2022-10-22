@@ -1,4 +1,4 @@
-import { APIActionRowComponent, SlashCommandBuilder} from "discord.js"
+import {  SlashCommandBuilder} from "discord.js"
 import { SlashCommand } from "../types";
 import {ButtonBuilder,ButtonStyle,ActionRowBuilder} from 'discord.js'
 import Embed from '../lib/char_embbed'

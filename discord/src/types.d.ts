@@ -45,7 +45,11 @@ declare global {
             PREFIX: string,
             TRANSVER_SAVE_LOG_CHANNEL:string,
             USER_CREATE_LOG_CHANNEL:string,
-            EROR_LOG_CHANNEL:string
+            EROR_LOG_CHANNEL:string,
+            JOIN_CHANNEL:string,
+            LEAVE_CHANNEL:string,
+            RULE_CHANNEL:string
+            RULE_URL:string
         }
     }
 }
