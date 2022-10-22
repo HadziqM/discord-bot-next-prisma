@@ -7,7 +7,7 @@ const file = JSON.parse(String(raw))
 
 
 export default async function Pull(did:string,pull:number) {
-    const discord = await prisma.discord.findUnique({where:{discord_id:did},select:{gacha:true,pity:true,bounty:true}})
+    const discord = await prisma.discord.findUnique({where:{discord_id:did},select:{gacha:true,pity:true,bounty:true,char_id:true}})
     if (!discord) return false
     if (pull == 1){
         if (Number(discord.gacha) < 10) return "not enough"
@@ -15,26 +15,36 @@ export default async function Pull(did:string,pull:number) {
         discord.gacha -=10
         if (discord.pity == 30){
             await prisma.discord.update({where:{discord_id:did},data:{pity:0,gacha:discord.gacha}})
-            return guaranteed()
+            const res = guaranteed()
+            const file = readFileSync(`./gacha_b/${res[0]}.bin`)
+            await prisma.distribution.create({data:{character_id:discord.char_id,data:file,type:1,bot:true,event_name:"Gacha Gift",description:`~C05${res[0]}`}})
+            await prisma.$disconnect()
+            return res
+
         }else {
-            const result = normal()
-            if(result[1]==='ssr' || result[1]==='ur'){await prisma.discord.update({where:{discord_id:did},data:{pity:0,gacha:discord.gacha}});await prisma.$disconnect();return result}
-            else{await prisma.discord.update({where:{discord_id:did},data:{pity:discord.pity,gacha:discord.gacha}});await prisma.$disconnect();return result}
+            const res = normal()
+            const file = readFileSync(`./gacha_b/${res[0]}.bin`)
+            await prisma.distribution.create({data:{character_id:discord.char_id,data:file,type:1,bot:true,event_name:"Gacha Gift",description:`~C05${res[0]}`}})
+            if(res[1]==='ssr' || res[1]==='ur'){await prisma.discord.update({where:{discord_id:did},data:{pity:0,gacha:discord.gacha}});await prisma.$disconnect();return res}
+            else{await prisma.discord.update({where:{discord_id:did},data:{pity:discord.pity,gacha:discord.gacha}});await prisma.$disconnect();return res}
     }}   
     else{
         if (Number(discord.gacha) < 100) return "not enough"
         const result = []
         for (let i=0;i<11;i++){
             discord.pity += 1
+            let res: any[];
             if (discord.pity == 30){
-                result.push(guaranteed())
+                res = guaranteed()
                 discord.pity = 0
             }
             else{
-                let child = guaranteed()
-                result.push(child)
-                if(child[1]=='ssr' || child[1] =='ur') discord.pity=0;
+                res = normal()
+                if(res[1]=='ssr' || res[1] =='ur') discord.pity=0;
             }
+            result.push(res)
+            const file = readFileSync(`./gacha_b/${res[0]}.bin`)
+            await prisma.distribution.create({data:{character_id:discord.char_id,data:file,type:1,bot:true,event_name:"Gacha Gift",description:`~C05${res[0]}`}})
         }
         discord.gacha -=100
         await prisma.discord.update({where:{discord_id:did},data:{pity:discord.pity,gacha:discord.gacha}})

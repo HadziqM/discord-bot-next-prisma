@@ -14,7 +14,7 @@ async function Check(data:submitted) {
     const bounty = await prisma.bounty.findFirst({where:{title:data.bbq}})
     if (bounty === null)return false
     if (data.type_b==1){
-        const file = readFileSync(`./bounty_b/${data.bbq}S`)
+        const file = readFileSync(`./bounty_b/${data.bbq}S.bin`)
         await prisma.distribution.create({data:{character_id:data.cid,data:file,type:1,bot:true,event_name:"Bounty Gift",description:`~C05${data.bbq} Solo Reward`}})
         const discord = await prisma.discord.findFirst({where:{char_id:data.cid}})
         if (data.bbq == 'SP' && discord?.road_champion==false){
@@ -48,7 +48,7 @@ async function Check(data:submitted) {
     }
 }
 async function Mcheck(cid:number,bbq:string,bounty:bounty,t_submit:number){
-    const file = readFileSync(`./bounty_b/${bbq}M`)
+    const file = readFileSync(`./bounty_b/${bbq}M.bin`)
     await prisma.distribution.create({data:{character_id:cid,data:file,type:1,bot:true,event_name:"Bounty Gift",description:`~C05${bbq} Multi Reward`}})
     const discord = await prisma.discord.findFirst({where:{char_id:cid}})
         if (bbq == 'SP' && discord?.road_champion==false){
