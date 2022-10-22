@@ -5,7 +5,6 @@ const prisma = new PrismaClient()
 const raw =readFileSync('./gacha/gacha.json')
 const file = JSON.parse(String(raw))
 
-
 export default async function Pull(did:string,pull:number) {
     const discord = await prisma.discord.findUnique({where:{discord_id:did},select:{gacha:true,pity:true,bounty:true,char_id:true}})
     if (!discord) return false
@@ -56,18 +55,18 @@ export default async function Pull(did:string,pull:number) {
 
 function normal(){
     const x = Math.random()
-    if (x <= 0.001){return [file.ur.sample(),"ur"]} else
-    if (0.001 < x && x <= 0.01){return [file.ssr1.sample(),"ssr"]} else
-    if (0.01 < x && x <= 0.05){return [file.ssr2.sample(),"ssr"]} else
-    if (0.05 < x && x <= 0.1){return [file.sr1.sample(),"sr"]} else
-    if (0.1 < x && x <= 0.2){return [file.sr2.sample(),"sr"]} else
-    if (0.2 < x && x <= 0.35){return [file.sr3.sample(),"sr"]} else
-    if (0.35 < x && x <= 0.60){return [file.r1.sample(),"r"]} else
-    {return [file.r2.sample(),"r"]}
+    if (x <= 0.001){return [file.ur[Math.floor(Math.random()*file.ur.length)],"ur"]} else
+    if (0.001 < x && x <= 0.01){return [file.ssr1[Math.floor(Math.random()*file.ssr1.length)],"ssr"]} else
+    if (0.01 < x && x <= 0.05){return [file.ssr2[Math.floor(Math.random()*file.ssr2.length)],"ssr"]} else
+    if (0.05 < x && x <= 0.1){return [file.sr1[Math.floor(Math.random()*file.sr1.length)],"sr"]} else
+    if (0.1 < x && x <= 0.2){return [file.sr2[Math.floor(Math.random()*file.sr2.length)],"sr"]} else
+    if (0.2 < x && x <= 0.35){return [file.sr3[Math.floor(Math.random()*file.sr3.length)],"sr"]} else
+    if (0.35 < x && x <= 0.60){return [file.r1[Math.floor(Math.random()*file.r1.length)],"r"]} else
+    {return [file.r2[Math.floor(Math.random()*file.r2.length)],"r"]}
 }
 function guaranteed(){
     const x = Math.random()
-    if (x <= 0.1){return [file.ur.sample(),"ur"]} else
-    if (0.1 < x && x <= 0.4){return [file.ssr1.sample(),"ssr"]} else
-    {return [file.ssr2.sample(),"ssr"]}
+    if (x <= 0.1){return [file.ur[Math.floor(Math.random()*file.ur.length)],"ur"]} else
+    if (0.1 < x && x <= 0.4){return [file.ssr1[Math.floor(Math.random()*file.ssr1.length)],"ssr"]} else
+    {return [file.ssr2[Math.floor(Math.random()*file.ssr2.length)],"ssr"]}
 }

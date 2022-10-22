@@ -11,14 +11,13 @@ const command : SlashCommand = {
         {name:"Multi Pull",value:10}
     )),
     execute: async interaction => {
-        interaction.deferReply()
         const pull = Number(interaction.options.get("pull")?.value)
+        if(pull == 10){return interaction.reply({content:"under construction",ephemeral:true})}
+        interaction.deferReply()
         const result = await Pull(interaction.user.id,pull)
         if (!result){return await new Promise(()=>setTimeout(()=>interaction.editReply("Youare Not Registerd"),3000))} else
         if (result==="not enough"){return await new Promise(()=>setTimeout(()=>interaction.editReply(result),3000))}
-        let wtf;
-        if (pull == 1){wtf = await getBuff(`http://localhost:8080/api/og/single?url=${interaction.user.displayAvatarURL({extension:'png'})}&&name=${interaction.user.username}`)}
-        else{wtf = await getBuff(`http://localhost:8080/api/og/multi?url=${interaction.user.displayAvatarURL({extension:'png'})}&&name=${interaction.user.username}`)}
+        const wtf = await getBuff(`http://localhost:8080/api/og/single?avatar=${interaction.user.displayAvatarURL({extension:'png'})}&&rarity=${result[1]}&&item=${result[0]}`)
         const att = new AttachmentBuilder(wtf,{name:'og.png'})
         interaction.editReply({files:[att]})        
     },

@@ -1,6 +1,26 @@
-import {ActionRowBuilder, SlashCommandBuilder,ButtonBuilder} from "discord.js";
+import {ActionRowBuilder, SlashCommandBuilder,ButtonBuilder, ButtonStyle} from "discord.js";
 import { SlashCommand } from "../types";
 import {Scheck,Mcheck} from '../lib/bounty/check'
+import {Sembed,Membed,Nembed} from '../lib/bounty/embed'
+import client from '../index'
+import Submitted from '../lib/bounty/queried'
+
+
+function B_build(id:number){
+    return new ActionRowBuilder<ButtonBuilder>()
+        .addComponents(new ButtonBuilder()
+        .setCustomId(`approve${id}`)
+        .setLabel("approve")
+        .setStyle(ButtonStyle.Success)
+        .setEmoji("👍")).addComponents(
+            new ButtonBuilder()
+            .setCustomId(`nope${id}`)
+            .setLabel('nope')
+            .setStyle(ButtonStyle.Danger)
+            .setEmoji("👎")
+        )
+}
+
 
 const command : SlashCommand = {
     command: new SlashCommandBuilder()
@@ -41,19 +61,38 @@ const command : SlashCommand = {
         const bbq = String(interaction.options.get('bounty',true).value)
         const mentions = String(interaction.options.get('mentions')?.value)
         const npc = Boolean(interaction.options.get('npc',true).value)
+        const ch = await client.channels.fetch(process.env.SUBMIT_CHANNEL)
         if (!mentions){
             const checked = await Scheck(interaction.user.id,bbq)
             if(!checked){return interaction.reply({content:"you are not registered yet",ephemeral:true})}
             if(checked==='Cooldown'){return interaction.reply({content:"BBQ on Cooldown",ephemeral:true})} else
             if(checked === 'overheat'){return interaction.reply({content:"you are still on cooldown",ephemeral:true})}
+            interaction.reply("Bounty Submitted")
+            let embed:any[]
+            let button
+            if(npc){embed = Nembed(String(checked[1]),interaction.user.username,attachment,bbq,interaction.user.displayAvatarURL());button = B_build(await Submitted(1,String(checked[1]),interaction.user.username,Number(checked[0]),'none',interaction.user.displayAvatarURL(),attachment,bbq))}
+            else{embed = Sembed(String(checked[1]),interaction.user.username,attachment,bbq,interaction.user.displayAvatarURL());button = B_build(await Submitted(1,String(checked[1]),interaction.user.username,Number(checked[0]),'none',interaction.user.displayAvatarURL(),attachment,bbq))}
+            if(!ch?.isTextBased()) return
+            ch.send({embeds:[embed[0]],files:[embed[1]],components:[button]})
         }else{
             const data = mentions.match(/<@!?([0-9]+)>/g)
             if(data === null ){return interaction.reply({content:"No mentions Detected",ephemeral:true})}
-            const ids:any = data.map(e=>e.match(/([0-9]+)/g))
+            const ids:any[] = data.map(e=>e.match(/([0-9]+)/g))
             const checked = await Mcheck(interaction.user.id,ids,bbq)
             if(!checked){return interaction.reply("there is member thats not registered yet")}else
             if(checked==='Cooldown'){return interaction.reply({content:"BBQ on Cooldown",ephemeral:true})} else
             if(checked === 'overheat'){return interaction.reply({content:"there is member on bounty cooldown",ephemeral:false})}
+            interaction.reply("Bounty Submitted")
+            let uname = [interaction.user.id]
+            for(let i=0;i<ids.length;i++){
+                const wtf = (await client.users.fetch(ids[i])).username
+                uname.push(wtf)
+            }
+            let embed:any[] = Membed(checked[1],uname,attachment,bbq,interaction.user.displayAvatarURL())
+            let button = B_build(await Submitted(3,JSON.stringify(checked[1]),JSON.stringify(uname),0,JSON.stringify(checked[0]),interaction.user.displayAvatarURL(),attachment,bbq))
+            if(!ch?.isTextBased()) return
+            ch.send({embeds:[embed[0]],files:[embed[1]],components:[button]})
+
         }
     },
     cooldown: 10
