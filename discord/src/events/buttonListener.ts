@@ -11,7 +11,7 @@ import Leaderboard from '../lib/bounty/leaderboard'
 import {Sembed,Nembed,Membed} from '../lib/bounty/embed'
 import client from "../index";
 import getBuff from "../lib/urlbuf";
-import { AttachmentBuilder } from "discord.js";
+import { AttachmentBuilder, Interaction } from "discord.js";
 
 const event : BotEvent = {
     name: "interactionCreate",
@@ -34,9 +34,9 @@ const event : BotEvent = {
                 await interaction.member?.roles.add(role)
             }else if(interaction.customId.includes('approve')){
                 const id = Number(interaction.customId.replace('approve',''))
-                interaction.deferReply()
                 const accept = await Accept(id)
                 if (!accept) {return interaction.editReply("there is problem on server, try again sometimes")}
+                interaction.deferUpdate()
                 const conquer = await client.channels.fetch(process.env.CONQUER_CHANNEL)
                 const leader = await client.channels.fetch(process.env.LEADERBOARD_CHANNEL)
                 const log = await client.channels.fetch(process.env.BOUNTY_LOG_CHANNEL)
@@ -86,6 +86,7 @@ const event : BotEvent = {
                     const embed = Membed(JSON.parse(accept.cname),JSON.parse(accept.uname),accept.url,accept.bbq,accept.avatar)
                     conquer.send({embeds:[embed.embed],files:[embed.attach]})
                 }
+                await interaction.message.delete()
                 const lead = await Leaderboard()
                 leader.send({embeds:[lead.embed]})
                 log.send(lead.leg)

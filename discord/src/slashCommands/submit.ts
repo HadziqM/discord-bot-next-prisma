@@ -69,12 +69,12 @@ const command : SlashCommand = {
             if(checked==='Cooldown'){return interaction.reply({content:"BBQ on Cooldown",ephemeral:true})} else
             if(checked === 'overheat'){return interaction.reply({content:"you are still on cooldown",ephemeral:true})}
             interaction.reply("Bounty Submitted")
-            let embed:any[]
+            let embed
             let button
             if(npc){embed = Nembed(String(checked[1]),interaction.user.username,attachment,bbq,interaction.user.displayAvatarURL());button = B_build(await Submitted(1,String(checked[1]),interaction.user.username,Number(checked[0]),'none',interaction.user.displayAvatarURL(),attachment,bbq))}
             else{embed = Sembed(String(checked[1]),interaction.user.username,attachment,bbq,interaction.user.displayAvatarURL());button = B_build(await Submitted(1,String(checked[1]),interaction.user.username,Number(checked[0]),'none',interaction.user.displayAvatarURL(),attachment,bbq))}
             if(!ch?.isTextBased()) return
-            ch.send({embeds:[embed[0]],files:[embed[1]],components:[button]})
+            ch.send({embeds:[embed.embed],files:[embed.attach],components:[button]})
             const cd = await client.channels.fetch(process.env.COOLDOWN_CHANNEL)
             if(!cd?.isTextBased()) return
             ch.send({embeds:[await Cooldown()]})
@@ -92,10 +92,10 @@ const command : SlashCommand = {
                 const wtf = (await client.users.fetch(ids[i])).username
                 uname.push(wtf)
             }
-            let embed:any[] = Membed(checked[1],uname,attachment,bbq,interaction.user.displayAvatarURL())
+            let embed = Membed(checked[1],uname,attachment,bbq,interaction.user.displayAvatarURL())
             let button = B_build(await Submitted(3,JSON.stringify(checked[1]),JSON.stringify(uname),0,JSON.stringify(checked[0]),interaction.user.displayAvatarURL(),attachment,bbq))
             if(!ch?.isTextBased()) return
-            ch.send({embeds:[embed[0]],files:[embed[1]],components:[button]})
+            ch.send({embeds:[embed.embed],files:[embed.attach],components:[button]})
             const cd = await client.channels.fetch(process.env.COOLDOWN_CHANNEL)
             if(!cd?.isTextBased()) return
             ch.send({embeds:[await Cooldown()]})
@@ -103,5 +103,4 @@ const command : SlashCommand = {
     },
     cooldown: 10
 }
-
 export default command;
