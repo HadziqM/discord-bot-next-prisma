@@ -11,8 +11,8 @@ const command : SlashCommand = {
     .addStringOption(option => option.setName('mentions').setDescription('Mention One Or more Person').setRequired(true)),
     execute: async interaction => {
         const mentions = String(interaction.options.get("mentions")?.value)
+        const role:any = await interaction.guild?.roles.fetch(registered)
         const data = mentions.match(/<@!?([0-9]+)>/g)
-        const role:any = interaction.guild?.roles.cache.find((r) => r.id === String(registered))
         if(data === null ){interaction.reply({content:"No mentions Detected",ephemeral:true});return}
         const ids = data?.map(e=>e.match(/([0-9]+)/g))
         try{ids.map(async e => {

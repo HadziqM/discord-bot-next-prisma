@@ -7,6 +7,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model submitted {
+  id       Int    @id @default(autoincrement())
+  type_b   Int    @default(1)
+  cid      Int    @default(0)
+  team     String
+  t_submit Int
+  cname    String
+  uname    String
+  bbq      String
+  avatar   String
+  url_i    String
+}
+
 model blog {
   id            Int    @id @default(autoincrement())
   title         String @db.VarChar(255)

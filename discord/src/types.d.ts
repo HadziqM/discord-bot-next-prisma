@@ -48,8 +48,16 @@ declare global {
             EROR_LOG_CHANNEL:string,
             JOIN_CHANNEL:string,
             LEAVE_CHANNEL:string,
-            RULE_CHANNEL:string
-            RULE_URL:string
+            RULE_CHANNEL:string,
+            RULE_URL:string,
+            CHAT_URL:string,
+            GUIDE_URL:string,
+            REGISTERED_ROLE:string,
+            EXPERT_ROLE:string,
+            MASTER_ROLE:string,
+            CHAMPION_ROLE:string,
+            ROAD_ROLE:string,
+            DEMOLIZER_ROLE:string,
         }
     }
 }
