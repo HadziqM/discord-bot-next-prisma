@@ -4,6 +4,7 @@ import {Scheck,Mcheck} from '../lib/bounty/check'
 import {Sembed,Membed,Nembed} from '../lib/bounty/embed'
 import client from '../index'
 import Submitted from '../lib/bounty/queried'
+import Cooldown from '../lib/bounty/cooldown'
 
 
 function B_build(id:number){
@@ -74,6 +75,9 @@ const command : SlashCommand = {
             else{embed = Sembed(String(checked[1]),interaction.user.username,attachment,bbq,interaction.user.displayAvatarURL());button = B_build(await Submitted(1,String(checked[1]),interaction.user.username,Number(checked[0]),'none',interaction.user.displayAvatarURL(),attachment,bbq))}
             if(!ch?.isTextBased()) return
             ch.send({embeds:[embed[0]],files:[embed[1]],components:[button]})
+            const cd = await client.channels.fetch(process.env.COOLDOWN_CHANNEL)
+            if(!cd?.isTextBased()) return
+            ch.send({embeds:[await Cooldown()]})
         }else{
             const data = mentions.match(/<@!?([0-9]+)>/g)
             if(data === null ){return interaction.reply({content:"No mentions Detected",ephemeral:true})}
@@ -92,7 +96,9 @@ const command : SlashCommand = {
             let button = B_build(await Submitted(3,JSON.stringify(checked[1]),JSON.stringify(uname),0,JSON.stringify(checked[0]),interaction.user.displayAvatarURL(),attachment,bbq))
             if(!ch?.isTextBased()) return
             ch.send({embeds:[embed[0]],files:[embed[1]],components:[button]})
-
+            const cd = await client.channels.fetch(process.env.COOLDOWN_CHANNEL)
+            if(!cd?.isTextBased()) return
+            ch.send({embeds:[await Cooldown()]})
         }
     },
     cooldown: 10

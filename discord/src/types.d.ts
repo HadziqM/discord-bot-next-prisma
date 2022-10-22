@@ -55,6 +55,8 @@ declare global {
             PROMOTION_CHANNEL:string,
             CONQUER_CHANNEL:string,
             GACHA_CHANNEL:string,
+            BOUNTY_LOG_CHANNEL:string,
+            RECEPTIONIST_CHANNEL:string,
             RULE_URL:string,
             CHAT_URL:string,
             GUIDE_URL:string,

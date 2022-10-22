@@ -7,7 +7,7 @@ export const Sembed = (cname:string,uname:string,url:string,bbq:string,avatar:st
     embed.setTitle(bbq).setThumbnail('attachment://bbq.png').setImage(url).setFooter({text:`submited by ${uname}`,iconURL:avatar}).addFields(
         {name:cname,value:`cleared : solo\n<t:${Math.floor(new Date().getTime()/1000)}:F>`}
     )
-    return [embed,att]
+    return {embed:embed,attach:att}
 }
 export const Nembed = (cname:string,uname:string,url:string,bbq:string,avatar:string) => {
     const embed = new EmbedBuilder()
@@ -15,7 +15,7 @@ export const Nembed = (cname:string,uname:string,url:string,bbq:string,avatar:st
     embed.setTitle(bbq).setThumbnail('attachment://bbq.png').setImage(url).setFooter({text:`submited by ${uname}`,iconURL:avatar}).addFields(
         {name:cname,value:`cleared : solo with npc\n<t:${Math.floor(new Date().getTime()/1000)}:F>`}
     )
-    return [embed,att]
+    return {embed:embed,attach:att}
 }
 export const Membed = (cname:string[],uname:string[],url:string,bbq:string,avatar:string) => {
     const embed = new EmbedBuilder()
@@ -28,5 +28,5 @@ export const Membed = (cname:string[],uname:string[],url:string,bbq:string,avata
             {name:cname[i],value:`Discord: ${uname[i]}`}
         )
     }
-    return [embed,att]
+    return {embed:embed,attach:att}
 }
