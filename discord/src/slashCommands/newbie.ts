@@ -36,10 +36,10 @@ const row3= new ActionRowBuilder<ButtonBuilder>()
  return [row2,row3]
 }
 async function build_embed(data:any){
-    const disc = data.lead_discord === "Leader Not Registered"? data.lead_discord: await client.users.fetch(data.lead_discord)
     let embed = new EmbedBuilder()
         .setAuthor({name: `${data.name}`})
-        .setColor(getThemeColor("text"))
+        .setColor(getThemeColor('error'))
+        .setDescription('Newbie reward, can only redeem once in lifetime\nwe only give you material to carft listed equipment except the weapon')
         .setImage(data.image)
     return embed
 }
