@@ -52,7 +52,6 @@ const command : SlashCommand = {
         {name:'BBQ22',value:'BBQ22'},
         {name:'BBQ23',value:'BBQ23'},
         {name:'SP',value:'SP'},
-        
     ))
     .addBooleanOption(o => o.setName('npc').setDescription('select true if youare with npc').setRequired(true))
     .addAttachmentOption(option => option.setName('thumbnail').setDescription('set thumbnail for your blog'))
