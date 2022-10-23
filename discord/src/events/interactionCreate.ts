@@ -1,5 +1,7 @@
 import { Interaction } from "discord.js";
 import { BotEvent } from "../types";
+import client from '../index'
+
 
 const event : BotEvent = {
     name: "interactionCreate",

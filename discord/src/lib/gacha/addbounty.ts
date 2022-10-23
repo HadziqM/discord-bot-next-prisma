@@ -17,5 +17,5 @@ export default async function Bounty(type:number,ids:string[],value:number) {
         })).catch(e => res = false)
     }
     await prisma.$disconnect()
-    return false
+    return res
 }

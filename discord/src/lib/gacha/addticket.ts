@@ -17,5 +17,5 @@ export default async function Gacha(type:number,ids:string[],value:number) {
         })).catch(e => res = false)
     }
     await prisma.$disconnect()
-    return false
+    return res
 }

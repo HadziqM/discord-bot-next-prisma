@@ -1,6 +1,9 @@
 import { Interaction } from "discord.js";
 import { BotEvent } from "../types";
 import Glist from '../lib/guildlist'
+import client from '../index'
+
+
 var ggd: any;
 (async ()=>{
     ggd = await Glist()

@@ -44,7 +44,7 @@ async function Check(data:submitted) {
             await prisma.discord.updateMany({where:{char_id:data.cid},data:{bounty:(Number(discord?.bounty)+Number(bounty?.solo_point))*player,gacha:(Number(discord?.gacha)+Number(bounty?.solo_ticket)),latest_bounty:data.bbq,latest_bounty_time:data.t_submit,bounty_master:true}})
             return ['master',status,discord.discord_id]
         }else if (Number(discord?.bounty) >= 25000 && discord?.bounty_expert==false){
-            await prisma.discord.updateMany({where:{char_id:data.cid},data:{bounty:(Number(discord?.bounty)+Number(bounty?.solo_point))*player,gacha:(Number(discord?.gacha)+Number(bounty?.solo_ticket)),latest_bounty:data.bbq,latest_bounty_time:data.t_submit,bounty_master:true}})
+            await prisma.discord.updateMany({where:{char_id:data.cid},data:{bounty:(Number(discord?.bounty)+Number(bounty?.solo_point))*player,gacha:(Number(discord?.gacha)+Number(bounty?.solo_ticket)),latest_bounty:data.bbq,latest_bounty_time:data.t_submit,bounty_expert:true}})
             return ['expert',status,discord.discord_id]
         }else{
             await prisma.discord.updateMany({where:{char_id:data.cid},data:{bounty:(Number(discord?.bounty)+Number(bounty?.solo_point))*player,gacha:(Number(discord?.gacha)+Number(bounty?.solo_ticket)),latest_bounty:data.bbq,latest_bounty_time:data.t_submit}})
@@ -85,7 +85,7 @@ async function Mcheck(cid:number,bbq:string,bounty:bounty,t_submit:number){
             await prisma.discord.updateMany({where:{char_id:cid},data:{bounty:(Number(discord?.bounty)+Number(bounty?.multi_point))*player,gacha:(Number(discord?.gacha)+Number(bounty?.multi_ticket)),latest_bounty:bbq,latest_bounty_time:t_submit,bounty_master:true}})
             return ['master',status,discord.discord_id]
         }else if (Number(discord?.bounty) >= 25000 && discord?.bounty_expert==false){
-            await prisma.discord.updateMany({where:{char_id:cid},data:{bounty:(Number(discord?.bounty)+Number(bounty?.multi_point))*player,gacha:(Number(discord?.gacha)+Number(bounty?.multi_ticket)),latest_bounty:bbq,latest_bounty_time:t_submit,bounty_master:true}})
+            await prisma.discord.updateMany({where:{char_id:cid},data:{bounty:(Number(discord?.bounty)+Number(bounty?.multi_point))*player,gacha:(Number(discord?.gacha)+Number(bounty?.multi_ticket)),latest_bounty:bbq,latest_bounty_time:t_submit,bounty_expert:true}})
             return ['expert',status,discord.discord_id]
         }else{
             await prisma.discord.updateMany({where:{char_id:cid},data:{bounty:(Number(discord?.bounty)+Number(bounty?.multi_point))*player,gacha:(Number(discord?.gacha)+Number(bounty?.multi_ticket)),latest_bounty:bbq,latest_bounty_time:t_submit}})

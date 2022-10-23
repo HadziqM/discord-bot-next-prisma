@@ -1,7 +1,7 @@
 import { ChannelType, Message } from "discord.js";
 import { checkPermissions, sendTimedMessage } from "../functions";
 import { BotEvent } from "../types";
-// import mongoose from "mongoose";
+import client from '../index'
 
 const event: BotEvent = {
     name: "messageCreate",

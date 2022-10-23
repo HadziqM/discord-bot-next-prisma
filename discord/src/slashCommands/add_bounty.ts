@@ -22,8 +22,9 @@ const command : SlashCommand = {
             ids = data.map(e=>String(e.match(/([0-9]+)/g)))
         }else{ids=['none']}
         interaction.reply({content:'task accepted, wait for a while',ephemeral:true})
-        const res = Bounty(methode,ids,value)
-        if(!res){interaction.channel?.send('failed to connect to server database')}else{interaction.channel?.send('failed to connect to server database')}
+        const res = await  Bounty(methode,ids,value)
+        if(!res){return interaction.channel?.send('failed to connect to server database')}else{interaction.channel?.send('failed to connect to server database')}
+        interaction.channel?.send('success')
     },
     cooldown: 10
 }
