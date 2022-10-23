@@ -1,15 +1,12 @@
-import { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits,ButtonBuilder, ActionRowBuilder, ButtonStyle, ComponentType } from "discord.js"
+import { SlashCommandBuilder, EmbedBuilder,ButtonBuilder, ActionRowBuilder, ButtonStyle, ComponentType } from "discord.js"
 import { getThemeColor } from "../functions";
 import { SlashCommand } from "../types";
 import client from "../index"
-import {readFileSync} from 'fs'
+import Newbie from '../lib/newbie'
 
-function jsondata(){
-    const raw = readFileSync('./prerender_data/guild_data.json')
-    return JSON.parse(String(raw))
-}
+
 function build_button(data:number,state:number,user:string){
-    let row2:any = new ActionRowBuilder()
+    let row2 = new ActionRowBuilder<ButtonBuilder>()
         .addComponents(
             new ButtonBuilder()
             .setCustomId(`p${user}`)
@@ -29,33 +26,41 @@ row2.addComponents(
     .setStyle(ButtonStyle.Primary)
     .setEmoji('➡️')
 )
-
- return row2
+const row3= new ActionRowBuilder<ButtonBuilder>()
+        .addComponents(
+            new ButtonBuilder()
+            .setCustomId(`c${user}`)
+            .setStyle(ButtonStyle.Success)
+            .setLabel('Select This Reward')
+			)
+ return [row2,row3]
 }
 async function build_embed(data:any){
     const disc = data.lead_discord === "Leader Not Registered"? data.lead_discord: await client.users.fetch(data.lead_discord)
     let embed = new EmbedBuilder()
         .setAuthor({name: `${data.name}`})
         .setColor(getThemeColor("text"))
-        .addFields(
-            {name:"General Details",value:` 🆔 Guild_id: ${data.id}\n 🏛️ Created: <t:${data.created}:R> \n 🧑‍🤝‍🧑 Member Count: ${data.member}/60 \n 🎖️ Rank Point : ${data.rp} \n 🏰 Level : ${data.level}`},
-            {name:"Leader Details",value:` 🆔 Leader_id: ${data.lead_id}\n 🏷️ Leader Name: ${data.lead} \n 🎮 Leader Discord: ${String(disc)}`},
-        )
-    if (disc !== "Leader Not Registered"){embed.setFooter({ text: `lead by ${disc.username}`, iconURL: `${disc.displayAvatarURL()}` })}
+        .setImage(data.image)
     return embed
 }
 const command : SlashCommand = {
     command: new SlashCommandBuilder()
-    .setName("guild")
-    .setDescription("Shows Server's Guild List")
+    .setName("newbie")
+    .setDescription("reward for newbie player")
     ,
     execute: async interaction => {
-        // interaction.reply({content:"fetching guild data from database",ephemeral:true})
-        const data = jsondata().guild
-        let state = 1 
+        let state = 1
+        const data = [
+            {name:'BGM01',image:'https://media.discordapp.net/attachments/963379709050224680/963384013031112735/Donru_BM.png'},
+            {name:'BGM02',image:'https://media.discordapp.net/attachments/963379709050224680/963384757482295316/Donru_Lance.png'},
+            {name:'BGM03',image:'https://media.discordapp.net/attachments/963379709050224680/963385440021385246/Donru_GS.png'},
+            {name:'BGM04',image:'https://media.discordapp.net/attachments/963379709050224680/963386086866960384/Donru_LBG_HBG.png'},
+            {name:'BGM05',image:'https://media.discordapp.net/attachments/963379709050224680/963386248523821056/Donru_Bow.png'},
+            {name:'BGM06',image:'https://media.discordapp.net/attachments/963379709050224680/963387216636309565/Donru_HH_Support.png'},
+        ]
         let button = build_button(data.length,state,interaction.user.id)
         let embed = await build_embed(data[state-1])
-        interaction.reply({embeds:[embed],components:[button]})
+        interaction.reply({embeds:[embed],components:button})
         if (!interaction.channel?.isTextBased()) return
         const collector = interaction.channel.createMessageComponentCollector({ componentType: ComponentType.Button, time: 400000 })
         collector.on('collect', async i => {
@@ -65,7 +70,7 @@ const command : SlashCommand = {
                     if (state <= 0){state = data.length};
                     button = build_button(data.length,state,interaction.user.id);
                     embed = await build_embed(data[state-1]);
-                    await interaction.editReply({embeds:[embed],components:[button]})
+                    await interaction.editReply({embeds:[embed],components:button})
                     i.deferUpdate()
                     break
                 }
@@ -73,8 +78,16 @@ const command : SlashCommand = {
                     state += 1;
                     button = build_button(data.length,state,interaction.user.id);
                     embed = await build_embed(data[state-1]);
-                    await interaction.editReply({embeds:[embed],components:[button]})
+                    await interaction.editReply({embeds:[embed],components:button})
                     i.deferUpdate()
+                    break
+                }
+                case `n${interaction.user.id}`:{
+                    const res = Newbie(data[state-1].name,interaction.user.id)
+                    i.deferUpdate()
+                    await interaction.editReply({components:[]})
+                    if (!res){interaction.channel?.send('there is some problem on connection check again latter')}
+                    else{interaction.channel?.send('reward already distributed check it on game')}
                     break
                 }
                 default:{break}
