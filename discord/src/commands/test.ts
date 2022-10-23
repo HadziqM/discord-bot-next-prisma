@@ -5,7 +5,8 @@ import { Command } from "../types";
 const command : Command = {
     name: "error1",
     execute: async (message, args) => {
-        const wtf = await getBuff(`http://localhost:8080/api/og/og?url=${message.author.displayAvatarURL({extension:'jpg'})}&&name=${message.author.username}`)
+        console.log(message.author.displayAvatarURL({extension:'jpg'}))
+        const wtf = await getBuff(`http://localhost:8080/api/og/join?url=${message.author.displayAvatarURL({extension:'jpg'})}&&name=${message.author.username}`)
         const att = new AttachmentBuilder(wtf,{name:'og.png'})
         console.log(message.author.displayAvatarURL({extension:'png'}))
         message.channel.send({files:[att]})

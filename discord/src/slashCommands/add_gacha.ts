@@ -23,8 +23,7 @@ const command : SlashCommand = {
         }else{ids=['none']}
         interaction.reply({content:'task accepted, wait for a while',ephemeral:true})
         const res = await gacha(methode,ids,value)
-        console.log(res)
-        if(!res){return interaction.channel?.send('failed to connect to server database')}else{interaction.channel?.send('failed to connect to server database')}
+        if(!res){return interaction.channel?.send('failed to connect to server database')}
         interaction.channel?.send('success')
     },
     cooldown: 10

@@ -38,12 +38,12 @@ export default function WTF(req: NextRequest) {
           }}
         >
           <img
-            width="100"
-            height="100"
+            width="140"
+            height="140"
             src={avatar}
             style={{
               borderRadius: "10%",
-              transform: "translateX(-50px)",
+              transform: "translateX(-100px)",
             }}
           />
           <div

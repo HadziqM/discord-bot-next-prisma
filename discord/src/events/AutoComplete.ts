@@ -1,13 +1,14 @@
 import { Interaction } from "discord.js";
+import { readFileSync } from "fs";
 import { BotEvent } from "../types";
-import Glist from '../lib/guildlist'
-import client from '../index'
+
+const raw = readFileSync('./prerender_data/guild_data.json')
+const data =  JSON.parse(String(raw))
+const list  = data.guild.map((e:any)=> e.name)
+console.log(list)
 
 
-var ggd: any;
-(async ()=>{
-    ggd = await Glist()
-})();
+
 const event : BotEvent = {
     name: "interactionCreate",
     execute: async (interaction: Interaction) => {
@@ -16,12 +17,14 @@ const event : BotEvent = {
             case 'join_guild':{
                 const focusedValue = interaction.options.getFocused().toLocaleLowerCase();
                 console.log(focusedValue)
-                let filtered = ggd.filter((c:any)=>{
-                    if (c.toLocaleLowerCase().startsWith(focusedValue)){return c}
-                })
-                console.log(filtered)
+                let filtered
+                try{
+                    filtered = list.filter((c:any)=>{if(c.toLocaleLowerCase().startsWith(focusedValue)){return c}})
+                }catch(e){
+                    console.log(e)
+                }
                 filtered = filtered.slice(0,10)
-                await interaction.respond(filtered.map((c:any)=>({name:c,value:c})),).catch(e=>console.log(e));
+                await interaction.respond(filtered.map((c:any)=>({name:c,value:c}))).catch(e=>console.log(e));
                 break
             }
         }

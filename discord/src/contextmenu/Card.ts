@@ -9,6 +9,7 @@ const command:ContextMenu = {
     .setName("Card")
     .setType(ApplicationCommandType.User),
     execute: async interaction =>{
+        interaction.deferReply()
         if (!interaction.isUserContextMenuCommand()) return;
         const uid = interaction.targetId
         const disc = await Check(uid)
@@ -16,7 +17,7 @@ const command:ContextMenu = {
         let embed = await Embed(disc)
         const user = await client.users.fetch(uid)
         embed[0].setFooter({ text: `owned by ${user.username}`, iconURL: `${user.displayAvatarURL()}` })
-        interaction.reply({embeds:[embed[0]],files:[embed[1]]})
+        interaction.editReply({embeds:[embed[0]],files:[embed[1]]})
     }
 }
 export default command 

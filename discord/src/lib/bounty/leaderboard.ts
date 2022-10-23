@@ -6,7 +6,7 @@ import {PrismaClient} from "@prisma/client";
 const prisma = new PrismaClient();
 
 export default  async function Leaderboard() {
-    const lead = await prisma.discord.findMany({select:{bounty:true,discord_id:true,char_id:true}})
+    const lead = await prisma.discord.findMany({select:{bounty:true,discord_id:true,char_id:true},orderBy:{bounty:'desc'}})
     const firstid = await prisma.characters.findUnique({where:{id:lead[0].char_id},select:{name:true}})
     let first = await client.users.fetch(lead[0].discord_id)
     let user = [first.username]

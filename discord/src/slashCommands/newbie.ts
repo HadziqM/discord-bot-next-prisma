@@ -39,7 +39,7 @@ async function build_embed(data:any){
     let embed = new EmbedBuilder()
         .setAuthor({name: `${data.name}`})
         .setColor(getThemeColor('error'))
-        .setDescription('Newbie reward, can only redeem once in lifetime\nwe only give you material to carft listed equipment except the weapon')
+        .setDescription('Newbie reward, can only redeem **once** in lifetime\nwe only give you material to carft listed equipment except the weapon')
         .setImage(data.image)
     return embed
 }
@@ -82,12 +82,13 @@ const command : SlashCommand = {
                     i.deferUpdate()
                     break
                 }
-                case `n${interaction.user.id}`:{
-                    const res = Newbie(data[state-1].name,interaction.user.id)
+                case `c${interaction.user.id}`:{
+                    const res =await Newbie(data[state-1].name,interaction.user.id)
                     i.deferUpdate()
+                    console.log(res)
                     await interaction.editReply({components:[]})
-                    if (!res){interaction.channel?.send('there is some problem on connection check again latter')}
-                    else{interaction.channel?.send('reward already distributed check it on game')}
+                    if (!res){interaction.followUp({ephemeral:true,content:'command failed\n1. you might already claim once\n2. you need to be at range gr200-500\n3. connection to server timed out'})}
+                    else{interaction.followUp('reward already distributed check it on game')}
                     break
                 }
                 default:{break}

@@ -3,7 +3,6 @@ import get_save from '../lib/savefile'
 import trans from '../lib/transmog'
 import Boost_off from '../lib/boost_off'
 import Boost_on from '../lib/boost_on'
-import Bind from '../lib/bind'
 import {Accept} from '../lib/bounty/accepted'
 import Rejected from '../lib/bounty/rejected'
 import Cooldown from '../lib/bounty/cooldown'
@@ -15,24 +14,9 @@ import { AttachmentBuilder, Interaction } from "discord.js";
 
 const event : BotEvent = {
     name: "interactionCreate",
-    execute: async (interaction:any) => {
+    execute: async (interaction:Interaction) => {
         if (interaction.isButton()){
-            if (interaction.customId.includes('malele')){
-                if(interaction.user.id != interaction.message.interaction?.user.id){await interaction.reply({content:"this button isnt for you",ephemeral:true}).catch((e:any)=>console.log(e));return}
-                const cid = Number(interaction.customId.replace('malele',''));
-                Bind(interaction.user.id,cid,true)
-                interaction.reply({content:"congrats you have registered now",ephemeral:true})
-                const role =await interaction.guild?.roles.fetch(process.env.REGISTERED_ROLE)
-                await interaction.member?.roles.add(role)
-                return
-            }else if (interaction.customId.includes('female')){
-                if(interaction.user.id != interaction.message.interaction?.user.id){await interaction.reply({content:"this button isnt for you",ephemeral:true}).catch((e:any)=>console.log(e));return}
-                const cid = Number(interaction.customId.replace('female',''));
-                Bind(interaction.user.id,cid,false)
-                interaction.reply({content:"congrats you have registered now",ephemeral:true})
-                const role =await interaction.guild?.roles.fetch(process.env.REGISTERED_ROLE)
-                await interaction.member?.roles.add(role)
-            }else if(interaction.customId.includes('approve')){
+            if(interaction.customId.includes('approve')){
                 const id = Number(interaction.customId.replace('approve',''))
                 const accept = await Accept(id)
                 console.log(accept)
@@ -93,12 +77,14 @@ const event : BotEvent = {
                 log.send(lead.leg)
             }else if(interaction.customId.includes('nope')){
                 const id = Number(interaction.customId.replace('nope',''))
+                interaction.deferUpdate()
                 const rej = await Rejected(id)
                 const rec = await client.channels.fetch(process.env.RECEPTIONIST_CHANNEL)
                 if (!rec?.isTextBased())return
+                await interaction.message.delete()
                 const cd = await client.channels.fetch(process.env.COOLDOWN_CHANNEL)
                 if (!cd?.isTextBased())return
-                rec.send(`<@${rej}> Bounty are ARejected by ${interaction.user.username}`)
+                rec.send(`<@${rej}> Bounty are Rejected by ${interaction.user.username}`)
                 cd.send({embeds:[await Cooldown()]})
             }
             switch (interaction.customId){

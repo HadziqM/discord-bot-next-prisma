@@ -60,11 +60,9 @@ const command : SlashCommand = {
         const attachment = String(interaction.options.get('prove',true).attachment?.url)
         const bbq = String(interaction.options.get('bounty',true).value)
         const mentions = interaction.options.get('mentions')?.value
-        console.log(mentions)
         const npc = Boolean(interaction.options.get('npc',true).value)
         const ch = await client.channels.fetch(process.env.SUBMIT_CHANNEL)
         if (mentions == null){
-            console.log('in')
             const checked = await Scheck(interaction.user.id,bbq)
             if(!checked){return interaction.reply({content:"you are not registered yet",ephemeral:true})}
             if(checked==='Cooldown'){return interaction.reply({content:"BBQ on Cooldown",ephemeral:true})} else

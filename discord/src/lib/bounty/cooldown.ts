@@ -5,15 +5,13 @@ import client from '../../index'
 const prisma = new PrismaClient();
 
 export default async function Cooldown() {
-    const bounty = await prisma.bounty.findMany({select:{title:true,cooldown:true}})
+    const bounty = await prisma.bounty.findMany({select:{title:true,cooldown:true,explain:true},orderBy:{title:'asc'}})
     await prisma.$disconnect()
-    let check = "```rust\n"
-    bounty.map(e=>{
-        check += `${e.title} -> ${e.cooldown} \n`
-    })
-    check += "```"
-    return new EmbedBuilder()
+    let embed =new EmbedBuilder()
         .setTitle("Cooldown Info")
-        .setDescription(check)
         .setThumbnail(String(client.user?.displayAvatarURL()))
+    bounty.map(e=>{
+        embed.addFields({name:e.title,value:`${e.explain}\n available : ${e.cooldown}`})
+    })
+    return embed
 }

@@ -17,6 +17,7 @@ export async function Accept(id:number) {
         url:data.url_i,
         bbq:data.bbq
     }
+    console.log(data)
     return wtf
 }
 async function Check(data:submitted) {
@@ -31,10 +32,11 @@ async function Check(data:submitted) {
         }
         const discord:any = await prisma.discord.findFirst({where:{char_id:data.cid}})
         const player = mutiplier(discord)
-        if (data.bbq == 'SP' && discord?.road_champion==false){
+        console.log(data.bbq,discord.rain_demolizer)
+        if (data.bbq === 'SP' && discord?.road_champion==false){
             await prisma.discord.updateMany({where:{char_id:data.cid},data:{bounty:(Number(discord?.bounty)+Number(bounty?.solo_point))*player,gacha:(Number(discord?.gacha)+Number(bounty?.solo_ticket)),latest_bounty:data.bbq,latest_bounty_time:data.t_submit,road_champion:true}})
             return ['road',status,discord.discord_id]
-        }else if (data.bbq == 'BBQ07' && discord?.rain_demolizer==false){
+        }else if (data.bbq === 'BBQ07' && discord?.rain_demolizer==false){
             await prisma.discord.updateMany({where:{char_id:data.cid},data:{bounty:(Number(discord?.bounty)+Number(bounty?.solo_point))*player,gacha:(Number(discord?.gacha)+Number(bounty?.solo_ticket)),latest_bounty:data.bbq,latest_bounty_time:data.t_submit,rain_demolizer:true}})
             return ['demolizer',status,discord.discord_id]
         }else if (Number(discord?.bounty) >= 200000 && discord?.bounty_champion==false){
