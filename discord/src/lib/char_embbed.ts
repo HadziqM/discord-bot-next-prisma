@@ -7,10 +7,10 @@ const iconlist = ['./icon/GS.png', './icon/HS.png', './icon/H.png', './icon/L.pn
 './icon/LS.png', './icon/HH.png', './icon/GL.png', './icon/B.png', './icon/T.png', './icon/SAF.png', './icon/MS.png']
 
 export default async function Embed(char_id:number) {
-    const charachter = char_id ? await prisma.characters.findFirst({where:{id:char_id},select:{name:true,user_id:true,id:true,weapon_type:true,last_login:true,hrp:true,gr:true}}).catch(e=>console.log(e)):null
-    const discord=  char_id ? await prisma.discord.findFirst({where:{char_id:char_id},select:{is_male:true}}).catch(e=>console.log(e)):null
-    const user = charachter ? await prisma.users.findFirst({where:{id:charachter.user_id},select:{username:true,id:true}}).catch(e=>console.log(e)):null
-    const gid = charachter ? await prisma.guild_characters.findFirst({where:{character_id:char_id},select:{guild_id:true}}).catch(e=>console.log(e)):"no guild"
+    const charachter = await prisma.characters.findFirst({where:{id:char_id},select:{name:true,user_id:true,id:true,weapon_type:true,last_login:true,hrp:true,gr:true}})
+    const discord= await prisma.discord.findFirst({where:{char_id:char_id},select:{is_male:true}})
+    const user = await prisma.users.findFirst({where:{id:charachter?.user_id},select:{username:true,id:true}})
+    const gid = await prisma.guild_characters.findFirst({where:{character_id:char_id},select:{guild_id:true}}).catch(e=>console.log(e)) ?? "no guild"
     const guild = gid !== "no guild"? await prisma.guilds.findFirst({where:{id:gid?.guild_id},select:{id:true,name:true,leader_id:true}}).catch(e=>console.log(e)): "no id"
     await prisma.$disconnect()
     const attachment:any =  new AttachmentBuilder(iconlist[Number(charachter?.weapon_type)])

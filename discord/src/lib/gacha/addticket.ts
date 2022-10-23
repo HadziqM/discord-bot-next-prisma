@@ -16,5 +16,6 @@ export default async function Gacha(type:number,ids:string[],value:number) {
             await prisma.discord.update({where:{discord_id:e.discord_id},data:{gacha:Number(e.gacha)+value}})
         })).catch(e => res = false)
     }
+    await prisma.$disconnect()
     return false
 }

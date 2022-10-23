@@ -16,5 +16,6 @@ export default async function Bounty(type:number,ids:string[],value:number) {
             await prisma.discord.update({where:{discord_id:e.discord_id},data:{bounty:Number(e.bounty)+value}})
         })).catch(e => res = false)
     }
+    await prisma.$disconnect()
     return false
 }

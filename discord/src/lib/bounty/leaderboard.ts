@@ -1,5 +1,5 @@
-import {getThemeColor} from '@/src/functions'
-import client from "@/src/index"
+import {getThemeColor} from '../../functions'
+import client from '../../index'
 import {EmbedBuilder} from 'discord.js'
 import {PrismaClient} from "@prisma/client";
 

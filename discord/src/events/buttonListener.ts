@@ -35,6 +35,7 @@ const event : BotEvent = {
             }else if(interaction.customId.includes('approve')){
                 const id = Number(interaction.customId.replace('approve',''))
                 const accept = await Accept(id)
+                console.log(accept)
                 if (!accept) {return interaction.editReply("there is problem on server, try again sometimes")}
                 interaction.deferUpdate()
                 const conquer = await client.channels.fetch(process.env.CONQUER_CHANNEL)

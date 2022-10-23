@@ -11,10 +11,10 @@ export async function Accept(id:number) {
     let wtf = {
         type:data.type_b,
         result:res,
-        uname:data.avatar,
-        cname:data.url_i,
-        avatar:data.uname,
-        url:data.cname,
+        uname:data.uname,
+        cname:data.cname,
+        avatar:data.avatar,
+        url:data.url_i,
         bbq:data.bbq
     }
     return wtf

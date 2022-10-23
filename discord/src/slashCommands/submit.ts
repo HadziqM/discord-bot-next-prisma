@@ -54,15 +54,17 @@ const command : SlashCommand = {
         {name:'SP',value:'SP'},
     ))
     .addBooleanOption(o => o.setName('npc').setDescription('select true if youare with npc').setRequired(true))
-    .addAttachmentOption(option => option.setName('thumbnail').setDescription('set thumbnail for your blog'))
+    .addAttachmentOption(option => option.setName('prove').setDescription('send proove of your quest').setRequired(true))
     .addStringOption(o => o.setName('mentions').setDescription('dont fill this if youare solo, fill with mentions if multi')),
     execute: async interaction => {
-        const attachment = String(interaction.options.get('thumbnail',true).attachment?.url)
+        const attachment = String(interaction.options.get('prove',true).attachment?.url)
         const bbq = String(interaction.options.get('bounty',true).value)
-        const mentions = String(interaction.options.get('mentions')?.value)
+        const mentions = interaction.options.get('mentions')?.value
+        console.log(mentions)
         const npc = Boolean(interaction.options.get('npc',true).value)
         const ch = await client.channels.fetch(process.env.SUBMIT_CHANNEL)
-        if (!mentions){
+        if (mentions == null){
+            console.log('in')
             const checked = await Scheck(interaction.user.id,bbq)
             if(!checked){return interaction.reply({content:"you are not registered yet",ephemeral:true})}
             if(checked==='Cooldown'){return interaction.reply({content:"BBQ on Cooldown",ephemeral:true})} else
@@ -78,7 +80,7 @@ const command : SlashCommand = {
             if(!cd?.isTextBased()) return
             ch.send({embeds:[await Cooldown()]})
         }else{
-            const data = mentions.match(/<@!?([0-9]+)>/g)
+            const data = String(mentions).match(/<@!?([0-9]+)>/g)
             if(data === null ){return interaction.reply({content:"No mentions Detected",ephemeral:true})}
             const ids:any[] = data.map(e=>e.match(/([0-9]+)/g))
             const checked = await Mcheck(interaction.user.id,ids,bbq)

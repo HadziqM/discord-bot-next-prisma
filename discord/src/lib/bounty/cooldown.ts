@@ -1,6 +1,6 @@
 import {EmbedBuilder} from 'discord.js'
 import {PrismaClient} from "@prisma/client";
-import client from '@/src/index'
+import client from '../../index'
 
 const prisma = new PrismaClient();
 
