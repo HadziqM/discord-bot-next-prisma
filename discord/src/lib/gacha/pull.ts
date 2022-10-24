@@ -30,7 +30,7 @@ export default async function Pull(did:string,pull:number) {
     else{
         if (Number(discord.gacha) < 100) return "not enough"
         const result = []
-        for (let i=0;i<11;i++){
+        for (let i=0;i<10;i++){
             discord.pity += 1
             let res: any[];
             if (discord.pity == 30){

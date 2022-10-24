@@ -12,8 +12,8 @@ export default async function handler(
   if (session) {
     const prisma = new PrismaClient();
     const { did } = req.query
-    const disc: any = await prisma.discord.findFirst({where:{discord_id:`${did}`}})
-    const users: any = await prisma.characters.findFirst({where:{id:disc.char_id}})
+    const disc: any = await prisma.discord.findFirst({where:{discord_id:`${did}`},select:{char_id:true}})
+    const users: any = await prisma.characters.findFirst({where:{id:disc.char_id},select:{name:true}})
     await prisma.$disconnect()
     return res.status(200).json({ user:users  })
   }
