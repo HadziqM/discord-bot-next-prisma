@@ -60,12 +60,15 @@ declare global {
             RULE_URL:string,
             CHAT_URL:string,
             GUIDE_URL:string,
+            BIND_URL:string,
+            BOUNTY_URL:string,   
             REGISTERED_ROLE:string,
             EXPERT_ROLE:string,
             MASTER_ROLE:string,
             CHAMPION_ROLE:string,
             ROAD_ROLE:string,
             DEMOLIZER_ROLE:string,
+            MEMBER_ROLE:string
         }
     }
 }

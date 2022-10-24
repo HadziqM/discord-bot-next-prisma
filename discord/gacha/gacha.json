@@ -6,5 +6,20 @@
     "sr2":["Divine Power Gem x200", "Shiten Tkt x100", "Upper Shiten key x10", "NP SnS Mat x50","NP DS Mat x50", "NP Swaxe Mat x50"],
     "sr3":["Divine Power Gem x150", "Shiten Tkt x50", "Shiten key x10"],
     "r1":["Quick Mega Potion x25", "Ancient Potion x10"],
-    "r2":["Dung x999", "Potion x10"]
+    "r2":["Dung x999", "Potion x10"],
+
+    "download": [
+        {
+            "name":"Divine Excalibur",
+            "distribution":123
+        },
+        {
+            "name":"True Kusanagi-no-Tsurugi",
+            "distribution":124
+        },
+        {
+            "name":"Flag of the Saint VI",
+            "distribution":125
+        }
+    ]
 }

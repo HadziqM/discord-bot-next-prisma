@@ -6,7 +6,8 @@ import {PrismaClient} from "@prisma/client";
 const prisma = new PrismaClient();
 
 export default  async function Leaderboard() {
-    const lead = await prisma.discord.findMany({select:{bounty:true,discord_id:true,char_id:true},orderBy:{bounty:'desc'}})
+    let lead = await prisma.discord.findMany({select:{bounty:true,discord_id:true,char_id:true},orderBy:{bounty:'desc'},where:{NOT:[{bounty:null}]}})
+    lead.slice(0,30)
     const firstid = await prisma.characters.findUnique({where:{id:lead[0].char_id},select:{name:true}})
     let first = await client.users.fetch(lead[0].discord_id)
     let user = [first.username]
@@ -17,6 +18,7 @@ export default  async function Leaderboard() {
         .setColor(getThemeColor('variable'))
         .setThumbnail(first.displayAvatarURL())
         .addFields({name:user[0],value:`Ign: ${firstid?.name} Coin: ${lead[0].bounty}`})
+        .setColor('Random')
     for (let i = 1;i<lead.length;i++){
         const uname = await client.users.fetch(lead[i].discord_id)
         const char = await prisma.characters.findUnique({where:{id:lead[i].char_id},select:{name:true}})
@@ -24,7 +26,7 @@ export default  async function Leaderboard() {
         bounty.push(lead[i].bounty)
         log += "\n"+user[i]+" = "+bounty[i]
         if (i < 11){
-            embed.addFields({name:user[i],value:`Ign: ${char?.name} Coin: ${lead[i].bounty}`})
+            embed.addFields({name:user[i],value:`Ign: ${char?.name}\n Coin: ${lead[i].bounty}`})
         }
     }
     await prisma.$disconnect()

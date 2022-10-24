@@ -11,17 +11,16 @@ import {Sembed,Nembed,Membed} from '../lib/bounty/embed'
 import client from "../index";
 import getBuff from "../lib/urlbuf";
 import { AttachmentBuilder, Interaction } from "discord.js";
-
 const event : BotEvent = {
     name: "interactionCreate",
     execute: async (interaction:Interaction) => {
         if (interaction.isButton()){
             if(interaction.customId.includes('approve')){
                 const id = Number(interaction.customId.replace('approve',''))
+                interaction.deferUpdate()
                 const accept = await Accept(id)
                 console.log(accept)
-                if (!accept) {return interaction.editReply("there is problem on server, try again sometimes")}
-                interaction.deferUpdate()
+                if (!accept) {return interaction.channel?.send("there is problem on server, try again sometimes")}
                 const conquer = await client.channels.fetch(process.env.CONQUER_CHANNEL)
                 const leader = await client.channels.fetch(process.env.LEADERBOARD_CHANNEL)
                 const log = await client.channels.fetch(process.env.BOUNTY_LOG_CHANNEL)
@@ -34,7 +33,7 @@ const event : BotEvent = {
                 if (!promo?.isTextBased())return
                 if(accept.type==1){
                     rec.send(`<@${accept.result[2]}> Bounty are Accepted by ${interaction.user.username}`)
-                    if (accept.result[1]==0){rec.send(`<@${accept.result[2]}> Reward already distributed`)}else{`<@${accept.result[2]}> Coordinate with Eve to rechieve Reward`}
+                    if (accept.result[1]===0){rec.send(`<@${accept.result[2]}> Reward already distributed`)}else{rec.send(`<@${accept.result[2]}> Coordinate with Eve to rechieve Reward`)}
                     const embed = Sembed(accept.cname,accept.uname,accept.url,accept.bbq,accept.avatar)
                     conquer.send({embeds:[embed.embed],files:[embed.attach]})
                     if (accept.result[0] !== 'norm'){
@@ -44,9 +43,9 @@ const event : BotEvent = {
                         const msg = await promo.send({content:`congratulation on promotion ${user}`,files:[att]})
                         msg.react('🥳')
                     }
-                }else if (accept.type==1){
+                }else if (accept.type==2){
                     rec.send(`<@${accept.result[2]}> Bounty are Accepted by ${interaction.user.username}`)
-                    if (accept.result[1]==0){rec.send(`<@${accept.result[2]}> Reward already distributed`)}else{`<@${accept.result[2]}> Coordinate with Eve to rechieve Reward`}
+                    if (accept.result[1]==0){rec.send(`<@${accept.result[2]}> Reward already distributed`)}else{rec.send(`<@${accept.result[2]}> Coordinate with Eve to rechieve Reward`)}
                     const embed = Nembed(accept.cname,accept.uname,accept.url,accept.bbq,accept.avatar)
                     conquer.send({embeds:[embed.embed],files:[embed.attach]})
                     if (accept.result[0] !== 'norm'){
@@ -59,7 +58,7 @@ const event : BotEvent = {
                 }else{
                     rec.send(`<@${accept.result[2][0]}> Bounty are Accepted by ${interaction.user.username}`)
                     for (let i=0;i<accept.result[0].length;i++){
-                        if (accept.result[1][i]==0){rec.send(`<@${accept.result[2][i]}> Reward already distributed`)}else{`<@${accept.result[2][i]}> Coordinate with Eve to rechieve Reward`}
+                        if (accept.result[1][i]==0){rec.send(`<@${accept.result[2][i]}> Reward already distributed`)}else{rec.send(`<@${accept.result[2][i]}> Coordinate with Eve to rechieve Reward`)}
                         if (accept.result[0][i] !== 'norm'){
                             const user = await client.users.fetch(accept.result[2][i])
                             const wtf = await getBuff(`http://localhost:8080/api/og/${accept.result[0][i]}?avatar=${user.displayAvatarURL({extension:'png'})}`)
@@ -93,6 +92,14 @@ const event : BotEvent = {
                 case "transmog":{if(interaction.user.id != interaction.message.interaction?.user.id){await interaction.reply({content:"this button isnt for you",ephemeral:true}).catch((e:any)=>console.log(e));return};await interaction.reply({content:"unlocked your transmog",ephemeral:true});await trans(interaction.user.id);break}
                 case "boost_on":{if(interaction.user.id != interaction.message.interaction?.user.id){await interaction.reply({content:"this button isnt for you",ephemeral:true}).catch((e:any)=>console.log(e));return};const boost = await Boost_on(interaction.user.id);boost[0]?interaction.reply({content:"Turn On Your Login Boost",ephemeral:true}):interaction.reply({content:`cooldown till <t:${boost[1]}:R>`,ephemeral:true});break}
                 case "boost_off":{if(interaction.user.id != interaction.message.interaction?.user.id){await interaction.reply({content:"this button isnt for you",ephemeral:true}).catch((e:any)=>console.log(e));return};await Boost_off(interaction.user.id);await interaction.reply({content:"Turn Off Your Login Boost",ephemeral:true});break}
+                case "member":{
+                    const role = await interaction.guild?.roles.fetch(process.env.MEMBER_ROLE)
+                    const member = await interaction.guild?.members.fetch(interaction.user.id)
+                    interaction.deferUpdate()
+                    if (role==null) return
+                    await member?.roles.add(role)
+                    break
+                }
         }}
     }
 }
