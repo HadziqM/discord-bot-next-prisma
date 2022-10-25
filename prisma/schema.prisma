@@ -208,6 +208,14 @@ model normal_shop_items {
   weeklyfataliskills Int
 }
 
+model rengoku_score {
+  character_id  Int  @id
+  max_stages_mp Int?
+  max_points_mp Int?
+  max_stages_sp Int?
+  max_points_sp Int?
+}
+
 model users {
   id             Int          @id @default(autoincrement())
   username       String       @unique

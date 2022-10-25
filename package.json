@@ -26,7 +26,8 @@
     "next": "12.3.1",
     "next-auth": "latest",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-icons": "^4.6.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",

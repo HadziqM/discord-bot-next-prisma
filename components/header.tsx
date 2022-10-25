@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 import styles from "./header.module.css";
+import { FaDiscord } from "react-icons/fa";
 
 export default function Header() {
   const { data: session, status } = useSession();
@@ -30,7 +31,7 @@ export default function Header() {
                   signIn("discord");
                 }}
               >
-                <img className="flex h-8 w-8" src="/discord.svg" alt="" />
+                <FaDiscord className="h-8 w-8" />
               </a>
             </>
           )}

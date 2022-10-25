@@ -1,4 +1,4 @@
-import Header from "./header";
+import Header from "./home/header";
 import Footer from "./footer";
 import React from "react";
 
@@ -10,7 +10,7 @@ export default function Layout({ children }: Props) {
   return (
     <>
       <Header />
-      <main>{children}</main>
+      <main className="py-4 px-4 bg-blue-800">{children}</main>
       <Footer />
     </>
   );
