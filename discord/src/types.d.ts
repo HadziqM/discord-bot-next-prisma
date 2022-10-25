@@ -68,7 +68,8 @@ declare global {
             CHAMPION_ROLE:string,
             ROAD_ROLE:string,
             DEMOLIZER_ROLE:string,
-            MEMBER_ROLE:string
+            MEMBER_ROLE:string,
+            NEXTAUTH_URL:string
         }
     }
 }

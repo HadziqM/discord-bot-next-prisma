@@ -38,7 +38,7 @@ const event : BotEvent = {
                     conquer.send({embeds:[embed.embed],files:[embed.attach]})
                     if (accept.result[0] !== 'norm'){
                         const user = await client.users.fetch(accept.result[2])
-                        const wtf = await getBuff(`http://localhost:8080/api/og/${accept.result[0]}?avatar=${user.displayAvatarURL({extension:'png'})}`)
+                        const wtf = await getBuff(`${process.env.NEXTAUTH_URL}/api/og/${accept.result[0]}?avatar=${user.displayAvatarURL({extension:'png'})}`)
                         const att = new AttachmentBuilder(wtf,{name:'og.png'})
                         const msg = await promo.send({content:`congratulation on promotion ${user}`,files:[att]})
                         msg.react('🥳')
@@ -50,7 +50,7 @@ const event : BotEvent = {
                     conquer.send({embeds:[embed.embed],files:[embed.attach]})
                     if (accept.result[0] !== 'norm'){
                         const user = await client.users.fetch(accept.result[2])
-                        const wtf = await getBuff(`http://localhost:8080/api/og/${accept.result[0]}?avatar=${user.displayAvatarURL({extension:'png'})}`)
+                        const wtf = await getBuff(`${process.env.NEXTAUTH_URL}/api/og/${accept.result[0]}?avatar=${user.displayAvatarURL({extension:'png'})}`)
                         const att = new AttachmentBuilder(wtf,{name:'og.png'})
                         const msg = await promo.send({content:`congratulation on promotion ${user}`,files:[att]})
                         msg.react('🥳')
@@ -61,7 +61,7 @@ const event : BotEvent = {
                         if (accept.result[1][i]==0){rec.send(`<@${accept.result[2][i]}> Reward already distributed`)}else{rec.send(`<@${accept.result[2][i]}> Coordinate with Eve to rechieve Reward`)}
                         if (accept.result[0][i] !== 'norm'){
                             const user = await client.users.fetch(accept.result[2][i])
-                            const wtf = await getBuff(`http://localhost:8080/api/og/${accept.result[0][i]}?avatar=${user.displayAvatarURL({extension:'png'})}`)
+                            const wtf = await getBuff(`${process.env.NEXTAUTH_URL}/api/og/${accept.result[0][i]}?avatar=${user.displayAvatarURL({extension:'png'})}`)
                             const att = new AttachmentBuilder(wtf,{name:'og.png'})
                             const msg = await promo.send({content:`congratulation on promotion ${user}`,files:[att]})
                             msg.react('🥳')

@@ -18,8 +18,8 @@ const command : SlashCommand = {
         if (result==="not enough"){return await new Promise(()=>setTimeout(()=>interaction.editReply(result),2000))}
         let wtf
         if(pull==1){
-            wtf = `http://localhost:8080/api/og/single?avatar=${interaction.user.displayAvatarURL({extension:'png'})}&&rarity=${result[1]}&&item=${result[0]}`
-        }else{wtf = `http://localhost:8080/api/og/multi?avatar=${interaction.user.displayAvatarURL({extension:'jpg'})}&&param=${JSON.stringify(result)}`}
+            wtf = `${process.env.NEXTAUTH_URL}/api/og/single?avatar=${interaction.user.displayAvatarURL({extension:'png'})}&&rarity=${result[1]}&&item=${result[0]}`
+        }else{wtf = `${process.env.NEXTAUTH_URL}/api/og/multi?avatar=${interaction.user.displayAvatarURL({extension:'jpg'})}&&param=${JSON.stringify(result)}`}
         const att = new AttachmentBuilder(await getBuff(wtf),{name:'og.png'})
         interaction.editReply({files:[att]})        
     },
