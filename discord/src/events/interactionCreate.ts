@@ -1,12 +1,11 @@
 import { Interaction } from "discord.js";
 import { BotEvent } from "../types";
-import client from '../index'
 
 
 const event : BotEvent = {
     name: "interactionCreate",
     execute: (interaction: Interaction) => {
-        if(interaction.isUserContextMenuCommand()){
+        if(interaction.isUserContextMenuCommand() || interaction.isMessageContextMenuCommand()){
             interaction.client.slashCommands.get(interaction.commandName)?.execute(interaction)
         }
         if (!interaction.isChatInputCommand()) return;

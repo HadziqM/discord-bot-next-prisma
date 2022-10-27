@@ -1,4 +1,4 @@
-import { AttachmentBuilder, SlashCommandBuilder} from "discord.js";
+import { AttachmentBuilder, EmbedBuilder, SlashCommandBuilder} from "discord.js";
 import { SlashCommand } from "../types";
 import Pull from '../lib/gacha/pull'
 import getBuff from '../lib/urlbuf'
@@ -18,10 +18,16 @@ const command : SlashCommand = {
         if (result==="not enough"){return await new Promise(()=>setTimeout(()=>interaction.editReply(result),2000))}
         let wtf
         if(pull==1){
-            wtf = `${process.env.NEXTAUTH_URL}/api/og/single?avatar=${interaction.user.displayAvatarURL({extension:'png'})}&&rarity=${result[1]}&&item=${result[0]}`
-        }else{wtf = `${process.env.NEXTAUTH_URL}/api/og/multi?avatar=${interaction.user.displayAvatarURL({extension:'jpg'})}&&param=${JSON.stringify(result)}`}
+            wtf = `${process.env.NEXTAUTH_URL}/api/og/single?avatar=${interaction.user.displayAvatarURL({extension:'png'})}&&rarity=${result.rarity}&&item=${result.item}`
+        }else{wtf = `${process.env.NEXTAUTH_URL}/api/og/multi?avatar=${interaction.user.displayAvatarURL({extension:'jpg'})}&&param=${JSON.stringify(result.query)}`}
         const att = new AttachmentBuilder(await getBuff(wtf),{name:'og.png'})
-        interaction.editReply({files:[att]})        
+        const embed = new EmbedBuilder()
+            .setTitle("Congrats You got")
+            .setDescription(` 🎰 Pity Count: ${result.pity}\n 🪙 Ticket : ${result.ticket}`)
+            .setImage("attachment://og.png")
+            .setColor('Random')
+            .setFooter({text:`Pulled by ${interaction.user.username}`,iconURL:interaction.user.displayAvatarURL()})
+        interaction.editReply({files:[att],embeds:[embed]})        
     },
     cooldown: 10
 }

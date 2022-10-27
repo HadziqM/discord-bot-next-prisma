@@ -11,17 +11,17 @@ const command : Command = {
             {name:' 🥳 Event',value:`Show Yours, or selected users Event Status`},
         )
         const embed3 = new EmbedBuilder().setTitle('Slash Command').setColor('Blurple').addFields(
-            {name:'1️⃣ Mycard',value:`to display users mhfz status if already binded, its also have button to turn on boost, turn off boost, get save data, and unlocking transmog`},
-            {name:' 2️⃣ Bind',value:`to bind discord id with game charachter (this use username and password for safety purpose)`},
-            {name:' 3️⃣ guild',value:`to show detailed list of guild on server, since the command is heavy this use prerendered file to make it fast`},
-            {name:' 4️⃣ guild_join',value:`to join selected guild if player isnt on guild already`},
-            {name:' 5️⃣ transfer',value:`to evaluate player savedata and uploaded it to server if the format and content is correct`},
-            {name:'6️⃣ change_password',value:`registered player could freely change their account password`},
-            {name:' 7️⃣ Newbie',value:`To clain newbie Reward`},
-            {name:' 8️⃣ submit',value:`to submit your bounty to guild staff`},
-            {name:' 9️⃣ pull',value:`To pull gacha`},
-            {name:' 🛑 create',value:`to create new account on the server`},
-            {name:' 🛑 blog',value:`to create new blogs on ourwebsite, guide and web under construction`},
+            {name:' 🎴 Mycard',value:`to display users mhfz status if already binded, its also have button to turn on boost, turn off boost, get save data, and unlocking transmog`},
+            {name:' ⛓️ Bind',value:`to bind discord id with game charachter (this use username and password for safety purpose)`},
+            {name:' 🏛️ guild',value:`to show detailed list of guild on server, since the command is heavy this use prerendered file to make it fast`},
+            {name:' 🧑‍💼 guild_join',value:`to join selected guild if player isnt on guild already`},
+            {name:' ⏭️ transfer',value:`to evaluate player savedata and uploaded it to server if the format and content is correct`},
+            {name:' 🤖 change_password',value:`registered player could freely change their account password`},
+            {name:' 🧒 Newbie',value:`To clain newbie Reward`},
+            {name:' 🥋 submit',value:`to submit your bounty to guild staff`},
+            {name:' 🎰 pull',value:`To pull gacha`},
+            {name:' 👶 create',value:`to create new account on the server`},
+            {name:' 🛑 blog',value:`to create new blogs on our website, guide and web under construction`},
         )
         const embed7 = new EmbedBuilder().setTitle('Accepted Transfer File Format').setDescription("```\nsavedata.bin\npartner.bin\ndecomyset.bin\nhunternavi.bin\notomoairou.bin\nplatebox.bin\nplatedata.bin\nplatemyset.bin\nrengokudata.bin\nsavemercenary.bin\nskin_hist.bin\n```").setColor('Aqua')
         const embed5 = new EmbedBuilder().setTitle('Admin Slash Command').setColor('Green').addFields(

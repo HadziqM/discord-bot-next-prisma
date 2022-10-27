@@ -67,16 +67,23 @@ const command : SlashCommand = {
             if(!checked){return interaction.reply({content:"you are not registered yet",ephemeral:true})}
             if(checked==='Cooldown'){return interaction.reply({content:"BBQ on Cooldown",ephemeral:true})} else
             if(checked === 'overheat'){return interaction.reply({content:"you are still on cooldown",ephemeral:true})}
-            interaction.reply("Bounty Submitted")
-            let embed
-            let button
-            if(npc){embed = Nembed(String(checked[1]),interaction.user.username,attachment,bbq,interaction.user.displayAvatarURL());button = B_build(await Submitted(1,String(checked[1]),interaction.user.username,Number(checked[0]),'none',interaction.user.displayAvatarURL(),attachment,bbq))}
-            else{embed = Sembed(String(checked[1]),interaction.user.username,attachment,bbq,interaction.user.displayAvatarURL());button = B_build(await Submitted(1,String(checked[1]),interaction.user.username,Number(checked[0]),'none',interaction.user.displayAvatarURL(),attachment,bbq))}
-            if(!ch?.isTextBased()) return
-            ch.send({embeds:[embed.embed],files:[embed.attach],components:[button]})
-            const cd = await client.channels.fetch(process.env.COOLDOWN_CHANNEL)
-            if(!cd?.isTextBased()) return
-            ch.send({embeds:[await Cooldown()]})
+            interaction.deferReply()
+            try{
+                let embed
+                let button
+                if(npc){embed = Nembed(String(checked[1]),interaction.user.username,attachment,bbq,interaction.user.displayAvatarURL());button = B_build(await Submitted(1,String(checked[1]),interaction.user.username,Number(checked[0]),'none',interaction.user.displayAvatarURL(),attachment,bbq))}
+                else{embed = Sembed(String(checked[1]),interaction.user.username,attachment,bbq,interaction.user.displayAvatarURL());button = B_build(await Submitted(1,String(checked[1]),interaction.user.username,Number(checked[0]),'none',interaction.user.displayAvatarURL(),attachment,bbq))}
+                if(!ch?.isTextBased()) return
+                ch.send({embeds:[embed.embed],files:[embed.attach],components:[button]})
+                await new Promise(r => setTimeout(r, 1000));
+                interaction.editReply("Bounty Submitted")
+                const cd = await client.channels.fetch(process.env.COOLDOWN_CHANNEL)
+                if(!cd?.isTextBased()) return
+                ch.send({embeds:[await Cooldown()]})
+            }catch(e){
+                await new Promise(r => setTimeout(r, 1000));
+                interaction.editReply("There is some problem connecting to server, please try again after some minutes")
+            }
         }else{
             const data = String(mentions).match(/<@!?([0-9]+)>/g)
             if(data === null ){return interaction.reply({content:"No mentions Detected",ephemeral:true})}
@@ -85,19 +92,26 @@ const command : SlashCommand = {
             if(!checked){return interaction.reply("there is member thats not registered yet")}else
             if(checked==='Cooldown'){return interaction.reply({content:"BBQ on Cooldown",ephemeral:true})} else
             if(checked === 'overheat'){return interaction.reply({content:"there is member on bounty cooldown",ephemeral:false})}
-            interaction.reply("Bounty Submitted")
-            let uname = [interaction.user.id]
-            for(let i=0;i<ids.length;i++){
-                const wtf = (await client.users.fetch(ids[i])).username
-                uname.push(wtf)
+            interaction.deferReply()
+            try{
+                let uname = [interaction.user.id]
+                for(let i=0;i<ids.length;i++){
+                    const wtf = (await client.users.fetch(ids[i])).username
+                    uname.push(wtf)
+                }
+                let embed = Membed(checked[1],uname,attachment,bbq,interaction.user.displayAvatarURL())
+                let button = B_build(await Submitted(3,JSON.stringify(checked[1]),JSON.stringify(uname),0,JSON.stringify(checked[0]),interaction.user.displayAvatarURL(),attachment,bbq))
+                if(!ch?.isTextBased()) return
+                ch.send({embeds:[embed.embed],files:[embed.attach],components:[button]})
+                await new Promise(r => setTimeout(r, 1000));
+                interaction.editReply("Bounty Submitted")
+                const cd = await client.channels.fetch(process.env.COOLDOWN_CHANNEL)
+                if(!cd?.isTextBased()) return
+                ch.send({embeds:[await Cooldown()]})
+            }catch{
+                await new Promise(r => setTimeout(r, 1000));
+                interaction.editReply("There is some problem connecting to server, please try again after some minutes")
             }
-            let embed = Membed(checked[1],uname,attachment,bbq,interaction.user.displayAvatarURL())
-            let button = B_build(await Submitted(3,JSON.stringify(checked[1]),JSON.stringify(uname),0,JSON.stringify(checked[0]),interaction.user.displayAvatarURL(),attachment,bbq))
-            if(!ch?.isTextBased()) return
-            ch.send({embeds:[embed.embed],files:[embed.attach],components:[button]})
-            const cd = await client.channels.fetch(process.env.COOLDOWN_CHANNEL)
-            if(!cd?.isTextBased()) return
-            ch.send({embeds:[await Cooldown()]})
         }
     },
     cooldown: 10

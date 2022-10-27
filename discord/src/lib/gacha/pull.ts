@@ -18,14 +18,14 @@ export default async function Pull(did:string,pull:number) {
             const file = readFileSync(`./gacha_b/${res[0]}.bin`)
             await prisma.distribution.create({data:{character_id:discord.char_id,data:file,type:1,bot:true,event_name:"Gacha Gift",description:`~C05${res[0]}`}})
             await prisma.$disconnect()
-            return res
+            return {rarity:res[1],item:res[0],pity:0,ticket:discord.gacha}
 
         }else {
             const res = normal()
             const file = readFileSync(`./gacha_b/${res[0]}.bin`)
             await prisma.distribution.create({data:{character_id:discord.char_id,data:file,type:1,bot:true,event_name:"Gacha Gift",description:`~C05${res[0]}`}})
-            if(res[1]==='ssr' || res[1]==='ur'){await prisma.discord.update({where:{discord_id:did},data:{pity:0,gacha:discord.gacha}});await prisma.$disconnect();return res}
-            else{await prisma.discord.update({where:{discord_id:did},data:{pity:discord.pity,gacha:discord.gacha}});await prisma.$disconnect();return res}
+            if(res[1]==='ssr' || res[1]==='ur'){await prisma.discord.update({where:{discord_id:did},data:{pity:0,gacha:discord.gacha}});await prisma.$disconnect();return {rarity:res[1],item:res[0],pity:0,ticket:discord.gacha}}
+            else{await prisma.discord.update({where:{discord_id:did},data:{pity:discord.pity,gacha:discord.gacha}});await prisma.$disconnect();return {rarity:res[1],item:res[0],pity:discord.pity,ticket:discord.gacha}}
     }}   
     else{
         if (Number(discord.gacha) < 100) return "not enough"
@@ -48,7 +48,7 @@ export default async function Pull(did:string,pull:number) {
         discord.gacha -=100
         await prisma.discord.update({where:{discord_id:did},data:{pity:discord.pity,gacha:discord.gacha}})
         await prisma.$disconnect()
-        return result
+        return {query:result,pity:discord.pity,ticket:discord.gacha}
     }
 }
 

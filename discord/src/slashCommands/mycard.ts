@@ -52,6 +52,7 @@ const command : SlashCommand = {
         } 
         let lib = await Embed(char)
         lib[0].setFooter({ text: `owned by ${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL()}` });
+        await new Promise(r => setTimeout(r, 2000));
         interaction.editReply({
             embeds: [lib[0]],components:[row1,row2,row3],files: [lib[1]]
         }).catch((e)=> console.log(e))

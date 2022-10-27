@@ -5,7 +5,6 @@ import { Command, SlashCommand } from "./types";
 import { config } from "dotenv";
 import { readdirSync } from "fs";
 import { join } from "path";
-import Guild from './lib/guild'
 
 
 config()

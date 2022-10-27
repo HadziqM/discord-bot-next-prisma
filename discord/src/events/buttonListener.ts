@@ -23,13 +23,11 @@ const event : BotEvent = {
                 if (!accept) {return interaction.channel?.send("there is problem on server, try again sometimes")}
                 const conquer = await client.channels.fetch(process.env.CONQUER_CHANNEL)
                 const leader = await client.channels.fetch(process.env.LEADERBOARD_CHANNEL)
-                const log = await client.channels.fetch(process.env.BOUNTY_LOG_CHANNEL)
                 const rec = await client.channels.fetch(process.env.RECEPTIONIST_CHANNEL)
                 const promo = await client.channels.fetch(process.env.PROMOTION_CHANNEL)
                 if (!rec?.isTextBased())return
                 if (!conquer?.isTextBased())return
                 if (!leader?.isTextBased())return
-                if (!log?.isTextBased())return
                 if (!promo?.isTextBased())return
                 if(accept.type==1){
                     rec.send(`<@${accept.result[2]}> Bounty are Accepted by ${interaction.user.username}`)
@@ -73,7 +71,6 @@ const event : BotEvent = {
                 await interaction.message.delete()
                 const lead = await Leaderboard()
                 leader.send({embeds:[lead.embed]})
-                log.send(lead.leg)
             }else if(interaction.customId.includes('nope')){
                 const id = Number(interaction.customId.replace('nope',''))
                 interaction.deferUpdate()
