@@ -8,7 +8,7 @@ export default async function Regis(username:string,password:string) {
     if (user !== null) {await prisma.$disconnect();return false}
     const hash = await Hash(password)
     const date = new Date(new Date().getTime()-30*60*60)
-    await prisma.users.create({data:{username:username,password:hash,return_expires:date}})
+    const res = await prisma.users.create({data:{username:username,password:hash,return_expires:date}})
     await prisma.$disconnect()
-    return true
+    return res.id
 }
