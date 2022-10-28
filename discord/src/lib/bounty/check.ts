@@ -12,9 +12,9 @@ export async function Scheck(discord_id:string,bbq:string) {
     const char = await prisma.characters.findUnique({where:{id:discord.char_id},select:{name:true}})
     const now = Math.floor(new Date().getTime()/1000)
     if (discord.latest_bounty === bbq){
-        if ((discord.latest_bounty_time+48*60*60)>now) {await prisma.$disconnect();return "overheat"}
+        if ((discord.latest_bounty_time+40*60*60)>now) {await prisma.$disconnect();return "overheat"}
     }else{
-        if ((discord.latest_bounty_time+24*60*60)>now) {await prisma.$disconnect();return "overheat"}
+        if ((discord.latest_bounty_time+20*60*60)>now) {await prisma.$disconnect();return "overheat"}
     }
     await prisma.$disconnect()
     return [discord.char_id,char?.name]
@@ -31,9 +31,9 @@ export async function Mcheck(discord_id:string,mentions:string[],bbq:string) {
         if (discord === null){await prisma.$disconnect();return false}
         const char = await prisma.characters.findUnique({where:{id:discord.char_id},select:{name:true}})
         if (discord.latest_bounty === bbq){
-            if ((discord.latest_bounty_time+48*60*60)>now) {await prisma.$disconnect();return "overheat"}
+            if ((discord.latest_bounty_time+40*60*60)>now) {await prisma.$disconnect();return "overheat"}
         }else{
-            if ((discord.latest_bounty_time+24*60*60)>now) {await prisma.$disconnect();return "overheat"}
+            if ((discord.latest_bounty_time+20*60*60)>now) {await prisma.$disconnect();return "overheat"}
         }
         cid.push(discord.char_id)
         cname.push(char?.name)

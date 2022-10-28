@@ -1,0 +1,98 @@
+[
+  {
+    "title": "BBQ01",
+    "cooldown": 0
+  },
+  {
+    "title": "BBQ02",
+    "cooldown": 0
+  },
+  {
+    "title": "BBQ03",
+    "cooldown": 0
+  },
+  {
+    "title": "BBQ04",
+    "cooldown": 2
+  },
+  {
+    "title": "BBQ05",
+    "cooldown": 3
+  },
+  {
+    "title": "BBQ06",
+    "cooldown": 2
+  },
+  {
+    "title": "BBQ07",
+    "cooldown": 3
+  },
+  {
+    "title": "BBQ08",
+    "cooldown": 8
+  },
+  {
+    "title": "BBQ09",
+    "cooldown": 4
+  },
+  {
+    "title": "BBQ10",
+    "cooldown": 5
+  },
+  {
+    "title": "BBQ11",
+    "cooldown": 1
+  },
+  {
+    "title": "BBQ12",
+    "cooldown": 0
+  },
+  {
+    "title": "BBQ13",
+    "cooldown": 0
+  },
+  {
+    "title": "BBQ14",
+    "cooldown": 2
+  },
+  {
+    "title": "BBQ15",
+    "cooldown": 3
+  },
+  {
+    "title": "BBQ16",
+    "cooldown": 3
+  },
+  {
+    "title": "BBQ17",
+    "cooldown": 8
+  },
+  {
+    "title": "BBQ18",
+    "cooldown": 5
+  },
+  {
+    "title": "BBQ19",
+    "cooldown": 4
+  },
+  {
+    "title": "BBQ20",
+    "cooldown": 2
+  },
+  {
+    "title": "BBQ21",
+    "cooldown": 4
+  },
+  {
+    "title": "BBQ22",
+    "cooldown": 0
+  },
+  {
+    "title": "BBQ23",
+    "cooldown": 5
+  },
+  {
+    "title": "SP",
+    "cooldown": 1
+  }
+]
