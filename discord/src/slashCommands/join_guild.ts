@@ -13,7 +13,7 @@ const command : SlashCommand = {
         interaction.deferReply()
         const name = String(interaction.options.get("guild")?.value)
         const bool = await Gjoin(name,check)
-        bool? await new Promise(()=>setTimeout(()=>interaction.editReply(`you have joined guild ${name}`),2000)):await new Promise(()=>setTimeout(()=>interaction.editReply('join failed, make sure youre not in any guild'),2000))
+        bool? await new Promise(()=>setTimeout(()=>interaction.editReply(`you have joined guild ${name}`),3000)):await new Promise(()=>setTimeout(()=>interaction.editReply('join failed, make sure youre not in any guild'),2000))
     },
     cooldown: 10
 }
