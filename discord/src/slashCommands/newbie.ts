@@ -1,7 +1,6 @@
 import { SlashCommandBuilder, EmbedBuilder,ButtonBuilder, ActionRowBuilder, ButtonStyle, ComponentType } from "discord.js"
 import { getThemeColor } from "../functions";
 import { SlashCommand } from "../types";
-import client from "../index"
 import Newbie from '../lib/newbie'
 
 

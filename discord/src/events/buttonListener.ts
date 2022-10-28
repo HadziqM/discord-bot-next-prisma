@@ -92,9 +92,9 @@ const event : BotEvent = {
                 case "member":{
                     const role = await interaction.guild?.roles.fetch(process.env.MEMBER_ROLE)
                     const member = await interaction.guild?.members.fetch(interaction.user.id)
-                    interaction.deferUpdate()
                     if (role==null) return
                     await member?.roles.add(role)
+                    interaction.reply({content:"Congrats you got member role now",ephemeral:true})
                     break
                 }
         }}

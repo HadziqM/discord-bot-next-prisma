@@ -3,7 +3,7 @@ import { SlashCommand } from "../types";
 
 const command : SlashCommand = {
     command: new SlashCommandBuilder()
-    .setName("rule")
+    .setName("guide")
     .setDescription("scaffold rule message")
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     ,

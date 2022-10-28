@@ -35,7 +35,7 @@ const command : SlashCommand = {
             {name:'6️⃣ No Cheating',value:`チートについて話したり言及したりしないでください。違反すると、しばらくの間ミュートされ、3 回ミュート = 自動キックされます`}
         )
         const button = new ActionRowBuilder<ButtonBuilder>().addComponents(
-            new ButtonBuilder().setLabel('Get Member Role').setStyle(ButtonStyle.Primary).setCustomId('Member').setEmoji('🍏')
+            new ButtonBuilder().setLabel('Get Member Role').setStyle(ButtonStyle.Primary).setCustomId('member').setEmoji('🍏')
         ).addComponents(
             new ButtonBuilder().setLabel('Hover To Chat Channel').setStyle(ButtonStyle.Link).setURL(process.env.CHAT_URL)
         ).addComponents(
