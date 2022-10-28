@@ -1,11 +1,10 @@
-import { SlashCommandBuilder,PermissionFlagsBits } from "discord.js"
+import { SlashCommandBuilder } from "discord.js"
 import { SlashCommand } from "../types";
 import Buy from '../lib/gacha/buy'
 const command : SlashCommand = {
     command: new SlashCommandBuilder()
     .setName("buy_ticket")
     .setDescription("buy gacha ticket")
-    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     .addNumberOption(o=> o.setName('value').setDescription('value need of ticket buy').setRequired(true)),
     execute: async interaction => {
         const value = Number(interaction.options.get("value")?.value)
