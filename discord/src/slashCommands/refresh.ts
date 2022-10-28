@@ -1,6 +1,8 @@
 import { SlashCommandBuilder,PermissionFlagsBits} from "discord.js"
 import { SlashCommand } from "../types";
 import Refresh from '../lib/bounty/refresh'
+import Cooldown from '../lib/bounty/cooldown'
+import client from "..";
 
 const command : SlashCommand = {
     command: new SlashCommandBuilder()
@@ -11,7 +13,10 @@ const command : SlashCommand = {
     execute: async interaction => {
         const res = await Refresh()
         if(!res) return interaction.reply({ephemeral:true,content:"error while connecting to server, try again after few minutes"})
+        const cd = await client.channels.fetch(process.env.COOLDOWN_CHANNEL)
+        if (!cd?.isTextBased())return
         interaction.reply({ephemeral:true,content:"successfully refreshed"})
+        cd.send({embeds:[await Cooldown()]})
     },
     cooldown: 10
 }

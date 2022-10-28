@@ -120,7 +120,7 @@ const command:ContextMenu = {
                     interaction.followUp("Bounty Submitted")
                     const cd = await client.channels.fetch(process.env.COOLDOWN_CHANNEL)
                     if(!cd?.isTextBased()) return
-                    ch.send({embeds:[await Cooldown()]})
+                    cd.send({embeds:[await Cooldown()]})
                 }catch(e){
                     await new Promise(r => setTimeout(r, 1000));
                     interaction.followUp("There is some problem connecting to server, please try again after some minutes")

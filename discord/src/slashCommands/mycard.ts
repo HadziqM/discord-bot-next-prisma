@@ -53,7 +53,7 @@ const command : SlashCommand = {
         interaction.reply({
             embeds: [lib[0]],components:[row1,row2,row3],files: [lib[1]]
         }).catch((e)=> console.log(e))
-        await new Promise(()=>setTimeout(()=>interaction.editReply({components:[]}),10000))
+        await new Promise(()=>setTimeout(()=>interaction.editReply({components:[]}),90000))
     },
     cooldown: 10
 }

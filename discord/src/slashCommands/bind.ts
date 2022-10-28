@@ -20,7 +20,6 @@ const command : SlashCommand = {
         if (discord!==null) {await prisma.$disconnect();return interaction.reply({content:"you are already registered",ephemeral:true})};
         if (user===null) {await prisma.$disconnect();return interaction.reply({content:"cant find username",ephemeral:true})};
         if (await Decrypt(password,String(user?.password))){
-            interaction.deferReply()
             const character = await prisma.characters.findFirst({where:{user_id:user?.id},select:{id:true}}).catch(e=>console.log(e))
             if (character == null) return
             const embed  = await Embed(Number(character?.id))
@@ -37,8 +36,7 @@ const command : SlashCommand = {
                         .setLabel('Register as Female')
                         .setStyle(ButtonStyle.Secondary),
                         );
-            interaction.editReply({components:[row1],embeds:[embed[0]],files:[embed[1]]})
-            console.log('lanjut')
+            interaction.reply({components:[row1],embeds:[embed[0]],files:[embed[1]]})
             if (!interaction.channel?.isTextBased()) return
             const collector = interaction.channel.createMessageComponentCollector({ componentType: ComponentType.Button, time: 400000 })
             const role = await interaction.guild?.roles.fetch(process.env.REGISTERED_ROLE)
