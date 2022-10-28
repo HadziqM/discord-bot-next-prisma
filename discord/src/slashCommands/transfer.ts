@@ -37,6 +37,7 @@ const command : SlashCommand = {
                     case savedata[8]:{await prisma.characters.update({where:{id:discord},data:{rengokudata:data1}}).catch(e=>console.log(e));interaction.followUp({content:`uploaded ${attachment.name} to the server\nlog in to the game to make it takes effect`,ephemeral:true})}
                     case savedata[9]:{await prisma.characters.update({where:{id:discord},data:{savemercenary:data1}}).catch(e=>console.log(e));interaction.followUp({content:`uploaded ${attachment.name} to the server\nlog in to the game to make it takes effect`,ephemeral:true})}
                     case savedata[10]:{await prisma.characters.update({where:{id:discord},data:{skin_hist:data1}}).catch(e=>console.log(e));interaction.followUp({content:`uploaded ${attachment.name} to the server\nlog in to the game to make it takes effect`,ephemeral:true})}
+                    default:{interaction.followUp({content:`wrong file format`,ephemeral:true})}
                 }
             }
         }

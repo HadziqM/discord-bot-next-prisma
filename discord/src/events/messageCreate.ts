@@ -1,12 +1,12 @@
 import { ChannelType, Message } from "discord.js";
 import { checkPermissions, sendTimedMessage } from "../functions";
 import { BotEvent } from "../types";
-import client from '../index'
 
 const event: BotEvent = {
     name: "messageCreate",
     once:true,
     execute: (message: Message) => {
+        console.log('ok')
         if (!message.member || message.member.user.bot) return;
         if (!message.guild) return;
         let prefix = process.env.PREFIX
@@ -51,8 +51,8 @@ const event: BotEvent = {
         } else if (command.cooldown && !cooldown) {
             message.client.cooldowns.set(`${command.name}-${message.member.user.username}`, Date.now() + command.cooldown * 1000)
         }
-
-        try{command.execute(message, args)}catch(e){console.log(e)}
+        console.log('im here')
+        command.execute(message, args)
     }
 }
 

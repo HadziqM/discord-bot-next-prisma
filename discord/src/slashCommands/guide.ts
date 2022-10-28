@@ -1,9 +1,14 @@
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, PermissionFlagsBits} from "discord.js";
-import { Command } from "../types";
+import { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js"
+import { SlashCommand } from "../types";
 
-const command : Command = {
-    name: "guide",
-    execute: async (message, args) => {
+const command : SlashCommand = {
+    command: new SlashCommandBuilder()
+    .setName("rule")
+    .setDescription("scaffold rule message")
+    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
+    ,
+    execute: interaction => {
+        interaction.reply({ephemeral:true,content:'ok'})
         const embed1 = new EmbedBuilder().setTitle('Greeting I Will Introduce Myself').setDescription('I will Take Over Elze Bot For A while for Testing Purpose. I Have more functionality than Elze and Solve many Bugs but i will be more strict than elze, keep in mind that while i solve many bugs, thing are getting slower especially on gacha since unlike elze i dont have good image editor library (or i just lazy to learn any image editor beside OpenCV lol),for image editor I use Next.js API to connect to Vercel OG image generation open API and download processed image there').setColor('Aqua')
         const embed2 = new EmbedBuilder().setTitle('Context Menu Command').setColor('Blue').addFields(
             {name:' 💳 Card',value:`Show Yours, or selected users Game Status`},
@@ -37,7 +42,7 @@ const command : Command = {
             {name:' 👮 unbind',value:`To unbind mentioned peoples`},
             {name:' 👮 refresh',value:`To refresh bounty cooldown`},
             {name:' 👮 id',value:`To see someone card given character id`},
-            {name:' 👮 ck_id',value:`To trackdown dicord id given character id even data is deleted on database`},
+            {name:' 👮 ck_id',value:`To trackdown dicord id given character id even data is deleted on database (especially to trackdown cheater)`},
             {name:' 🧭 status',value:`To see server database status`},
             {name:' 🧭 ping',value:`To see bots ping`},
             {name:' 🧭 clear',value:`To delete message automatically`},
@@ -47,8 +52,6 @@ const command : Command = {
             {name:' 🪐 ch_gacha',value:`To change gacha pool given config .json`},
             {name:' 🪐 dw_refresh',value:`To download bounty refresh config .json`},
             {name:' 🪐 ch_refresh',value:`To change refresh behaviour given config .json`},
-        )
-        const embed6 = new EmbedBuilder().setTitle('Admin Normal Command').setColor('Green').addFields(
             {name:' 💻 render',value:`To render blog's content and upload it to website`},
             {name:' 💻 update',value:`To update prerender guild data`},
             {name:' 💻 delete',value:`To delete all bots application command on guild`},
@@ -60,11 +63,9 @@ const command : Command = {
         ).addComponents(
             new ButtonBuilder().setLabel('Hover to Bounty Channel').setStyle(ButtonStyle.Link).setURL(process.env.BOUNTY_URL)
         )
-        message.channel.send({components:[button],embeds:[embed1,embed2,embed3,embed7,embed5,embed6]})
+        interaction.channel?.send({components:[button],embeds:[embed1,embed2,embed3,embed7,embed5]})
     },
-    cooldown: 10,
-    aliases: ["sayguide"],
-    permissions: ["Administrator", PermissionFlagsBits.ManageEmojisAndStickers]
+    cooldown: 10
 }
 
 export default command

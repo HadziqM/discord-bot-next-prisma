@@ -17,7 +17,7 @@ const event : BotEvent = {
         if (interaction.isButton()){
             if(interaction.customId.includes('approve')){
                 const id = Number(interaction.customId.replace('approve',''))
-                interaction.deferUpdate()
+                interaction.reply({content:"witing for good connection, dont press the button again in few minutes please",ephemeral:true})
                 const accept = await Accept(id)
                 console.log(accept)
                 if (!accept) {return interaction.channel?.send("there is problem on server, try again sometimes")}
@@ -73,7 +73,7 @@ const event : BotEvent = {
                 leader.send({embeds:[lead.embed]})
             }else if(interaction.customId.includes('nope')){
                 const id = Number(interaction.customId.replace('nope',''))
-                interaction.deferUpdate()
+                interaction.reply({content:"witing for good connection, dont press the button again in few minutes please",ephemeral:true})
                 const rej = await Rejected(id)
                 const rec = await client.channels.fetch(process.env.RECEPTIONIST_CHANNEL)
                 if (!rec?.isTextBased())return

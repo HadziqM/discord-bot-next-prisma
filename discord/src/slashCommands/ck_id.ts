@@ -7,7 +7,7 @@ const prisma = new PrismaClient()
 
 const command : SlashCommand = {
     command: new SlashCommandBuilder()
-    .setName("ch_id")
+    .setName("ck_id")
     .setDescription("show your hunter status")
     .addIntegerOption(o=> o.setName('cid').setDescription('Charachter id').setRequired(true))
     ,
