@@ -18,7 +18,7 @@ export default  async function Leaderboard() {
         .setThumbnail(first.displayAvatarURL())
         .addFields({name:user[0],value:`Ign: ${firstid?.name} Coin: ${lead[0].bounty}`})
         .setColor('Random')
-    for (let i = 1;i<lead.length;i++){
+    for (let i = 1;i<lead.length-1;i++){
         const uname = await client.users.fetch(lead[i].discord_id)
         const char = await prisma.characters.findUnique({where:{id:lead[i].char_id},select:{name:true}})
         user.push(uname.username)
