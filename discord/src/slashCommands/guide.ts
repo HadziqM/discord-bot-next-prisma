@@ -26,6 +26,7 @@ const command : SlashCommand = {
             {name:' 🧒 Newbie',value:`To clain newbie Reward`},
             {name:' 🥋 submit',value:`to submit your bounty to guild staff new version`},
             {name:' 🎰 pull',value:`To pull gacha`},
+            {name:' 🎰 buy_ticket',value:`To buy gacha ticket`},
             {name:' 👶 create',value:`to create new account on the server`},
             {name:' 🎖️ road',value:`to see road ranking on server`},
             {name:' 🛑 blog',value:`to create new blogs on our website, guide and web under construction`},

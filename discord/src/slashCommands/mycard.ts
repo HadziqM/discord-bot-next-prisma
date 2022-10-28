@@ -44,16 +44,13 @@ const command : SlashCommand = {
     .setDescription("show your hunter status")
     ,
     execute: async (interaction) => {
-        interaction.deferReply()
         const char = await Check(interaction.user.id)
         if (!char) {
-            await new Promise(r => setTimeout(r, 3000));
-            return interaction.editReply("youare not registered")
+            return interaction.reply("youare not registered")
         } 
         let lib = await Embed(char)
         lib[0].setFooter({ text: `owned by ${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL()}` });
-        await new Promise(r => setTimeout(r, 2000));
-        interaction.editReply({
+        interaction.reply({
             embeds: [lib[0]],components:[row1,row2,row3],files: [lib[1]]
         }).catch((e)=> console.log(e))
         await new Promise(()=>setTimeout(()=>interaction.editReply({components:[]}),10000))
