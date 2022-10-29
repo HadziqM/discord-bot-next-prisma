@@ -66,9 +66,9 @@ const command : SlashCommand = {
             const checked = await Scheck(interaction.user.id,bbq).catch(e=>{
                 interaction.reply("There is some problem connecting to server, please try again after some minutes")
             })
-            if(!checked){return interaction.reply({content:"you are not registered yet",ephemeral:true})}
-            if(checked==='Cooldown'){return interaction.reply({content:"BBQ on Cooldown",ephemeral:true})} else
-            if(checked === 'overheat'){return interaction.reply({content:"you are still on cooldown",ephemeral:true})}
+            if(!checked){return await interaction.reply({content:"you are not registered yet",ephemeral:true})}
+            if(checked==='Cooldown'){return await interaction.reply({content:"BBQ on Cooldown",ephemeral:true})} else
+            if(checked === 'overheat'){return await interaction.reply({content:"you are still on cooldown",ephemeral:true})}
             interaction.deferReply()
             try{
                 let embed
@@ -77,13 +77,13 @@ const command : SlashCommand = {
                 else{embed = Sembed(String(checked[1]),interaction.user.username,attachment,bbq,interaction.user.displayAvatarURL());button = B_build(await Submitted(1,String(checked[1]),interaction.user.username,Number(checked[0]),'none',interaction.user.displayAvatarURL(),attachment,bbq))}
                 if(!ch?.isTextBased()) return
                 ch.send({embeds:[embed.embed],files:[embed.attach],components:[button]})
-                await new Promise(r => setTimeout(r, 1000));
+                await new Promise(r => setTimeout(r, 3000));
                 interaction.editReply("Bounty Submitted")
                 const cd = await client.channels.fetch(process.env.COOLDOWN_CHANNEL)
                 if(!cd?.isTextBased()) return
                 cd.send({embeds:[await Cooldown()]})
             }catch(e){
-                await new Promise(r => setTimeout(r, 1000));
+                await new Promise(r => setTimeout(r, 3000));
                 interaction.editReply("There is some problem connecting to server, please try again after some minutes")
             }
         }else{
@@ -93,9 +93,9 @@ const command : SlashCommand = {
             const checked = await Mcheck(interaction.user.id,ids,bbq).catch(e=>{
                 interaction.reply("There is some problem connecting to server, please try again after some minutes")
             })
-            if(!checked){return interaction.reply("there is member thats not registered yet")}else
-            if(checked==='Cooldown'){return interaction.reply({content:"BBQ on Cooldown",ephemeral:true})} else
-            if(checked === 'overheat'){return interaction.reply({content:"there is member on bounty cooldown",ephemeral:false})}
+            if(!checked){return await interaction.reply("there is member thats not registered yet")}else
+            if(checked==='Cooldown'){return await interaction.reply({content:"BBQ on Cooldown",ephemeral:true})} else
+            if(checked === 'overheat'){return await interaction.reply({content:"there is member on bounty cooldown",ephemeral:false})}
             interaction.deferReply()
             try{
                 let uname = checked[2]
@@ -111,13 +111,13 @@ const command : SlashCommand = {
                 let button = B_build(await Submitted(3,JSON.stringify(checked[1]),JSON.stringify(uname),0,JSON.stringify(checked[0]),interaction.user.displayAvatarURL(),attachment,bbq))
                 if(!ch?.isTextBased()) return
                 ch.send({embeds:[embed.embed],files:[embed.attach],components:[button]})
-                await new Promise(r => setTimeout(r, 1000));
+                await new Promise(r => setTimeout(r, 3000));
                 interaction.editReply("Bounty Submitted")
                 const cd = await client.channels.fetch(process.env.COOLDOWN_CHANNEL)
                 if(!cd?.isTextBased()) return
                 cd.send({embeds:[await Cooldown()]})
             }catch{
-                await new Promise(r => setTimeout(r, 1000));
+                await new Promise(r => setTimeout(r, 3000));
                 interaction.editReply("There is some problem connecting to server, please try again after some minutes")
             }
         }
