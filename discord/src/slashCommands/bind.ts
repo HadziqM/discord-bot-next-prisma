@@ -51,6 +51,7 @@ const command : SlashCommand = {
                         i.reply({content:"congrats you have registered now",ephemeral:true})
                         await (await interaction.guild.members.fetch(interaction.user.id)).roles.add(role)
                         interaction.editReply({components:[]})
+                        collector.stop()
                         await prisma.$disconnect()
                         break
                     }
@@ -60,6 +61,7 @@ const command : SlashCommand = {
                         i.reply({content:"congrats you have registered now",ephemeral:true})
                         await (await interaction.guild.members.fetch(interaction.user.id)).roles.add(role)
                         interaction.editReply({components:[]})
+                        collector.stop()
                         await prisma.$disconnect()
                         break
                     }

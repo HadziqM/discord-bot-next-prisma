@@ -3,15 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --hostname localhost --port 8080",
-    "build": "next build && next start --hostname 127.0.0.1 --port 8080",
-    "start": "next start --hostname 127.0.0.1 --port 8080",
+    "dev": "next dev --hostname localhost --port 3000",
+    "build": "next build && next start --hostname 127.0.0.1 --port 3000",
+    "start": "next start --hostname 127.0.0.1 --port 3000",
     "setup": "prisma generate && cd discord && tsc --build",
     "dbuild": "cd discord && tsc --build",
     "dstart": "node discord/build/index.js",
     "drestart": "cd discord && tsc --build && node ./build/index.js",
     "pull": "prisma db pull --force",
-    "studio": "prisma studio --hostname 127.0.0.1 --port 8000"
+    "studio": "prisma studio --hostname 127.0.0.1 --port 3000"
   },
   "dependencies": {
     "@discordjs/rest": "^1.1.0",
