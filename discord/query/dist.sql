@@ -1,1 +1,0 @@
-ALTER TABLE distribution ADD COLUMN IF NOT EXISTS bot boolean NOT NULL DEFAULT false; 

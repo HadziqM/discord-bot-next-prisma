@@ -1,2 +1,0 @@
-ALTER TABLE discord ADD COLUMN IF NOT EXISTS gacha int NOT NULL default 0; 
-ALTER TABLE discord ADD COLUMN IF NOT EXISTS pity int NOT NULL default 0; 
