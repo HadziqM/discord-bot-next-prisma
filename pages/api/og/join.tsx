@@ -8,9 +8,8 @@ export const config = {
 export default function WTF(req: NextRequest) {
   const { searchParams } = req.nextUrl;
   const avatar = searchParams.get("url");
-  const name = searchParams.get("name");
   if (!avatar) return;
-  if (!name) return;
+  const data = JSON.parse(avatar);
   return new ImageResponse(
     (
       <div
@@ -35,15 +34,17 @@ export default function WTF(req: NextRequest) {
             textAlign: "center",
             alignItems: "center",
             justifyContent: "center",
+            position: "relative",
           }}
         >
           <img
             width="140"
             height="140"
-            src={avatar}
+            src={data.url}
             style={{
               borderRadius: "10%",
-              transform: "translateX(-100px)",
+              position: "absolute",
+              left: "10%",
             }}
           />
           <div
@@ -52,6 +53,8 @@ export default function WTF(req: NextRequest) {
               flexDirection: "column",
               justifyContent: "center",
               alignItems: "center",
+              position: "absolute",
+              right: "20%",
             }}
           >
             <h1
@@ -73,7 +76,7 @@ export default function WTF(req: NextRequest) {
                 padding: 0,
               }}
             >
-              {name}
+              {data.name}
             </p>
           </div>
         </div>

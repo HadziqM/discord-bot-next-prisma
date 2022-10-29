@@ -5,7 +5,6 @@ import { BotEvent } from "../types";
 const raw = readFileSync('./prerender_data/guild_data.json')
 const data =  JSON.parse(String(raw))
 const list  = data.guild.map((e:any)=> e.name)
-console.log(list)
 
 
 
