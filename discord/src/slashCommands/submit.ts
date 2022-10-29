@@ -98,12 +98,16 @@ const command : SlashCommand = {
             if(checked === 'overheat'){return interaction.reply({content:"there is member on bounty cooldown",ephemeral:false})}
             interaction.deferReply()
             try{
-                let uname = [interaction.user.id]
-                for(let i=0;i<ids.length;i++){
-                    const wtf = (await client.users.fetch(ids[i])).username
-                    uname.push(wtf)
-                }
-                let embed = Membed(checked[1],uname,attachment,bbq,interaction.user.displayAvatarURL())
+                let uname = checked[2]
+                    let chname = uname.map(e=>{
+                        const name = client.users.cache.get(e)
+                        if(name == null){
+                           return 'none' 
+                        }else{
+                            return name.username
+                        }
+                    })
+                let embed = Membed(checked[1],chname,attachment,bbq,interaction.user.displayAvatarURL())
                 let button = B_build(await Submitted(3,JSON.stringify(checked[1]),JSON.stringify(uname),0,JSON.stringify(checked[0]),interaction.user.displayAvatarURL(),attachment,bbq))
                 if(!ch?.isTextBased()) return
                 ch.send({embeds:[embed.embed],files:[embed.attach],components:[button]})

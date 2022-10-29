@@ -23,7 +23,8 @@ export async function Mcheck(discord_id:string,mentions:string[],bbq:string) {
     const now = Math.floor(new Date().getTime()/1000)
     const bounty = await prisma.bounty.findFirst({where:{title:bbq},select:{cooldown:true}})
     if (bounty?.cooldown === 0) {await prisma.$disconnect();return "Cooldown"}
-    const data = [...mentions[0],discord_id]
+    const mt = mentions.map(e=>e[0])
+    const data = [...mt,discord_id]
     const cid : number[] = []
     const cname: any[] = []
     for (let i=0;i<data.length;i++){
@@ -39,5 +40,5 @@ export async function Mcheck(discord_id:string,mentions:string[],bbq:string) {
         cname.push(char?.name)
     }
     await prisma.$disconnect()
-    return [cid,cname]
+    return [cid,cname,data]
 }

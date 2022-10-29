@@ -9,7 +9,7 @@ const command : SlashCommand = {
     .addStringOption(option => option.setName('guild').setDescription('select guild you want to join').setRequired(true).setAutocomplete(true)),
     execute: async interaction => {
         const check = await Dcheck(interaction.user.id)
-        if (!check){return interaction.reply("you are not registered")}
+        if (!check){return await interaction.reply("you are not registered")}
         interaction.deferReply()
         const name = String(interaction.options.get("guild")?.value)
         const bool = await Gjoin(name,check)

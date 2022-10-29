@@ -138,12 +138,16 @@ const command:ContextMenu = {
                 if(checked==='Cooldown'){interaction.followUp({content:"BBQ on Cooldown",ephemeral:true});return} else
                 if(checked === 'overheat'){interaction.followUp({content:"there is member on bounty cooldown",ephemeral:false});return}
                 try{
-                    let uname = [interaction.user.id]
-                    for(let i=0;i<ids.length;i++){
-                        const wtf = (await client.users.fetch(ids[i])).username
-                        uname.push(wtf)
-                    }
-                    let embed = Membed(checked[1],uname,attachment,bbq,interaction.user.displayAvatarURL())
+                    let uname = checked[2]
+                    let chname = uname.map(e=>{
+                        const name = client.users.cache.get(e)
+                        if(name == null){
+                           return 'none' 
+                        }else{
+                            return name.username
+                        }
+                    })
+                    let embed = Membed(checked[1],chname,attachment,bbq,interaction.user.displayAvatarURL())
                     let button = B_build(await Submitted(3,JSON.stringify(checked[1]),JSON.stringify(uname),0,JSON.stringify(checked[0]),interaction.user.displayAvatarURL(),attachment,bbq))
                     if(!ch?.isTextBased()) return
                     ch.send({embeds:[embed.embed],files:[embed.attach],components:[button]})
@@ -151,8 +155,7 @@ const command:ContextMenu = {
                     const cd = await client.channels.fetch(process.env.COOLDOWN_CHANNEL)
                     if(!cd?.isTextBased()) return
                     cd.send({embeds:[await Cooldown()]})
-                }catch{
-                    await new Promise(r => setTimeout(r, 1000));
+                }catch(e){
                     interaction.followUp("There is some problem connecting to server, please try again after some minutes")
                 }
             }
