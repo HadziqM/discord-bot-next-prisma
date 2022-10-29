@@ -1,0 +1,1 @@
+ALTER TABLE discord ADD COLUMN IF NOT EXISTS boostcd bigint NOT NULL default 0;
