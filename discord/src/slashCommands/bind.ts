@@ -36,7 +36,7 @@ const command : SlashCommand = {
                         .setLabel('Register as Female')
                         .setStyle(ButtonStyle.Secondary),
                         );
-            interaction.reply({components:[row1],embeds:[embed[0]],files:[embed[1]]})
+            interaction.reply({components:[row1],embeds:[embed[0]],files:[embed[1]],ephemeral:true})
             if (!interaction.channel?.isTextBased()) return
             const collector = interaction.channel.createMessageComponentCollector({ componentType: ComponentType.Button, time: 400000 })
             const role = await interaction.guild?.roles.fetch(process.env.REGISTERED_ROLE)
