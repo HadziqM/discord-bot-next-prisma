@@ -106,7 +106,9 @@ const command:ContextMenu = {
             const ch = await client.channels.fetch(process.env.SUBMIT_CHANNEL)
             if (!ch?.isTextBased())return
             if (methode=="S" || methode=="N"){
-                const checked = await Scheck(interaction.user.id,bbq)
+                const checked = await Scheck(interaction.user.id,bbq).catch(e=>{
+                    interaction.followUp("There is some problem connecting to server, please try again after some minutes")
+                })
                 if(!checked){interaction.followUp({content:"you are not registered yet",ephemeral:true});return}
                 if(checked==='Cooldown'){interaction.followUp({content:"BBQ on Cooldown",ephemeral:true});return} else
                 if(checked === 'overheat'){interaction.followUp({content:"you are still on cooldown",ephemeral:true});return}
@@ -122,7 +124,6 @@ const command:ContextMenu = {
                     if(!cd?.isTextBased()) return
                     cd.send({embeds:[await Cooldown()]})
                 }catch(e){
-                    await new Promise(r => setTimeout(r, 1000));
                     interaction.followUp("There is some problem connecting to server, please try again after some minutes")
                 }
             }else{
@@ -130,7 +131,9 @@ const command:ContextMenu = {
                 const data = content.match(/<@!?([0-9]+)>/g)
                 if(data === null ){interaction.followUp({content:"No mentions Detected",ephemeral:true});return}
                 const ids:any[] = data.map(e=>e.match(/([0-9]+)/g))
-                const checked = await Mcheck(interaction.user.id,ids,bbq)
+                const checked = await Mcheck(interaction.user.id,ids,bbq).catch(e=>{
+                    interaction.followUp("There is some problem connecting to server, please try again after some minutes")
+                })
                 if(!checked){ interaction.followUp("there is member thats not registered yet");return}else
                 if(checked==='Cooldown'){interaction.followUp({content:"BBQ on Cooldown",ephemeral:true});return} else
                 if(checked === 'overheat'){interaction.followUp({content:"there is member on bounty cooldown",ephemeral:false});return}

@@ -13,7 +13,6 @@ const button = new ActionRowBuilder<ButtonBuilder>()
                 )
 const event:BotEvent = {
     name:'guildMemberAdd',
-    once:true,
     execute: async (member:GuildMember) =>{
         const jch = await client.channels.fetch(process.env.JOIN_CHANNEL)
         if(!jch?.isTextBased()) return

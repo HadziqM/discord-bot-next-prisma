@@ -63,7 +63,9 @@ const command : SlashCommand = {
         const npc = Boolean(interaction.options.get('npc',true).value)
         const ch = await client.channels.fetch(process.env.SUBMIT_CHANNEL)
         if (mentions == null){
-            const checked = await Scheck(interaction.user.id,bbq)
+            const checked = await Scheck(interaction.user.id,bbq).catch(e=>{
+                interaction.reply("There is some problem connecting to server, please try again after some minutes")
+            })
             if(!checked){return interaction.reply({content:"you are not registered yet",ephemeral:true})}
             if(checked==='Cooldown'){return interaction.reply({content:"BBQ on Cooldown",ephemeral:true})} else
             if(checked === 'overheat'){return interaction.reply({content:"you are still on cooldown",ephemeral:true})}
@@ -88,7 +90,9 @@ const command : SlashCommand = {
             const data = String(mentions).match(/<@!?([0-9]+)>/g)
             if(data === null ){return interaction.reply({content:"No mentions Detected",ephemeral:true})}
             const ids:any[] = data.map(e=>e.match(/([0-9]+)/g))
-            const checked = await Mcheck(interaction.user.id,ids,bbq)
+            const checked = await Mcheck(interaction.user.id,ids,bbq).catch(e=>{
+                interaction.reply("There is some problem connecting to server, please try again after some minutes")
+            })
             if(!checked){return interaction.reply("there is member thats not registered yet")}else
             if(checked==='Cooldown'){return interaction.reply({content:"BBQ on Cooldown",ephemeral:true})} else
             if(checked === 'overheat'){return interaction.reply({content:"there is member on bounty cooldown",ephemeral:false})}

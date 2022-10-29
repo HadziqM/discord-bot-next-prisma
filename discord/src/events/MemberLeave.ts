@@ -5,7 +5,6 @@ import client from '../index'
 
 const event:BotEvent = {
     name:'guildMemberRemove',
-    once:true,
     execute: async (member:GuildMember) =>{
         const role = member.roles.cache
         const embed = new EmbedBuilder().setThumbnail(member.displayAvatarURL()).setTitle("Member Leave").setDescription(member.toString()).setColor(getThemeColor('data')).addFields(
