@@ -17,7 +17,6 @@ export async function Accept(id:number) {
         url:data.url_i,
         bbq:data.bbq
     }
-    console.log(data)
     return wtf
 }
 async function Check(data:submitted) {

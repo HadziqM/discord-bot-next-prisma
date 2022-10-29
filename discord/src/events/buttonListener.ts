@@ -19,7 +19,6 @@ const event : BotEvent = {
                 const id = Number(interaction.customId.replace('approve',''))
                 interaction.reply({content:"witing for good connection, dont press the button again in few minutes please",ephemeral:true})
                 const accept = await Accept(id)
-                console.log(accept)
                 if (!accept) {return interaction.channel?.send("there is problem on server, try again sometimes")}
                 const conquer = await client.channels.fetch(process.env.CONQUER_CHANNEL)
                 const leader = await client.channels.fetch(process.env.LEADERBOARD_CHANNEL)
@@ -54,11 +53,11 @@ const event : BotEvent = {
                         msg.react('🥳')
                     }
                 }else{
-                    rec.send(`<@${accept.result[2][0]}> Bounty are Accepted by ${interaction.user.username}`)
-                    for (let i=0;i<accept.result[0].length;i++){
-                        if (accept.result[1][i]==0){rec.send(`<@${accept.result[2][i]}> Reward already distributed`)}else{rec.send(`<@${accept.result[2][i]}> Coordinate with Eve to rechieve Reward`)}
-                        if (accept.result[0][i] !== 'norm'){
-                            const user = await client.users.fetch(accept.result[2][i])
+                    rec.send(`<@${accept.result[0][2]}> Bounty are Accepted by ${interaction.user.username}`)
+                    for (let i=0;i<accept.result.length;i++){
+                        if (accept.result[i][1]==0){rec.send(`<@${accept.result[2][i]}> Reward already distributed`)}else{rec.send(`<@${accept.result[2][i]}> Coordinate with Eve to rechieve Reward`)}
+                        if (accept.result[i][0] !== 'norm'){
+                            const user = await client.users.fetch(accept.result[i][2])
                             const wtf = await getBuff(`${process.env.NEXTAUTH_URL}/api/og/${accept.result[0][i]}?avatar=${user.displayAvatarURL({extension:'png'})}`)
                             const att = new AttachmentBuilder(wtf,{name:'og.png'})
                             const msg = await promo.send({content:`congratulation on promotion ${user}`,files:[att]})
