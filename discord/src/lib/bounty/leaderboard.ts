@@ -16,14 +16,14 @@ export default  async function Leaderboard() {
         .setTitle("Leaderboard")
         .setColor(getThemeColor('variable'))
         .setThumbnail(first.displayAvatarURL())
-        .addFields({name:user[0],value:`Ign: ${firstid?.name} Coin: ${lead[0].bounty}`})
+        .addFields({name:user[0],value:` 🗂️ Ign: ${firstid?.name}\n 🪙 Coin: ${lead[0].bounty}`})
         .setColor('Random')
     for (let i = 1;i<9;i++){
         const uname = await client.users.fetch(lead[i].discord_id)
         const char = await prisma.characters.findUnique({where:{id:lead[i].char_id},select:{name:true}})
         user.push(uname.username)
         bounty.push(lead[i].bounty)        
-        embed.addFields({name:user[i],value:`Ign: ${char?.name}\n Coin: ${lead[i].bounty}`})
+        embed.addFields({name:user[i],value:` 🗂️ Ign: ${char?.name}\n 🪙 Coin: ${lead[i].bounty}`})
         
     }
     await prisma.$disconnect()

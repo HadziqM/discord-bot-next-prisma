@@ -20,7 +20,7 @@ const event: BotEvent = {
     execute: (message: Message) => {
         if (!message.member || message.member.user.bot) return;
         if (!message.guild) return;
-        if (message.content.toLowerCase().includes("how to") || message.content.toLowerCase().includes("how do i")){
+        if (message.content.toLowerCase().includes("how to") || message.content.toLowerCase().includes("how do i") || message.content.toLowerCase().includes("where can i") || message.content.toLowerCase().includes("how do i") || message.content.toLowerCase().includes("how am i")){
             const embed = new EmbedBuilder()
                 .setTitle("Gude Channel")
                 .setDescription("Is there something i could help?, we have prepared channel that might be help to you")
