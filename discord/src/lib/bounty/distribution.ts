@@ -8,7 +8,7 @@ export default async function Distribution(ids:string[],bbq:string,type:number) 
     const bounty = await prisma.bounty.findFirst({where:{title:bbq}})
     const clear = type === 1? 'S':'M'
     const data = type === 1? 'Solo Reward':'Multiplayer Reward'
-    const file = readFileSync(`./gacha_b/${bbq}${clear}.bin`)
+    const file = readFileSync(`./bounty_b/${bbq}${clear}.bin`)
     let res = true
     await Promise.all(ids.map(async e =>{
         const disc = await prisma.discord.findUnique({where:{discord_id:e}})

@@ -44,6 +44,7 @@ const command : SlashCommand = {
         if(data === null ){interaction.reply({content:"No mentions Detected",ephemeral:true});return}
         interaction.reply({content:'task accepted, wait for a while',ephemeral:true})
         const ids = data?.map(e=>String(e.match(/([0-9]+)/g)))
+        console.log(data)
         const res = await Distribution(ids,bbq,type)
         if(!res) await interaction.channel?.send('there is error connecting to server database')
         await Promise.all(ids.map( async e =>{

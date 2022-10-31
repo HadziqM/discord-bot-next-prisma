@@ -108,7 +108,7 @@ const command : SlashCommand = {
                         }
                     })
                 let embed = Membed(checked[1],chname,attachment,bbq,interaction.user.displayAvatarURL())
-                let button = B_build(await Submitted(3,JSON.stringify(checked[1]),JSON.stringify(uname),0,JSON.stringify(checked[0]),interaction.user.displayAvatarURL(),attachment,bbq))
+                let button = B_build(await Submitted(3,JSON.stringify(checked[1]),JSON.stringify(chname),0,JSON.stringify(checked[0]),interaction.user.displayAvatarURL(),attachment,bbq))
                 if(!ch?.isTextBased()) return
                 ch.send({embeds:[embed.embed],files:[embed.attach],components:[button]})
                 await new Promise(r => setTimeout(r, 3000));

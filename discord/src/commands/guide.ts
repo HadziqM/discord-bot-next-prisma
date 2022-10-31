@@ -26,7 +26,8 @@ const command : Command = {
                 .setColor('Random')
                 .setFooter({text:"I m sincerely sorry if this not what you after",iconURL:client.user?.displayAvatarURL()})
         const oke = message.reference?.messageId
-        const msg = message.channel.messages.cache.get(String(oke))
+        if (oke == null) return message.channel.send({embeds:[embed],components:[button]})
+        const msg = message.channel.messages.cache.get(oke)
         await msg?.reply({embeds:[embed],components:[button]})
 
     },

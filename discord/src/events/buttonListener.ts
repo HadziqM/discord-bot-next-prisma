@@ -58,7 +58,7 @@ const event : BotEvent = {
                         if (accept.result[i][1]==0){rec.send(`<@${accept.result[i][2]}> Reward already distributed`)}else{rec.send(`<@${accept.result[i][2]}> Coordinate with Eve to rechieve Reward`)}
                         if (accept.result[i][0] !== 'norm'){
                             const user = await client.users.fetch(accept.result[i][2])
-                            const wtf = await getBuff(`${process.env.NEXTAUTH_URL}/api/og/${accept.result[0][i]}?avatar=${user.displayAvatarURL({extension:'png'})}`)
+                            const wtf = await getBuff(`${process.env.NEXTAUTH_URL}/api/og/${accept.result[i][0]}?avatar=${user.displayAvatarURL({extension:'png'})}`)
                             const att = new AttachmentBuilder(wtf,{name:'og.png'})
                             const msg = await promo.send({content:`congratulation on promotion ${user}`,files:[att]})
                             msg.react('🥳')
@@ -83,7 +83,7 @@ const event : BotEvent = {
                 cd.send({embeds:[await Cooldown()]})
             }
             switch (interaction.customId){
-                case "nothing":{if(interaction.user.id != interaction.message.interaction?.user.id){await interaction.reply({content:"this button isnt for you",ephemeral:true}).catch((e:any)=>console.log(e));return};await interaction.reply({content:"understanable have a nice day",ephemeral:true}).catch((e:any)=>console.log(e));break}
+                case "nothing":{if(interaction.user.id != interaction.message.interaction?.user.id){await interaction.reply({content:"this button isnt for you",ephemeral:true}).catch((e:any)=>console.log(e));return};await interaction.reply({content:"understanable have a nice day",ephemeral:true}).catch((e:any)=>console.log(e));await interaction.message.delete().catch((e:any)=>console.log(e));break}
                 case "save":{if(interaction.user.id != interaction.message.interaction?.user.id){await interaction.reply({content:"this button isnt for you",ephemeral:true}).catch((e:any)=>console.log(e));return};await interaction.reply({content:"check your DM",ephemeral:true});(await get_save(interaction.user.id)).map(async (e:any) => (e !== "nothing") && await interaction.user.send({ files: [{ attachment: e[0],name:e[1] }] }).catch((e:any)=>console.log(e)));break}
                 case "transmog":{if(interaction.user.id != interaction.message.interaction?.user.id){await interaction.reply({content:"this button isnt for you",ephemeral:true}).catch((e:any)=>console.log(e));return};await interaction.reply({content:"unlocked your transmog",ephemeral:true});await trans(interaction.user.id);break}
                 case "boost_on":{if(interaction.user.id != interaction.message.interaction?.user.id){await interaction.reply({content:"this button isnt for you",ephemeral:true}).catch((e:any)=>console.log(e));return};const boost = await Boost_on(interaction.user.id);boost[0]?interaction.reply({content:"Turn On Your Login Boost",ephemeral:true}):interaction.reply({content:`cooldown till <t:${boost[1]}:R>`,ephemeral:true});break}

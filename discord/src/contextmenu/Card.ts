@@ -12,7 +12,7 @@ const command:ContextMenu = {
         if (!interaction.isUserContextMenuCommand()) return;
         const uid = interaction.targetId
         const disc = await Check(uid)
-        if (!disc) {return interaction.reply({content:`${uid} arent registered yet\nright-click on your profile if what you mean is your own information`,allowedMentions:{parse:[]}})}
+        if (!disc) {return interaction.reply({content:`<@${uid}> arent registered yet\nright-click on your profile if what you mean is your own information`,allowedMentions:{parse:[]}})}
         let embed = await Embed(disc)
         const user = await client.users.fetch(uid)
         embed[0].setFooter({ text: `owned by ${user.username}`, iconURL: `${user.displayAvatarURL()}` })
