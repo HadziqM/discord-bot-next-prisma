@@ -17,7 +17,7 @@ const command : Command = {
     name: "guide",
     execute: async (message, args) => {
         const embed = new EmbedBuilder()
-                .setTitle("Gude Channel")
+                .setTitle("Guide Channel")
                 .setDescription("Is there something i could help?, we have prepared channel that might be help to you")
                 .addFields(
                     {name:"Bot Help Channel",value:`<#${process.env.NEWS_CHANNEL}> `+"This channel have information on how to use bot and also have a list of bot command"},

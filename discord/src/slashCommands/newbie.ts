@@ -34,11 +34,15 @@ const row3= new ActionRowBuilder<ButtonBuilder>()
 			)
  return [row2,row3]
 }
-async function build_embed(data:any){
+interface Data {
+    name:string,
+    image:string
+}
+async function build_embed(data:Data){
     let embed = new EmbedBuilder()
         .setAuthor({name: `${data.name}`})
         .setColor(getThemeColor('error'))
-        .setDescription('Newbie reward, can only redeem **once** in lifetime\nwe only give you material to carft listed equipment except the weapon')
+        .setDescription('Newbie reward, can only redeem **once** in lifetime\nwe only give you material to craft listed equipment except the weapon')
         .setImage(data.image)
     return embed
 }

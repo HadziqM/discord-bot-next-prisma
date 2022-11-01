@@ -27,7 +27,7 @@ const command : SlashCommand = {
             .setImage("attachment://og.png")
             .setColor('Random')
             .setFooter({text:`Pulled by ${interaction.user.username}`,iconURL:interaction.user.displayAvatarURL()})
-            await new Promise(r => setTimeout(r, 2000));
+            await new Promise(r => setTimeout(r, 3000));
         interaction.editReply({files:[att],embeds:[embed]})        
     },
     cooldown: 10
