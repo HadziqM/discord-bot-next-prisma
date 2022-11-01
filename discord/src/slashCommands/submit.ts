@@ -81,7 +81,8 @@ const command : SlashCommand = {
                 interaction.editReply("Bounty Submitted")
                 const cd = await client.channels.fetch(process.env.COOLDOWN_CHANNEL)
                 if(!cd?.isTextBased()) return
-                cd.send({embeds:[await Cooldown()]})
+                const msg1 = await cd.messages.fetch(process.env.COOLDOWN_MSG)
+                msg1?.edit({embeds:[await Cooldown()]})
             }catch(e){
                 await new Promise(r => setTimeout(r, 3000));
                 interaction.editReply("There is some problem connecting to server, please try again after some minutes")
