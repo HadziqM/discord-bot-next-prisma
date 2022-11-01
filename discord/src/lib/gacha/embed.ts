@@ -1,4 +1,4 @@
-import { EmbedBuilder } from "@discordjs/builders";
+import { EmbedBuilder } from "discord.js";
 import { PrismaClient } from "@prisma/client";
 
 
@@ -14,6 +14,7 @@ export default async function Embed(did:string) {
     const same = discord.latest_bounty_time + 40*60*60 > now ? `<t:${discord.latest_bounty_time + 40*60*60}:R>` : 'you can do it now'
     const embed = new EmbedBuilder()
         .setTitle('my event status')
+        .setColor('Random')
         .setDescription(` 🪙 Bounty Coin : ${discord?.bounty}\n 🎫 Gacha Ticket : ${discord?.gacha}\n ⚔️ Latest Bounty : ${discord?.latest_bounty}\n ⏲️ Time Completed: ${clear}\n 👨‍🌾 Different Bounty CD : ${different} \n 👩‍🌾 Same Bounty CD : ${same}`)
     return embed
 }
