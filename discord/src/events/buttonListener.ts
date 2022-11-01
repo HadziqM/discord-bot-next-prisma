@@ -28,7 +28,7 @@ const event : BotEvent = {
                 if (!conquer?.isTextBased())return
                 if (!leader?.isTextBased())return
                 if (!promo?.isTextBased())return
-                const msg = leader.messages.cache.get(process.env.LEADERBOARD_MSG)
+                const msg =await leader.messages.fetch(process.env.LEADERBOARD_MSG)
                 if(accept.type==1){
                     rec.send(`<@${accept.result[2]}> Bounty are Accepted by ${interaction.user.username}`)
                     if (accept.result[1]===0){rec.send(`<@${accept.result[2]}> Reward already distributed`)}else{rec.send(`<@${accept.result[2]}> Coordinate with Eve to rechieve Reward`)}
@@ -80,7 +80,7 @@ const event : BotEvent = {
                 await interaction.message.delete()
                 const cd = await client.channels.fetch(process.env.COOLDOWN_CHANNEL)
                 if (!cd?.isTextBased())return
-                const msg1 = cd.messages.cache.get(process.env.COOLDOWN_MSG)
+                const msg1 = await cd.messages.fetch(process.env.COOLDOWN_MSG)
                 msg1?.edit({embeds:[await Cooldown()]})
                 rec.send(`<@${rej}> Bounty are Rejected by ${interaction.user.username}`)
             }

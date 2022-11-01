@@ -8,7 +8,7 @@ const command : SlashCommand = {
     .setDescription("scaffold rule message")
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     ,
-    execute: interaction => {
+    execute: async interaction => {
         interaction.reply({ephemeral:true,content:'ok'})
         const embed1 = new EmbedBuilder().setTitle('Greeting I Will Introduce Myself').setDescription('I will Take Over Elze Bot For A while for Testing Purpose. I Have more functionality than Elze and Solve many Bugs but i will be more strict than elze, keep in mind that while i solve many bugs, thing are getting slower especially on gacha since unlike elze i dont have good image editor library (or i just lazy to learn any image editor beside OpenCV lol),for image editor I use Next.js API to connect to Vercel OG image generation open API and download processed image there').setColor('Aqua')
         const embed2 = new EmbedBuilder().setTitle('Context Menu Command').setColor('Blue').addFields(
@@ -69,7 +69,7 @@ const command : SlashCommand = {
         )
         const ch = client.channels.cache.get(process.env.NEWS_CHANNEL)
         if(!ch?.isTextBased())return
-        const msg = ch.messages.cache.get(process.env.GUIDE_MSG)
+        const msg = await ch.messages.fetch(process.env.GUIDE_MSG)
         msg?.edit({components:[button],embeds:[embed1,embed2,embed3,embed7,embed5]})
     },
     cooldown: 10
