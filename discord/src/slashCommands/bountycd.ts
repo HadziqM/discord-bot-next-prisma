@@ -40,9 +40,11 @@ const command : SlashCommand = {
         const res = await Bcd(bbq,type)
         if(!res){return interaction.reply({content:'error while connecting to server',ephemeral:true})}
         interaction.reply('success')
-        const ch = await client.channels.fetch(process.env.COOLDOWN_CHANNEL)
-        const embed = await Cooldown()
-        ch?.isTextBased() ? ch.send({embeds:[embed]}) : null
+        const cd = await client.channels.fetch(process.env.COOLDOWN_CHANNEL)
+        if (!cd?.isTextBased())return
+        interaction.reply({ephemeral:true,content:`${bbq}'s cooldown successfully changed to ${type}`})
+        const msg1 = cd.messages.cache.get(process.env.COOLDOWN_MSG)
+        msg1?.edit({embeds:[await Cooldown()]})
     },
     cooldown: 10
 }

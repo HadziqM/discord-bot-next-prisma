@@ -28,6 +28,7 @@ const event : BotEvent = {
                 if (!conquer?.isTextBased())return
                 if (!leader?.isTextBased())return
                 if (!promo?.isTextBased())return
+                const msg = leader.messages.cache.get(process.env.LEADERBOARD_MSG)
                 if(accept.type==1){
                     rec.send(`<@${accept.result[2]}> Bounty are Accepted by ${interaction.user.username}`)
                     if (accept.result[1]===0){rec.send(`<@${accept.result[2]}> Reward already distributed`)}else{rec.send(`<@${accept.result[2]}> Coordinate with Eve to rechieve Reward`)}
@@ -69,7 +70,7 @@ const event : BotEvent = {
                 }
                 await interaction.message.delete()
                 const lead = await Leaderboard()
-                leader.send({embeds:[lead.embed]})
+                msg?.edit({embeds:[lead.embed]})
             }else if(interaction.customId.includes('nope')){
                 const id = Number(interaction.customId.replace('nope',''))
                 interaction.reply({content:"witing for good connection, dont press the button again in few minutes please",ephemeral:true})
@@ -79,8 +80,9 @@ const event : BotEvent = {
                 await interaction.message.delete()
                 const cd = await client.channels.fetch(process.env.COOLDOWN_CHANNEL)
                 if (!cd?.isTextBased())return
+                const msg1 = cd.messages.cache.get(process.env.COOLDOWN_MSG)
+                msg1?.edit({embeds:[await Cooldown()]})
                 rec.send(`<@${rej}> Bounty are Rejected by ${interaction.user.username}`)
-                cd.send({embeds:[await Cooldown()]})
             }
             switch (interaction.customId){
                 case "nothing":{if(interaction.user.id != interaction.message.interaction?.user.id){await interaction.reply({content:"this button isnt for you",ephemeral:true}).catch((e:any)=>console.log(e));return};await interaction.reply({content:"understanable have a nice day",ephemeral:true}).catch((e:any)=>console.log(e));await interaction.message.delete().catch((e:any)=>console.log(e));break}

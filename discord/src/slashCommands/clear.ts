@@ -7,7 +7,7 @@ const ClearCommand : SlashCommand = {
     .setDescription("Delets messages from the current channel.")
     .addIntegerOption(option => {
         return option
-        .setMaxValue(100)
+        .setMaxValue(1000)
         .setMinValue(1)
         .setName("messagecount")
         .setDescription("Message amount to be cleared")

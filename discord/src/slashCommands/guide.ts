@@ -1,4 +1,5 @@
 import { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js"
+import client from "..";
 import { SlashCommand } from "../types";
 
 const command : SlashCommand = {
@@ -18,6 +19,8 @@ const command : SlashCommand = {
         )
         const embed3 = new EmbedBuilder().setTitle('Slash Command').setColor('Blurple').addFields(
             {name:' 🎴 Mycard',value:`to display users mhfz status if already binded, its also have button to turn on boost, turn off boost, get save data, and unlocking transmog`},
+            {name:' ✨ event',value:`to display users mhfz event status if already binded`},
+            {name:' 🤡 boost',value:`to display users mhfz boost status if already binded`},
             {name:' ⛓️ Bind',value:`to bind discord id with game charachter (this use username and password for safety purpose)`},
             {name:' 🏛️ guild',value:`to show detailed list of guild on server, since the command is heavy this use prerendered file to make it fast`},
             {name:' 🧑‍💼 guild_join',value:`to join selected guild if player isnt on guild already`},
@@ -64,7 +67,10 @@ const command : SlashCommand = {
         ).addComponents(
             new ButtonBuilder().setLabel('Hover to Bounty Channel').setStyle(ButtonStyle.Link).setURL(process.env.BOUNTY_URL)
         )
-        interaction.channel?.send({components:[button],embeds:[embed1,embed2,embed3,embed7,embed5]})
+        const ch = client.channels.cache.get(process.env.NEWS_CHANNEL)
+        if(!ch?.isTextBased())return
+        const msg = ch.messages.cache.get(process.env.GUIDE_MSG)
+        msg?.edit({components:[button],embeds:[embed1,embed2,embed3,embed7,embed5]})
     },
     cooldown: 10
 }

@@ -16,7 +16,8 @@ const command : SlashCommand = {
         const cd = await client.channels.fetch(process.env.COOLDOWN_CHANNEL)
         if (!cd?.isTextBased())return
         interaction.reply({ephemeral:true,content:"successfully refreshed"})
-        cd.send({embeds:[await Cooldown()]})
+        const msg1 = cd.messages.cache.get(process.env.COOLDOWN_MSG)
+        msg1?.edit({embeds:[await Cooldown()]})
     },
     cooldown: 10
 }

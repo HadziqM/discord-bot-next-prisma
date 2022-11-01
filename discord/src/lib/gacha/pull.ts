@@ -1,9 +1,11 @@
 import { PrismaClient } from '@prisma/client'
 import {readFileSync} from 'fs'
+import {Gacha} from '../../types'
+
 
 const prisma = new PrismaClient()
 const raw =readFileSync('./gacha/gacha.json')
-const file = JSON.parse(String(raw))
+const file:Gacha = JSON.parse(String(raw))
 
 export default async function Pull(did:string,pull:number) {
     const discord = await prisma.discord.findUnique({where:{discord_id:did},select:{gacha:true,pity:true,bounty:true,char_id:true}})
@@ -32,7 +34,7 @@ export default async function Pull(did:string,pull:number) {
         const result = []
         for (let i=0;i<10;i++){
             discord.pity += 1
-            let res: any[];
+            let res: string[];
             if (discord.pity == 30){
                 res = guaranteed()
                 discord.pity = 0

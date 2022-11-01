@@ -20,22 +20,40 @@ export interface Command {
     cooldown?: number,
 }
 
-interface GuildOptions {
-    prefix: string,
-}
-
-export interface IGuild extends mongoose.Document {
-    guildID: string,
-    options: GuildOptions
-    joinedAt: Date
-}
-
-export type GuildOption = keyof GuildOptions
 export interface BotEvent {
     name: string,
     once?: boolean | false,
     execute: (...args?) => void
 }
+interface Download{
+    name:string,
+    distribution:number,
+}
+
+interface guildfile{
+    member:number,
+    name:string,
+    lead_id:number,
+    lead:string,
+    created:number,
+    rp:number,
+    level:number
+}
+export interface GuildFile{
+    guild:guildfile[]
+}
+export interface Gacha {
+    ur:string[],
+    ssr1:string[],
+    ssr2:string[],
+    sr1:string[],
+    sr2:string[],
+    sr3:string[],
+    r1:string[],
+    r2:string[],
+    download:Download[],
+}
+
 
 declare global {
     namespace NodeJS {
@@ -73,7 +91,10 @@ declare global {
             ROAD_ROLE:string,
             DEMOLIZER_ROLE:string,
             MEMBER_ROLE:string,
-            NEXTAUTH_URL:string
+            NEXTAUTH_URL:string,
+            GUIDE_MSG:string,
+            COOLDOWN_MSG:string,
+            LEADERBOARD_MSG:string,
         }
     }
 }

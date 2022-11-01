@@ -1,12 +1,12 @@
-import { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits,ButtonBuilder, ActionRowBuilder, ButtonStyle, ComponentType } from "discord.js"
+import { SlashCommandBuilder, EmbedBuilder,ButtonBuilder, ActionRowBuilder, ButtonStyle, ComponentType } from "discord.js"
 import { getThemeColor } from "../functions";
-import { SlashCommand } from "../types";
+import { SlashCommand,GuildFile } from "../types";
 import client from "../index"
 import {readFileSync} from 'fs'
 
 function jsondata(){
     const raw = readFileSync('./prerender_data/guild_data.json')
-    return JSON.parse(String(raw))
+    return JSON.parse(String(raw)) as GuildFile
 }
 function build_button(data:number,state:number,user:string){
     let row2:any = new ActionRowBuilder()

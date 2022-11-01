@@ -1,10 +1,10 @@
 import { Interaction } from "discord.js";
 import { readFileSync } from "fs";
-import { BotEvent } from "../types";
+import { BotEvent,GuildFile } from "../types";
 
 const raw = readFileSync('./prerender_data/guild_data.json')
-const data =  JSON.parse(String(raw))
-const list  = data.guild.map((e:any)=> e.name)
+const data:GuildFile =  JSON.parse(String(raw))
+const list  = data.guild.map((e)=> e.name)
 
 
 
@@ -15,15 +15,13 @@ const event : BotEvent = {
         switch (interaction.commandName){
             case 'join_guild':{
                 const focusedValue = interaction.options.getFocused().toLocaleLowerCase();
-                console.log(focusedValue)
-                let filtered
+                let filtered:string[]
                 try{
-                    filtered = list.filter((c:any)=>{if(c.toLocaleLowerCase().startsWith(focusedValue)){return c}})
+                    filtered = list.filter((c)=>{if(c.toLocaleLowerCase().startsWith(focusedValue)){return c}}).slice(0,10)
+                    await interaction.respond(filtered.map((c)=>({name:c,value:c}))).catch(e=>console.log(e));
                 }catch(e){
                     console.log(e)
                 }
-                filtered = filtered.slice(0,10)
-                await interaction.respond(filtered.map((c:any)=>({name:c,value:c}))).catch(e=>console.log(e));
                 break
             }
         }

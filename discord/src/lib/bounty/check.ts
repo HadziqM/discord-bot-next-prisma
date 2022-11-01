@@ -24,9 +24,9 @@ export async function Mcheck(discord_id:string,mentions:string[],bbq:string) {
     const bounty = await prisma.bounty.findFirst({where:{title:bbq},select:{cooldown:true}})
     if (bounty?.cooldown === 0) {await prisma.$disconnect();return "Cooldown"}
     const mt = mentions.map(e=>e[0])
-    const data = [...mt,discord_id]
+    const data = [discord_id,...mt]
     const cid : number[] = []
-    const cname: any[] = []
+    const cname: string[] = []
     for (let i=0;i<data.length;i++){
         const discord = await prisma.discord.findUnique({where:{discord_id:data[i]},select:{char_id:true,latest_bounty:true,latest_bounty_time:true}})
         if (discord === null){await prisma.$disconnect();return false}
@@ -39,7 +39,7 @@ export async function Mcheck(discord_id:string,mentions:string[],bbq:string) {
             }
         }
         cid.push(discord.char_id)
-        cname.push(char?.name)
+        cname.push(String(char?.name))
     }
     await prisma.$disconnect()
     return [cid,cname,data]
