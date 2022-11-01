@@ -1,10 +1,12 @@
-import { PermissionFlagsBits } from "discord.js";
+import { EmbedBuilder, PermissionFlagsBits } from "discord.js";
 import { Command } from "../types";
 
 const command : Command = {
     name: "tes",
     execute: async (message, args) => {
-        message.channel.send("tis")
+        const embed = new EmbedBuilder()
+            .setTitle('tested')
+        message.channel.send({embeds:[embed]})
     },
     cooldown: 10,
     aliases: ["sayupdate"],
