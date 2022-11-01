@@ -12,7 +12,7 @@ export default async function Cooldown() {
         .setThumbnail(String(client.user?.displayAvatarURL()))
         .setColor('LuminousVividPink')
     bounty.map(e=>{
-        embed.addFields({name:e.title,value:`${e.explain}\n available : ${e.cooldown}`,inline:false})
+        embed.addFields({name:e.title,value:`${e.explain}\n available : ${e.cooldown}`,inline:true})
     })
     return embed
 }
