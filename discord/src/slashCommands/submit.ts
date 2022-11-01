@@ -73,8 +73,8 @@ const command : SlashCommand = {
             try{
                 let embed
                 let button
-                if(npc){embed = Nembed(String(checked[1]),interaction.user.username,attachment,bbq,interaction.user.displayAvatarURL());button = B_build(await Submitted(1,String(checked[1]),interaction.user.username,Number(checked[0]),'none',interaction.user.displayAvatarURL(),attachment,bbq))}
-                else{embed = Sembed(String(checked[1]),interaction.user.username,attachment,bbq,interaction.user.displayAvatarURL());button = B_build(await Submitted(1,String(checked[1]),interaction.user.username,Number(checked[0]),'none',interaction.user.displayAvatarURL(),attachment,bbq))}
+                if(npc){embed = Nembed(checked.cname,interaction.user.username,attachment,bbq,interaction.user.displayAvatarURL());button = B_build(await Submitted(1,checked.cname,interaction.user.username,checked.cid,'none',interaction.user.displayAvatarURL(),attachment,bbq))}
+                else{embed = Sembed(checked.cname,interaction.user.username,attachment,bbq,interaction.user.displayAvatarURL());button = B_build(await Submitted(1,checked.cname,interaction.user.username,checked.cid,'none',interaction.user.displayAvatarURL(),attachment,bbq))}
                 if(!ch?.isTextBased()) return
                 ch.send({embeds:[embed.embed],files:[embed.attach],components:[button]})
                 await new Promise(r => setTimeout(r, 3000));
@@ -98,7 +98,7 @@ const command : SlashCommand = {
             if(checked === 'overheat'){return await interaction.reply({content:"there is member on bounty cooldown",ephemeral:false})}
             interaction.deferReply()
             try{
-                let uname = checked[2]
+                let uname = checked.data
                     let chname = uname.map(e=>{
                         const name = client.users.cache.get(e)
                         if(name == null){
@@ -107,8 +107,8 @@ const command : SlashCommand = {
                             return name.username
                         }
                     })
-                let embed = Membed(checked[1],chname,attachment,bbq,interaction.user.displayAvatarURL())
-                let button = B_build(await Submitted(3,JSON.stringify(checked[1]),JSON.stringify(chname),0,JSON.stringify(checked[0]),interaction.user.displayAvatarURL(),attachment,bbq))
+                let embed = Membed(checked.cname,chname,attachment,bbq,interaction.user.displayAvatarURL())
+                let button = B_build(await Submitted(3,JSON.stringify(checked.cname),JSON.stringify(chname),0,JSON.stringify(checked.cid),interaction.user.displayAvatarURL(),attachment,bbq))
                 if(!ch?.isTextBased()) return
                 ch.send({embeds:[embed.embed],files:[embed.attach],components:[button]})
                 await new Promise(r => setTimeout(r, 3000));

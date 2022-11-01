@@ -70,7 +70,7 @@ async function Mcheck(cid:number,bbq:string,bounty:bounty,t_submit:number){
     catch(e){
         status= 1
     }    
-    const discord:any = await prisma.discord.findFirst({where:{char_id:cid}})
+    const discord = await prisma.discord.findFirst({where:{char_id:cid}})
     const player = mutiplier(discord)
         if (bbq == 'SP' && discord?.road_champion==false){
             await prisma.discord.updateMany({where:{char_id:cid},data:{bounty:Math.floor((Number(discord?.bounty)+(Number(bounty?.multi_point)*player))),gacha:(Number(discord?.gacha)+Number(bounty?.multi_ticket)),latest_bounty:bbq,latest_bounty_time:t_submit,road_champion:true}})
@@ -89,15 +89,15 @@ async function Mcheck(cid:number,bbq:string,bounty:bounty,t_submit:number){
             return ['expert',status,discord.discord_id]
         }else{
             await prisma.discord.updateMany({where:{char_id:cid},data:{bounty:Math.floor((Number(discord?.bounty)+(Number(bounty?.multi_point)*player))),gacha:(Number(discord?.gacha)+Number(bounty?.multi_ticket)),latest_bounty:bbq,latest_bounty_time:t_submit}})
-            return ["norm",status,discord.discord_id]
+            return ["norm",status,discord?.discord_id]
         }
 }
 
-function mutiplier(discord:discord){
-    if (discord.rain_demolizer){return 1.5} else
-    if (discord.road_champion){return 1.4}else
-    if (discord.bounty_champion){return 1.3}else
-    if (discord.bounty_master){return 1.2}else
-    if (discord.bounty_expert){return 1.1}else
+function mutiplier(discord:discord|null){
+    if (discord?.rain_demolizer){return 1.5} else
+    if (discord?.road_champion){return 1.4}else
+    if (discord?.bounty_champion){return 1.3}else
+    if (discord?.bounty_master){return 1.2}else
+    if (discord?.bounty_expert){return 1.1}else
     return 1
 }

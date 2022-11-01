@@ -17,7 +17,7 @@ export async function Scheck(discord_id:string,bbq:string) {
         if ((discord.latest_bounty_time+20*60*60)>now) {await prisma.$disconnect();return "overheat"}
     }
     await prisma.$disconnect()
-    return [discord.char_id,char?.name]
+    return {cid:discord?.char_id,cname:String(char?.name)}
 }
 export async function Mcheck(discord_id:string,mentions:string[],bbq:string) {
     const now = Math.floor(new Date().getTime()/1000)
@@ -42,5 +42,5 @@ export async function Mcheck(discord_id:string,mentions:string[],bbq:string) {
         cname.push(String(char?.name))
     }
     await prisma.$disconnect()
-    return [cid,cname,data]
+    return {cid:cid,cname:cname,data:data}
 }
