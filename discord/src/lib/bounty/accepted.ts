@@ -4,10 +4,22 @@ import {readFileSync} from 'fs'
 
 const prisma = new PrismaClient();
 
+interface forThis{
+    title:string,
+    status:number,
+    uid:string|undefined
+}
+
 export async function Accept(id:number) {
     const data = await prisma.submitted.findUnique({where:{id:id}})
     if (data === null) return false
-    const res = await Check(data)
+    let res:forThis[]|forThis
+    try{
+        res = await Check(data)
+    }catch(e){
+        console.log(e)
+        return false
+    }
     let wtf = {
         type:data.type_b,
         result:res,
@@ -29,31 +41,31 @@ async function Check(data:submitted) {
         catch(e){
             status = 1
         }
-        const discord:any = await prisma.discord.findFirst({where:{char_id:data.cid}})
+        const discord = await prisma.discord.findFirst({where:{char_id:data.cid}})
         const player = mutiplier(discord)
         if (data.bbq === 'SP' && discord?.road_champion==false){
             await prisma.discord.updateMany({where:{char_id:data.cid},data:{bounty:Math.floor((Number(discord?.bounty)+(Number(bounty?.solo_point)*player))),gacha:(Number(discord?.gacha)+Number(bounty?.solo_ticket)),latest_bounty:data.bbq,latest_bounty_time:data.t_submit,road_champion:true}})
-            return ['road',status,discord.discord_id]
+            return {title:'road',status:status,uid:discord?.discord_id}
         }else if (data.bbq === 'BBQ07' && discord?.rain_demolizer==false){
             await prisma.discord.updateMany({where:{char_id:data.cid},data:{bounty:Math.floor((Number(discord?.bounty)+(Number(bounty?.solo_point)*player))),gacha:(Number(discord?.gacha)+Number(bounty?.solo_ticket)),latest_bounty:data.bbq,latest_bounty_time:data.t_submit,rain_demolizer:true}})
-            return ['demolizer',status,discord.discord_id]
+            return {title:'demolizer',status:status,uid:discord?.discord_id}
         }else if (Math.floor((Number(discord?.bounty)+(Number(bounty?.solo_point)*player))) >= 200000 && discord?.bounty_champion==false){
             await prisma.discord.updateMany({where:{char_id:data.cid},data:{bounty:Math.floor((Number(discord?.bounty)+(Number(bounty?.solo_point)*player))),gacha:(Number(discord?.gacha)+Number(bounty?.solo_ticket)),latest_bounty:data.bbq,latest_bounty_time:data.t_submit,bounty_champion:true}})
-            return ['champion',status,discord.discord_id]
+            return {title:'champion',status:status,uid:discord?.discord_id}
         }else if (Math.floor((Number(discord?.bounty)+(Number(bounty?.solo_point)*player))) >= 50000 && discord?.bounty_master==false){
             await prisma.discord.updateMany({where:{char_id:data.cid},data:{bounty:Math.floor((Number(discord?.bounty)+(Number(bounty?.solo_point)*player))),gacha:(Number(discord?.gacha)+Number(bounty?.solo_ticket)),latest_bounty:data.bbq,latest_bounty_time:data.t_submit,bounty_master:true}})
-            return ['master',status,discord.discord_id]
+            return {title:'master',status:status,uid:discord?.discord_id}
         }else if (Math.floor((Number(discord?.bounty)+(Number(bounty?.solo_point)*player))) >= 25000 && discord?.bounty_expert==false){
             await prisma.discord.updateMany({where:{char_id:data.cid},data:{bounty:Math.floor((Number(discord?.bounty)+(Number(bounty?.solo_point)*player))),gacha:(Number(discord?.gacha)+Number(bounty?.solo_ticket)),latest_bounty:data.bbq,latest_bounty_time:data.t_submit,bounty_expert:true}})
-            return ['expert',status,discord.discord_id]
+            return {title:'expert',status:status,uid:discord?.discord_id}
         }else{
             await prisma.discord.updateMany({where:{char_id:data.cid},data:{bounty:Math.floor((Number(discord?.bounty)+(Number(bounty?.solo_point)*player))),gacha:(Number(discord?.gacha)+Number(bounty?.solo_ticket)),latest_bounty:data.bbq,latest_bounty_time:data.t_submit}})
-            return ["norm",status,discord.discord_id]
+            return {title:'norm',status:status,uid:discord?.discord_id}
         }
     }
     else if(data.type_b==2){return await Mcheck(data.cid,data.bbq,bounty,data.t_submit)}else{
         const cidlist:string[] = JSON.parse(data.team)
-        let wtf: any[] = []
+        let wtf: forThis[] = []
         for (let i=0;i<cidlist.length;i++){
             const res = await Mcheck(Number(cidlist[i]),data.bbq,bounty,data.t_submit)
             wtf.push(res)
@@ -74,22 +86,22 @@ async function Mcheck(cid:number,bbq:string,bounty:bounty,t_submit:number){
     const player = mutiplier(discord)
         if (bbq == 'SP' && discord?.road_champion==false){
             await prisma.discord.updateMany({where:{char_id:cid},data:{bounty:Math.floor((Number(discord?.bounty)+(Number(bounty?.multi_point)*player))),gacha:(Number(discord?.gacha)+Number(bounty?.multi_ticket)),latest_bounty:bbq,latest_bounty_time:t_submit,road_champion:true}})
-            return ['road',status,discord.discord_id]
+            return {title:'road',status:status,uid:discord?.discord_id}
         }else if (bbq == 'BBQ07' && discord?.rain_demolizer==false){
             await prisma.discord.updateMany({where:{char_id:cid},data:{bounty:Math.floor((Number(discord?.bounty)+(Number(bounty?.multi_point)*player))),gacha:(Number(discord?.gacha)+Number(bounty?.multi_ticket)),latest_bounty:bbq,latest_bounty_time:t_submit,rain_demolizer:true}})
-            return ['demolizer',status,discord.discord_id]
+            return {title:'demilizer',status:status,uid:discord?.discord_id}
         }else if (Math.floor((Number(discord?.bounty)+(Number(bounty?.multi_point)*player))) >= 200000 && discord?.bounty_champion==false){
             await prisma.discord.updateMany({where:{char_id:cid},data:{bounty:Math.floor((Number(discord?.bounty)+(Number(bounty?.multi_point)*player))),gacha:(Number(discord?.gacha)+Number(bounty?.multi_ticket)),latest_bounty:bbq,latest_bounty_time:t_submit,bounty_champion:true}})
-            return ['champion',status,discord.discord_id]
+            return {title:'champion',status:status,uid:discord?.discord_id}
         }else if (Math.floor((Number(discord?.bounty)+(Number(bounty?.multi_point)*player))) >= 50000 && discord?.bounty_master==false){
             await prisma.discord.updateMany({where:{char_id:cid},data:{bounty:Math.floor((Number(discord?.bounty)+(Number(bounty?.multi_point)*player))),gacha:(Number(discord?.gacha)+Number(bounty?.multi_ticket)),latest_bounty:bbq,latest_bounty_time:t_submit,bounty_master:true}})
-            return ['master',status,discord.discord_id]
+            return {title:'master',status:status,uid:discord?.discord_id}
         }else if (Math.floor((Number(discord?.bounty)+(Number(bounty?.multi_point)*player))) >= 25000 && discord?.bounty_expert==false){
             await prisma.discord.updateMany({where:{char_id:cid},data:{bounty:Math.floor((Number(discord?.bounty)+(Number(bounty?.multi_point)*player))),gacha:(Number(discord?.gacha)+Number(bounty?.multi_ticket)),latest_bounty:bbq,latest_bounty_time:t_submit,bounty_expert:true}})
-            return ['expert',status,discord.discord_id]
+            return {title:'expert',status:status,uid:discord?.discord_id}
         }else{
             await prisma.discord.updateMany({where:{char_id:cid},data:{bounty:Math.floor((Number(discord?.bounty)+(Number(bounty?.multi_point)*player))),gacha:(Number(discord?.gacha)+Number(bounty?.multi_ticket)),latest_bounty:bbq,latest_bounty_time:t_submit}})
-            return ["norm",status,discord?.discord_id]
+            return {title:'norm',status:status,uid:discord?.discord_id}
         }
 }
 
