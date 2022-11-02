@@ -19,7 +19,7 @@ const event:BotEvent = {
         const url = JSON.stringify({url:member.displayAvatarURL({extension:'png'}),name:member.user.username})
         const wtf = await getBuff(`${process.env.NEXTAUTH_URL}/api/og/join?url=${url}`)
         const att = new AttachmentBuilder(wtf,{name:"welcome.jpg"})
-        await jch.send({components:[button],files:[att]})
+        await jch.send({components:[button],files:[att],content:`Welcome ${member} to **RAIN SERVER** as ${member.guild.memberCount}th Member`})
     }
 }
 export default event
