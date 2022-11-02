@@ -10,7 +10,7 @@ export default async function Cooldown() {
     let embed =new EmbedBuilder()
         .setTitle("Cooldown Info")
         .setThumbnail(String(client.user?.displayAvatarURL()))
-        .setColor('LuminousVividPink')
+        .setColor('Random')
     bounty.map(e=>{
         embed.addFields({name:e.title,value:`${e.explain}\n available : ${e.cooldown}`,inline:true})
     })

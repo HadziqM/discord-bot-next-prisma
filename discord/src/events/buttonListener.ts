@@ -10,7 +10,7 @@ import Leaderboard from '../lib/bounty/leaderboard'
 import {Sembed,Nembed,Membed} from '../lib/bounty/embed'
 import client from "../index";
 import getBuff from "../lib/urlbuf";
-import { AttachmentBuilder, GuildMember, Interaction } from "discord.js";
+import { AttachmentBuilder, EmbedBuilder, GuildMember, Interaction } from "discord.js";
 const event : BotEvent = {
     name: "interactionCreate",
     execute: async (interaction:Interaction) => {
@@ -23,11 +23,11 @@ const event : BotEvent = {
                 const demolizer = await interaction.guild?.roles.fetch(process.env.DEMOLIZER_ROLE)
                 if (demolizer==null || road==null ||champion==null ||master==null ||expert==null)return
                 const addRole = async (user:GuildMember|undefined,power:string) => {
-                    if (power == 'expert'){await user?.roles.add(expert)}else
-                        if (power == 'master'){await user?.roles.add(master)}else
-                        if (power == 'champion'){await user?.roles.add(champion)}else
-                        if (power == 'road'){await user?.roles.add(road)}else
-                        {await  user?.roles.add(demolizer)}
+                    if (power == 'expert'){await user?.roles.add(expert);return {color:0xB87333,bonus:"10%"}}else
+                        if (power == 'master'){await user?.roles.add(master);return {color:0xC0C0C0,bonus:"20%"}}else
+                        if (power == 'champion'){await user?.roles.add(champion);return {color:0xFFD700,bonus:"30%"}}else
+                        if (power == 'road'){await user?.roles.add(road);return {color:0x338856,bonus:"40%"}}else
+                        {await  user?.roles.add(demolizer);return {color:0x000088,bonus:"50%"}}
                 }
                 const id = Number(interaction.customId.replace('approve',''))
                 interaction.reply({content:"witing for good connection, dont press the button again in few minutes please",ephemeral:true})
@@ -47,10 +47,15 @@ const event : BotEvent = {
                     conquer.send({embeds:[embed.embed],files:[embed.attach]})
                     if (accept.result?.title !== 'norm'){
                         const user = await interaction.guild?.members.fetch(String(accept.result?.uid))
-                        await addRole(user,accept.result.title)
+                        const bonus = await addRole(user,accept.result.title)
                         const wtf = await getBuff(`${process.env.NEXTAUTH_URL}/api/og/${accept.result.title}?avatar=${user?.displayAvatarURL({extension:'png'})}`)
                         const att = new AttachmentBuilder(wtf,{name:'og.png'})
-                        const msg = await promo.send({content:`congratulation on promotion ${user}`,files:[att]})
+                        const embed = new EmbedBuilder()
+                            .setTitle("Congratulation on Promotion")
+                            .setColor(bonus.color)
+                            .setDescription(`Now you got bonus ${bonus.bonus} bounty point for every bounty cleared, except you have higher title`)
+                            .setImage("attachment://og.png")
+                        const msg = await promo.send({content:`congratulation on promotion ${user}`,files:[att],embeds:[embed]})
                         msg.react('🥳')
                     }
                 }else if (accept.type==2){
@@ -61,10 +66,15 @@ const event : BotEvent = {
                     conquer.send({embeds:[embed.embed],files:[embed.attach]})
                     if (accept.result.title !== 'norm'){
                         const user = await interaction.guild?.members.fetch(String(accept.result?.uid))
-                        await addRole(user,accept.result.title)
+                        const bonus = await addRole(user,accept.result.title)
                         const wtf = await getBuff(`${process.env.NEXTAUTH_URL}/api/og/${accept.result.title}?avatar=${user?.displayAvatarURL({extension:'png'})}`)
                         const att = new AttachmentBuilder(wtf,{name:'og.png'})
-                        const msg = await promo.send({content:`congratulation on promotion ${user}`,files:[att]})
+                        const embed = new EmbedBuilder()
+                            .setTitle("Congratulation on Promotion")
+                            .setColor(bonus.color)
+                            .setDescription(`Now you got bonus ${bonus.bonus} bounty point for every bounty cleared, except you have higher title`)
+                            .setImage("attachment://og.png")
+                        const msg = await promo.send({content:`congratulation on promotion ${user}`,files:[att],embeds:[embed]})
                         msg.react('🥳')
                     }
                 }else{
@@ -74,10 +84,15 @@ const event : BotEvent = {
                         if (accept.result[i].status==0){rec.send(`<@${accept.result[i].uid}> Reward already distributed`)}else{rec.send(`<@${accept.result[i].uid}> Coordinate with Eve to rechieve Reward`)}
                         if (accept.result[i].title !== 'norm'){
                             const user = await interaction.guild?.members.fetch(String(accept.result[i]?.uid))
-                            await addRole(user,accept.result[i].title)
+                            const bonus = await addRole(user,accept.result[i].title)
                             const wtf = await getBuff(`${process.env.NEXTAUTH_URL}/api/og/${accept.result[i].title}?avatar=${user?.displayAvatarURL({extension:'png'})}`)
                             const att = new AttachmentBuilder(wtf,{name:'og.png'})
-                            const msg = await promo.send({content:`congratulation on promotion ${user}`,files:[att]})
+                            const embed = new EmbedBuilder()
+                            .setTitle("Congratulation on Promotion")
+                            .setColor(bonus.color)
+                            .setDescription(`Now you got bonus ${bonus.bonus} bounty point for every bounty cleared, except you have higher title`)
+                            .setImage("attachment://og.png")
+                            const msg = await promo.send({content:`congratulation on promotion ${user}`,files:[att],embeds:[embed]})
                             msg.react('🥳')
                         }
                     }

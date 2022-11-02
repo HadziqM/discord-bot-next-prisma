@@ -12,7 +12,7 @@ const command : SlashCommand = {
     )),
     execute: async interaction => {
         const pull = Number(interaction.options.get("pull")?.value)
-        interaction.deferReply()
+        await interaction.deferReply()
         const result = await Pull(interaction.user.id,pull)
         if (!result){return await new Promise(()=>setTimeout(()=>interaction.editReply("Youare Not Registerd"),2000))} else
         if (result==="not enough"){return await new Promise(()=>setTimeout(()=>interaction.editReply(result),2000))}

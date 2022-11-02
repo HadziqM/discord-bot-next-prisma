@@ -79,6 +79,7 @@ const command : SlashCommand = {
                 }
                 case `n${interaction.user.id}`:{
                     state += 1;
+                    if (state == data.length+1){state = 1};
                     button = build_button(data.length,state,interaction.user.id);
                     embed = await build_embed(data[state-1]);
                     await interaction.editReply({embeds:[embed],components:button})
