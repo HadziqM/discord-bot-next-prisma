@@ -1,12 +1,13 @@
 import { PrismaClient } from "@prisma/client";
 import { readFileSync, writeFileSync } from "fs";
+import { Gacha } from "../types";
 
 const prisma = new PrismaClient()
 
 export default async function Chgacha() {
     let res = true
     const raw = String(readFileSync('./gacha/gacha.json'))
-    const json = JSON.parse(raw)
+    const json:Gacha = JSON.parse(raw)
     Promise.all(json.download.map( async (e:any) =>{
         const data = await prisma.distribution.findUnique({where:{id:e.distribution},select:{data:true}})
         if (data==null) return

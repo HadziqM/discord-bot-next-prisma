@@ -15,7 +15,7 @@ const command : SlashCommand = {
         const json = String(interaction.options.get('json')?.attachment?.url)
         const data = await getBuff(json)
         writeFileSync('gacha/gacha.json',data)
-        interaction.reply({content:"success adding config",ephemeral:true})
+        await interaction.reply({content:"success adding config",ephemeral:true})
         let res=await Chgacha()
         if(!res) return interaction.followUp({content:'fail while parsing the config, either connection problem or wrong data',ephemeral:true})
         interaction.followUp({content:'success on implementing config',ephemeral:true})
