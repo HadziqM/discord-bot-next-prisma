@@ -14,6 +14,7 @@ const command:ContextMenu = {
         const disc = await Check(uid)
         if (!disc) {return interaction.reply({content:`<@${uid}> arent registered yet\nright-click on your profile if what you mean is your own information`,allowedMentions:{parse:[]}})}
         let embed = await Embed(disc)
+        if (!embed) return interaction.reply({content:"error while connecting on server",ephemeral:true})
         const user = await client.users.fetch(uid)
         embed[0].setFooter({ text: `owned by ${user.username}`, iconURL: `${user.displayAvatarURL()}` })
         interaction.reply({embeds:[embed[0]],files:[embed[1]]})

@@ -49,6 +49,7 @@ const command : SlashCommand = {
             return interaction.reply("youare not registered")
         } 
         let lib = await Embed(char)
+        if(!lib) return interaction.reply({content:"error on connecting to server database",ephemeral:true})
         lib[0].setFooter({ text: `owned by ${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL()}` });
         interaction.reply({
             embeds: [lib[0]],components:[row1,row2,row3],files: [lib[1]]

@@ -20,9 +20,10 @@ const command : SlashCommand = {
         if (discord!==null) {await prisma.$disconnect();return interaction.reply({content:"you are already registered",ephemeral:true})};
         if (user===null) {await prisma.$disconnect();return interaction.reply({content:"cant find username",ephemeral:true})};
         if (await Decrypt(password,String(user?.password))){
-            const character = await prisma.characters.findMany({where:{user_id:user?.id},select:{id:true}}).catch(e=>console.log(e))
+            const character = await prisma.characters.findMany({where:{user_id:user?.id},select:{id:true}})
             if (character == null) return
             const embed  = await Embed(Number(character[0].id))
+            if(!embed)return interaction.reply({content:"you still have *READY TO HUNT* character, please login with that character untill safely enter mezeporta then logout to be able to bind\nor delete that charachter in launcher"})
             const row1 = new ActionRowBuilder<ButtonBuilder>()
                 .addComponents(
                     new ButtonBuilder()
@@ -75,8 +76,9 @@ const command : SlashCommand = {
                         order += 1
                         if (order>=character.length) {order = 0}
                         const wembed = await Embed(character[order].id)
+                        if(wembed){
                         interaction.editReply({embeds:[wembed[0]],files:[wembed[1]]})
-                        i.reply({content:"getting other character",ephemeral:true})
+                        i.reply({content:"getting other character",ephemeral:true})}
                         break
                     }
                     default:{break}

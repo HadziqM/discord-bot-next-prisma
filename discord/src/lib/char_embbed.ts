@@ -7,6 +7,7 @@ const iconlist = ['./icon/GS.png', './icon/HS.png', './icon/H.png', './icon/L.pn
 './icon/LS.png', './icon/HH.png', './icon/GL.png', './icon/B.png', './icon/T.png', './icon/SAF.png', './icon/MS.png']
 
 export default async function Embed(char_id:number) {
+    try{
     const charachter = await prisma.characters.findFirst({where:{id:char_id},select:{name:true,user_id:true,id:true,weapon_type:true,last_login:true,hrp:true,gr:true}})
     const discord= await prisma.discord.findFirst({where:{char_id:char_id},select:{is_male:true}})
     const user = await prisma.users.findFirst({where:{id:charachter?.user_id},select:{username:true,id:true}})
@@ -24,4 +25,8 @@ export default async function Embed(char_id:number) {
         {name:"Character", value:`Gender:${gender}\nHRP:${charachter?.hrp}\nGR:${charachter?.gr}`,inline:false},
         {name:"Guild", value:`Guild:${guild !== "no id"?guild?.name:gid}\nGuild_ID:${guild !== "no id"?guild?.id:guild}\nLeader_Id:${guild !== "no id"?guild?.leader_id:"no lead"}`,inline:false})
     return [embed,attachment]
+        }catch(e){
+            console.log(e)
+            return false
+        }
 }

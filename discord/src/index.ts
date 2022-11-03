@@ -5,6 +5,7 @@ import { Command, SlashCommand } from "./types";
 import { config } from "dotenv";
 import { readdirSync } from "fs";
 import { join } from "path";
+import console from "console";
 
 
 config()
@@ -20,6 +21,7 @@ readdirSync(handlersDir).forEach(handler => {
 process.on('unhandledRejection', async (error:any) => {
     const ch = client.channels.cache.get(String(process.env.EROR_LOG_CHANNEL))
     if (ch?.isTextBased()){ch.send(String(error.stack))}
+    console.log(error)
 });
 
 
