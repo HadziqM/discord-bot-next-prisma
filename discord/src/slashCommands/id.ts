@@ -11,6 +11,7 @@ const command : SlashCommand = {
     execute: async (interaction) => {
         const id = Number(interaction.options.get('cid')?.value)
         let lib = await Embed(id)
+        if(!lib)return interaction.reply({content:"failed to connect database",ephemeral:true})
         interaction.reply({
             embeds: [lib[0]],files: [lib[1]]
         }).catch((e)=> console.log(e))
