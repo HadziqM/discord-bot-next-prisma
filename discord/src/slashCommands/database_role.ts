@@ -24,18 +24,17 @@ const command : SlashCommand = {
             await Promise.all(player.map(async e =>{
                 const member = await interaction.guild?.members.fetch(e.discord_id)
                 if(!(member==null)){
-                    e.rain_demolizer && member.roles.add(demolizer)
-                    e.road_champion && member.roles.add(road)
-                    e.bounty_champion && member.roles.add(champion)
-                    e.bounty_master && member.roles.add(master)
-                    e.bounty_expert && member.roles.add(expert)
-                }
+                    e.rain_demolizer && await member.roles.add(demolizer)
+                    e.road_champion && await member.roles.add(road)
+                    e.bounty_champion && await member.roles.add(champion)
+                    e.bounty_master && await member.roles.add(master)
+                    e.bounty_expert && await member.roles.add(expert)
+                }}))
             interaction.followUp({content:"success",ephemeral:true})
-        }))}catch(e){
+    }catch(e){
             console.log(e)
             interaction.followUp({content:"error on giving roles",ephemeral:true})
         }
-        
     },
     cooldown: 10
 }
