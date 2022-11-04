@@ -35,6 +35,7 @@ const command : SlashCommand = {
         {name:'SP',value:'SP'}))
         .addNumberOption(o => o.setName('value').setDescription('value of cd need to be changed').setRequired(true)),
     execute: async interaction => {
+        if(interaction.guild?.id !== "937230168223789066") return interaction.reply({content:"you can only use this on rain server as admin there",ephemeral:true})
         const bbq = String(interaction.options.get("bounty")?.value)
         const type = Number(interaction.options.get("value")?.value)
         const res = await Bcd(bbq,type)

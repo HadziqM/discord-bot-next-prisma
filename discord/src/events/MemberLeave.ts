@@ -6,6 +6,7 @@ import client from '../index'
 const event:BotEvent = {
     name:'guildMemberRemove',
     execute: async (member:GuildMember) =>{
+        if(member.guild.id !== "937230168223789066") return
         const role = member.roles.cache
         const embed = new EmbedBuilder().setThumbnail(member.displayAvatarURL()).setTitle("Member Leave").setDescription(member.toString()).setColor(getThemeColor('data')).addFields(
             {name:"Joined Since",value:`<t:${Math.floor(Number(member.joinedTimestamp)/1000)}:R>`},

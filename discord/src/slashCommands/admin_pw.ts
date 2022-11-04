@@ -9,6 +9,7 @@ const command : SlashCommand = {
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     .addStringOption(option => option.setName('password').setDescription('Person New Pasword').setRequired(true)),
     execute: async interaction => {
+        if(interaction.guild?.id !== "937230168223789066") return interaction.reply({content:"you can only use this on rain server as admin there",ephemeral:true})
         const password = String(interaction.options.get("password")?.value)
         const username = String(interaction.options.get("username")?.value)
         const data = await Adpw(username,password)

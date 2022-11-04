@@ -43,6 +43,7 @@ const command : SlashCommand = {
     .addStringOption(o => o.setName('description').setDescription('set description'))
     .addAttachmentOption(option => option.setName('icon').setDescription('change bounty icon')),
     execute: async interaction => {
+        if(interaction.guild?.id !== "937230168223789066") return interaction.reply({content:"you can only use this on rain server as admin there",ephemeral:true})
         interaction.deferReply({ephemeral:true})
         const attachment = interaction.options.get('icon')?.attachment?.url
         const desccription = interaction.options.get('description')?.value

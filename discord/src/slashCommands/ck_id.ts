@@ -12,6 +12,7 @@ const command : SlashCommand = {
     .addIntegerOption(o=> o.setName('cid').setDescription('Charachter id').setRequired(true))
     ,
     execute: async (interaction) => {
+        if(interaction.guild?.id !== "937230168223789066") return interaction.reply({content:"you can only use this on rain server as admin there",ephemeral:true})
         const id = Number(interaction.options.get('cid')?.value)
         const lib = await prisma.discord.findFirst({where:{char_id:id},select:{discord_id:true}}) ?? "not registered"
         const user = lib==="not registered" ? lib : await client.users.fetch(lib.discord_id)

@@ -8,6 +8,7 @@ const command : SlashCommand = {
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     ,
     execute: interaction => {
+        if(interaction.guild?.id !== "937230168223789066") return interaction.reply({content:"you can only use this on rain server as admin there",ephemeral:true})
         interaction.reply({ephemeral:true,content:'ok'})
         const embed1 = new EmbedBuilder().setTitle('Greeting and Welcome to Rain Server 🎉 ').setDescription('First of all, our goal is to create a healthy server that resembles the official server it used to be. we want players to really get the same experience and fun as the official server when playing and grinding to get certain items here. therefore we manage to have some rules to maintain balance and fairness in this server. Here are some basic rules that all member must read and follow:').setColor('Aqua')
         const embed2 = new EmbedBuilder().setTitle('In Game Rules').setColor('Blue').addFields(

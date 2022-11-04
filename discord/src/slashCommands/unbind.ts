@@ -10,6 +10,7 @@ const command : SlashCommand = {
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     .addStringOption(option => option.setName('mentions').setDescription('Mention One Or more Person').setRequired(true)),
     execute: async interaction => {
+        if(interaction.guild?.id !== "937230168223789066") return interaction.reply({content:"you can only use this on rain server as admin there",ephemeral:true})
         const mentions = String(interaction.options.get("mentions")?.value)
         const role:any = await interaction.guild?.roles.fetch(registered)
         const data = mentions.match(/<@!?([0-9]+)>/g)

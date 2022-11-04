@@ -11,6 +11,7 @@ const command : SlashCommand = {
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     ,
     execute: async interaction => {
+        if(interaction.guild?.id !== "937230168223789066") return interaction.reply({content:"you can only use this on rain server as admin there",ephemeral:true})
         interaction.reply({content:"ok begin to scan guild\nthis will take long time to iterate discord user and database data",ephemeral:true})
         const expert =await interaction.guild?.roles.fetch(process.env.EXPERT_ROLE)
         const master = await interaction.guild?.roles.fetch(process.env.MASTER_ROLE)

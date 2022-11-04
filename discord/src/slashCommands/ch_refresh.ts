@@ -11,6 +11,7 @@ const command : SlashCommand = {
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     ,
     execute: async interaction => {
+        if(interaction.guild?.id !== "937230168223789066") return interaction.reply({content:"you can only use this on rain server as admin there",ephemeral:true})
         const json = String(interaction.options.get('json')?.attachment?.url)
         const data = await getBuff(json)
         writeFileSync('prerender_data/refresh.json',data)

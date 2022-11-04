@@ -14,6 +14,7 @@ const button = new ActionRowBuilder<ButtonBuilder>()
 const event:BotEvent = {
     name:'guildMemberAdd',
     execute: async (member:GuildMember) =>{
+        if(member.guild.id !== "937230168223789066") return
         const jch = await client.channels.fetch(process.env.JOIN_CHANNEL)
         if(!jch?.isTextBased()) return
         const url = JSON.stringify({url:member.displayAvatarURL({extension:'png'}),name:member.user.username})

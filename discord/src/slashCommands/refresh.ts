@@ -11,6 +11,7 @@ const command : SlashCommand = {
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     ,
     execute: async interaction => {
+        if(interaction.guild?.id !== "937230168223789066") return interaction.reply({content:"you can only use this on rain server as admin there",ephemeral:true})
         const res = await Refresh()
         if(!res) return interaction.reply({ephemeral:true,content:"error while connecting to server, try again after few minutes"})
         const cd = await client.channels.fetch(process.env.COOLDOWN_CHANNEL)

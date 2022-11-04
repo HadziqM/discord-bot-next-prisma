@@ -11,6 +11,7 @@ const command : SlashCommand = {
         {name:'Mentions People',value:2}))
     .addStringOption(option => option.setName('mentions').setDescription('Mention One Or more Person').setRequired(false)),
     execute: async interaction => {
+        if(interaction.guild?.id !== "937230168223789066") return interaction.reply({content:"you can only use this on rain server as admin there",ephemeral:true})
         const mentions = String(interaction.options.get("mentions")?.value)
         const methode = Number(interaction.options.get("methode")?.value)
         let ids

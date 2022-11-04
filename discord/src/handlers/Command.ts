@@ -10,6 +10,7 @@ module.exports = (client : Client) => {
     const commands : Command[] = []
     const contexs : ContextMenuCommandBuilder[] = []
 
+
     let slashCommandsDir = join(__dirname,"../slashCommands")
     let commandsDir = join(__dirname,"../commands")
     let contexsDir = join(__dirname,"../contextmenu")
