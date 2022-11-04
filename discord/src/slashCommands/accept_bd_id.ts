@@ -10,8 +10,7 @@ const command : SlashCommand = {
     .setName("accept_db_id")
     .setDescription("re accept submitted bounty")
     .addNumberOption(option => option.setName('accepted').setDescription('accepted table id').setRequired(true))
-    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
-    .addStringOption(option => option.setName('password').setDescription('Person New Pasword').setRequired(true)),
+    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
     execute: async interaction => {
         if(interaction.guild?.id !== "937230168223789066") return interaction.reply({content:"you can only use this on rain server as admin there",ephemeral:true})
         interaction.reply({ephemeral:true,content:"begin opration"})
@@ -28,7 +27,7 @@ const command : SlashCommand = {
                 if (power == 'road'){await user?.roles.add(road);return {color:0x338856,bonus:"40%"}}else
                 {await  user?.roles.add(demolizer);return {color:0x000088,bonus:"50%"}}
         }
-        const id = Number(interaction.options.get("accept")?.value)
+        const id = Number(interaction.options.get("accepted")?.value)
         interaction.reply({content:"witing for good connection, dont press the button again in few minutes please",ephemeral:true})
         const accept = await Accept(id)
         if (!accept) {return interaction.channel?.send("there is problem on server, try again sometimes")}
