@@ -5,7 +5,7 @@ const rest = new REST({version: "10"}).setToken(process.env.TOKEN);
 const command : Command = {
     name: "delete",
     execute: (message, args) => {
-        rest.put(Routes.applicationCommands(process.env.CLIENT_ID), { body: [] })
+        rest.put(Routes.applicationGuildCommands(process.env.CLIENT_ID,message.guildId), { body: [] })
             .catch(console.error);
         message.channel.send('Successfully deleted all application commands.')
     },
