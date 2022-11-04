@@ -69,14 +69,14 @@ const command : SlashCommand = {
             if(!checked){return await interaction.reply({content:"you are not registered yet",ephemeral:true})}
             if(checked==='Cooldown'){return await interaction.reply({content:"BBQ on Cooldown",ephemeral:true})} else
             if(checked === 'overheat'){return await interaction.reply({content:"you are still on cooldown",ephemeral:true})}
-            interaction.deferReply()
+            await interaction.deferReply()
             try{
                 let embed
                 let button
                 if(npc){embed = Nembed(checked.cname,interaction.user.username,attachment,bbq,interaction.user.displayAvatarURL());button = B_build(await Submitted(1,checked.cname,interaction.user.username,checked.cid,'none',interaction.user.displayAvatarURL(),attachment,bbq))}
                 else{embed = Sembed(checked.cname,interaction.user.username,attachment,bbq,interaction.user.displayAvatarURL());button = B_build(await Submitted(1,checked.cname,interaction.user.username,checked.cid,'none',interaction.user.displayAvatarURL(),attachment,bbq))}
                 if(!ch?.isTextBased()) return
-                ch.send({embeds:[embed.embed],files:[embed.attach],components:[button]})
+                await ch.send({embeds:[embed.embed],files:[embed.attach],components:[button]})
                 await new Promise(r => setTimeout(r, 3000));
                 interaction.editReply("Bounty Submitted")
                 const cd = await client.channels.fetch(process.env.COOLDOWN_CHANNEL)
@@ -97,7 +97,7 @@ const command : SlashCommand = {
             if(!checked){return await interaction.reply("there is member thats not registered yet")}else
             if(checked==='Cooldown'){return await interaction.reply({content:"BBQ on Cooldown",ephemeral:true})} else
             if(checked === 'overheat'){return await interaction.reply({content:"there is member on bounty cooldown",ephemeral:false})}
-            interaction.deferReply()
+            await interaction.deferReply()
             try{
                 let uname = checked.data
                     let chname = uname.map(e=>{
@@ -111,9 +111,9 @@ const command : SlashCommand = {
                 let embed = Membed(checked.cname,chname,attachment,bbq,interaction.user.displayAvatarURL())
                 let button = B_build(await Submitted(3,JSON.stringify(checked.cname),JSON.stringify(chname),0,JSON.stringify(checked.cid),interaction.user.displayAvatarURL(),attachment,bbq))
                 if(!ch?.isTextBased()) return
-                ch.send({embeds:[embed.embed],files:[embed.attach],components:[button]})
+                await ch.send({embeds:[embed.embed],files:[embed.attach],components:[button]})
                 await new Promise(r => setTimeout(r, 3000));
-                interaction.editReply("Bounty Submitted")
+                await interaction.editReply("Bounty Submitted")
                 const cd = await client.channels.fetch(process.env.COOLDOWN_CHANNEL)
                 if(!cd?.isTextBased()) return
                 const msg1 =await cd.messages.fetch(process.env.COOLDOWN_MSG)
