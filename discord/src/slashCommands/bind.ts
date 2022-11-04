@@ -37,12 +37,13 @@ const command : SlashCommand = {
                         .setLabel('Register as Female')
                         .setStyle(ButtonStyle.Secondary),
                         );
+            if(character.length > 1){
                 row1.addComponents(
                     new ButtonBuilder()
                         .setCustomId(`next${interaction.user.id}`)
                         .setLabel('Get next Character')
                         .setStyle(ButtonStyle.Success),
-                        );
+                        );}
             interaction.reply({components:[row1],embeds:[embed[0]],files:[embed[1]],ephemeral:true})
             if (!interaction.channel?.isTextBased()) return
             const collector = interaction.channel.createMessageComponentCollector({ componentType: ComponentType.Button, time: 400000 })
@@ -78,7 +79,8 @@ const command : SlashCommand = {
                         const wembed = await Embed(character[order].id)
                         if(wembed){
                         interaction.editReply({embeds:[wembed[0]],files:[wembed[1]]})
-                        i.reply({content:"getting other character",ephemeral:true})}
+                        }else{i.reply({content:"you still have *READY TO HUNT* character, please login with that character untill safely enter mezeporta then logout to be able to bind\nor delete that charachter in launcher",ephemeral:true});break}
+                        i.reply({content:"getting other character",ephemeral:true})
                         break
                     }
                     default:{break}
