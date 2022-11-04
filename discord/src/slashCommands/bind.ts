@@ -21,9 +21,9 @@ const command : SlashCommand = {
         if (user===null) {await prisma.$disconnect();return interaction.reply({content:"cant find username",ephemeral:true})};
         if (await Decrypt(password,String(user?.password))){
             const character = await prisma.characters.findMany({where:{user_id:user?.id},select:{id:true}})
-            if (character == null) return
+            if (character.length == 0) return interaction.reply({content:"you dont have any character, please make one on launcher",ephemeral:true})
             const embed  = await Embed(Number(character[0].id))
-            if(!embed)return interaction.reply({content:"you still have *READY TO HUNT* character, please login with that character untill safely enter mezeporta then logout to be able to bind\nor delete that charachter in launcher"})
+            if(!embed)return interaction.reply({content:"you still have *READY TO HUNT* character, please login with that character untill safely enter mezeporta then logout to be able to bind\nor delete that charachter in launcher",ephemeral:true})
             const row1 = new ActionRowBuilder<ButtonBuilder>()
                 .addComponents(
                     new ButtonBuilder()
