@@ -15,7 +15,7 @@ const command : SlashCommand = {
     execute: async interaction => {
         const username = String(interaction.options.get("username")?.value)
         const password = String(interaction.options.get("password")?.value)
-        const discord = await prisma.discord.findFirst({where:{discord_id:interaction.user.id},select:{char_id:true}}).catch(e=>console.log(e))
+        const discord = await prisma.discord.findUnique({where:{discord_id:interaction.user.id},select:{char_id:true}}).catch(e=>console.log(e))
         const user = await prisma.users.findUnique({where:{username:username},select:{id:true,password:true}}).catch(e=>console.log(e))
         if (discord!==null) {await prisma.$disconnect();return interaction.reply({content:"you are already registered",ephemeral:true})};
         if (user===null) {await prisma.$disconnect();return interaction.reply({content:"cant find username",ephemeral:true})};
@@ -56,6 +56,11 @@ const command : SlashCommand = {
                 switch (i.customId){
                     case `male${interaction.user.id}`:{
                         if (interaction.guild == null) return
+                        const checker = await prisma.discord.findFirst({where:{char_id:character[order].id},select:{char_id:true}}).catch(e=>console.log(e))
+                        if (checker !== null) {
+                            i.reply({ephemeral:true,content:"that character already owned"})
+                            break
+                        }
                         Bind(interaction.user.id,Number(character[order].id),true)
                         i.reply({content:"congrats you have registered now",ephemeral:true})
                         await (await interaction.guild.members.fetch(interaction.user.id)).roles.add(role)
@@ -66,6 +71,11 @@ const command : SlashCommand = {
                     }
                     case `female${interaction.user.id}`:{
                         if (interaction.guild == null) return
+                        const checker = await prisma.discord.findFirst({where:{char_id:character[order].id},select:{char_id:true}}).catch(e=>console.log(e))
+                        if (checker !== null) {
+                            i.reply({ephemeral:true,content:"that character already owned"})
+                            break
+                        }
                         Bind(interaction.user.id,Number(character[order].id),false)
                         i.reply({content:"congrats you have registered now",ephemeral:true})
                         await (await interaction.guild.members.fetch(interaction.user.id)).roles.add(role)
