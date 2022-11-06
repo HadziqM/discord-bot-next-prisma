@@ -49,7 +49,6 @@ const command : SlashCommand = {
             if (!interaction.channel?.isTextBased()) return
             const collector = interaction.channel.createMessageComponentCollector({ componentType: ComponentType.Button, time: 400000 })
             const role = await interaction.guild?.roles.fetch(process.env.REGISTERED_ROLE)
-            if (role==null) return
             let order = 0
             collector.on('collect', async i => {
                 console.log('test')
@@ -64,10 +63,11 @@ const command : SlashCommand = {
                         }
                         Bind(interaction.user.id,Number(character[order].id),true)
                         i.reply({content:"congrats you have registered now",ephemeral:true})
-                        await (await interaction.guild.members.fetch(interaction.user.id)).roles.add(role)
                         interaction.editReply({components:[]})
                         collector.stop()
                         await prisma.$disconnect()
+                        if (role==null)break
+                        await (await interaction.guild.members.fetch(interaction.user.id)).roles.add(role)
                         break
                     }
                     case `female${interaction.user.id}`:{
@@ -79,10 +79,11 @@ const command : SlashCommand = {
                         }
                         Bind(interaction.user.id,Number(character[order].id),false)
                         i.reply({content:"congrats you have registered now",ephemeral:true})
-                        await (await interaction.guild.members.fetch(interaction.user.id)).roles.add(role)
                         interaction.editReply({components:[]})
                         collector.stop()
                         await prisma.$disconnect()
+                        if (role==null)break
+                        await (await interaction.guild.members.fetch(interaction.user.id)).roles.add(role)
                         break
                     }case `next${interaction.user.id}`:{
                         order += 1
