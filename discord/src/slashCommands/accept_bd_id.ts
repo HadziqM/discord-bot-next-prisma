@@ -55,6 +55,7 @@ const command : SlashCommand = {
                     .setImage("attachment://og.png")
                 const msg = await promo.send({content:`congratulation on promotion ${user}`,files:[att],embeds:[embed]})
                 msg.react('🥳')
+                msg.crosspost().catch(console.error)
             }
         }else if (accept.type==2){
             if (accept.result instanceof Array) return
@@ -74,6 +75,7 @@ const command : SlashCommand = {
                     .setImage("attachment://og.png")
                 const msg = await promo.send({content:`congratulation on promotion ${user}`,files:[att],embeds:[embed]})
                 msg.react('🥳')
+                msg.crosspost().catch(console.error)
             }
         }else{
             if (!(accept.result instanceof Array)) return
@@ -92,10 +94,13 @@ const command : SlashCommand = {
                     .setImage("attachment://og.png")
                     const msg = await promo.send({content:`congratulation on promotion ${user}`,files:[att],embeds:[embed]})
                     msg.react('🥳')
+                    msg.crosspost().catch(console.error)
+
                 }
             }
             const embed = Membed(JSON.parse(accept.cname),JSON.parse(accept.uname),accept.url,accept.bbq,accept.avatar)
-            conquer.send({embeds:[embed.embed],files:[embed.attach]})
+            const msg1 =await conquer.send({embeds:[embed.embed],files:[embed.attach]})
+            msg1.crosspost().catch(console.error)
         }
         const lead = await Leaderboard()
         msg?.edit({embeds:[lead.embed]})
