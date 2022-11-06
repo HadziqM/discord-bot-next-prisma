@@ -2,6 +2,8 @@ import {getThemeColor} from '../../functions'
 import client from '../../index'
 import {EmbedBuilder} from 'discord.js'
 import {PrismaClient} from "@prisma/client";
+import { readFileSync } from 'fs';
+import { PartnerGuild } from '../../types';
 
 const prisma = new PrismaClient();
 
@@ -25,6 +27,15 @@ export default  async function Leaderboard() {
         bounty.push(lead[i].bounty)        
         embed.addFields({name:user[i],value:` 🗂️ Ign: ${char?.name}\n 🪙 Coin: ${lead[i].bounty}`})
         
+    }
+    const data = String(readFileSync("./guild/guild.json"))
+    const json:PartnerGuild = JSON.parse(data)
+    for (let i=0;i<json.partner.length;i++){
+        const ch = await client.channels.fetch(json.partner[i].leaderboard_ch)
+        if(ch?.isTextBased()){
+            const msg=await ch.messages.fetch(json.partner[i].leaderboard_msg)
+            msg.edit({embeds:[embed]})
+        }
     }
     await prisma.$disconnect()
     return {embed:embed}

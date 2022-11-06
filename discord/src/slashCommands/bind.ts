@@ -9,6 +9,7 @@ const prisma = new PrismaClient();
 const command : SlashCommand = {
     command: new SlashCommandBuilder()
     .setName("bind")
+    .setDMPermission(false)
     .setDescription("register your account to the discord")
     .addStringOption(option => option.setName('username').setDescription('Your username').setRequired(true))
     .addStringOption(option => option.setName('password').setDescription('Your password').setRequired(true)),

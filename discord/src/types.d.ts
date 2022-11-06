@@ -54,6 +54,16 @@ export interface Gacha {
     download:Download[],
 }
 
+export interface PartnerGuild{
+    partner:{
+        guild_id:string,
+        cooldown_msg:string,
+        leaderboard_msg:string,
+        cooldown_ch:string,
+        leaderboard_ch:string
+    }[]
+}
+
 
 declare global {
     namespace NodeJS {

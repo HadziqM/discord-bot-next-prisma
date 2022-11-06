@@ -41,6 +41,7 @@ const row1 = new ActionRowBuilder<ButtonBuilder>()
 const command : SlashCommand = {
     command: new SlashCommandBuilder()
     .setName("mycard")
+    .setDMPermission(false)
     .setDescription("show your hunter status")
     ,
     execute: async (interaction) => {

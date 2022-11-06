@@ -3,6 +3,7 @@ import { SlashCommand } from "../types";
 import Regis from '../lib/register'
 import Dcheck from '../lib/registercheck'
 import {CheckAcc,Write} from "../lib/reg_server/reg"
+import client from "..";
 
 const command : SlashCommand = {
     command: new SlashCommandBuilder()
@@ -19,7 +20,7 @@ const command : SlashCommand = {
         const password = String(interaction.options.get("password")?.value)
         const data = await Regis(username,password)
         if (!data) return interaction.reply({content:`failed to interact with server try again after some minutes`,ephemeral:true})
-        const ch = await interaction.guild?.channels.fetch(process.env.USER_CREATE_LOG_CHANNEL)
+        const ch =await client.channels.fetch(process.env.USER_CREATE_LOG_CHANNEL)
         if (data){interaction.reply({content:"New Account Succesfully Created",ephemeral:true})
             if (ch?.isTextBased()){ch.send(`${interaction.user.username}#${interaction.user.discriminator} created new account`)}
             await Write(interaction.user.id,data)

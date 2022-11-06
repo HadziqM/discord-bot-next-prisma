@@ -4,6 +4,7 @@ import Buy from '../lib/gacha/buy'
 const command : SlashCommand = {
     command: new SlashCommandBuilder()
     .setName("buy_ticket")
+    .setDMPermission(false)
     .setDescription("buy gacha ticket")
     .addNumberOption(o=> o.setName('value').setDescription('value need of ticket buy').setRequired(true)),
     execute: async interaction => {

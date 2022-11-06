@@ -50,31 +50,31 @@ const command : SlashCommand = {
     .setDescription("Shows Server's Guild List")
     ,
     execute: async interaction => {
-        // interaction.reply({content:"fetching guild data from database",ephemeral:true})
         const data = jsondata().guild
         let state = 1 
         let button = build_button(data.length,state,interaction.user.id)
         let embed = await build_embed(data[state-1])
-        interaction.reply({embeds:[embed],components:[button]})
+        await interaction.reply({embeds:[embed],components:[button]})
         if (!interaction.channel?.isTextBased()) return
         const collector = interaction.channel.createMessageComponentCollector({ componentType: ComponentType.Button, time: 400000 })
         collector.on('collect', async i => {
             switch (i.customId){
                 case `p${interaction.user.id}`:{
                     state -= 1;
-                    if (state <= 0){state = data.length};
-                    button = build_button(data.length,state,interaction.user.id);
-                    embed = await build_embed(data[state-1]);
+                    if (state == 0) state = data.length
+                    button = build_button(data.length,state,interaction.user.id)
+                    embed = await build_embed(data[state-1])
                     await interaction.editReply({embeds:[embed],components:[button]})
-                    i.deferUpdate()
+                    await i.deferUpdate()
                     break
                 }
                 case `n${interaction.user.id}`:{
                     state += 1;
-                    button = build_button(data.length,state,interaction.user.id);
-                    embed = await build_embed(data[state-1]);
+                    if (state == data.length + 1)state = 1
+                    button = build_button(data.length,state,interaction.user.id)
+                    embed = await build_embed(data[state-1])
                     await interaction.editReply({embeds:[embed],components:[button]})
-                    i.deferUpdate()
+                    await i.deferUpdate()
                     break
                 }
                 default:{break}

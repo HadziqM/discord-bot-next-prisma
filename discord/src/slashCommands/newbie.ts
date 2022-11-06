@@ -49,6 +49,7 @@ async function build_embed(data:Data){
 const command : SlashCommand = {
     command: new SlashCommandBuilder()
     .setName("newbie")
+    .setDMPermission(false)
     .setDescription("reward for newbie player")
     ,
     execute: async interaction => {

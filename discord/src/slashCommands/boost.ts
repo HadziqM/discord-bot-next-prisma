@@ -6,6 +6,7 @@ import Boost from '../lib/boost'
 const command : SlashCommand = {
     command: new SlashCommandBuilder()
     .setName("boost")
+    .setDMPermission(false)
     .setDescription("show boost status"),
     execute: async interaction => {
         const disc = await Check(interaction.user.id)

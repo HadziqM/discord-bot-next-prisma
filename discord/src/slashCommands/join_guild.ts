@@ -5,6 +5,7 @@ import Dcheck from '../lib/registercheck'
 const command : SlashCommand = {
     command: new SlashCommandBuilder()
     .setName("join_guild")
+    .setDMPermission(false)
     .setDescription("register your account to guild")
     .addStringOption(option => option.setName('guild').setDescription('select guild you want to join').setRequired(true).setAutocomplete(true)),
     execute: async interaction => {

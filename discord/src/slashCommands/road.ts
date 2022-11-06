@@ -6,6 +6,7 @@ import { SlashCommand } from "../types";
 const command : SlashCommand = {
     command: new SlashCommandBuilder()
     .setName("road")
+    .setDMPermission(false)
     .setDescription("see road leaderboard")
     ,
     execute: async interaction => {

@@ -11,6 +11,7 @@ const savedata = savelist.map(e=>`${e}.bin`)
 const command : SlashCommand = {
     command: new SlashCommandBuilder()
     .setName("transfer")
+    .setDMPermission(false)
     .setDescription("send your save data to server")
     .addAttachmentOption(option => option.setName('attachment').setDescription('attach one of the fformatted save data').setRequired(true))
     ,

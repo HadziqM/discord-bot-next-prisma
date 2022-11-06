@@ -5,6 +5,7 @@ import Embed from '../lib/gacha/embed'
 const command : SlashCommand = {
     command: new SlashCommandBuilder()
     .setName("event")
+    .setDMPermission(false)
     .setDescription("show event status"),
     execute: async interaction => {
         const disc = await Embed(interaction.user.id)

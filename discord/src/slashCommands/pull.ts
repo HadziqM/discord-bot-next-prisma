@@ -5,6 +5,7 @@ import getBuff from '../lib/urlbuf'
 const command : SlashCommand = {
     command: new SlashCommandBuilder()
     .setName("pull")
+    .setDMPermission(false)
     .setDescription("change persons password if theyare unregistered")
     .addNumberOption(option => option.setName('pull').setDescription('Pull Methode').setRequired(true).addChoices(
         {name:"Single Pull",value:1},

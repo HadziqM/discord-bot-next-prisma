@@ -26,6 +26,9 @@ const command:ContextMenu = {
     .setName("Submit")
     .setType(ApplicationCommandType.Message),
     execute: async interaction =>{
+        const guild =await  client.guilds.fetch("937230168223789066")
+        try{await guild.members.fetch(interaction.user.id)}
+        catch(e){return interaction.reply("you need to become member of rain server to participate bounty")}
         if (!interaction.isMessageContextMenuCommand()) return interaction.reply({content:"error",ephemeral:true})
         const msg = interaction.targetMessage
         if (interaction.user.id !== msg.author.id)return interaction.reply({content:"its not your own message",ephemeral:true})
