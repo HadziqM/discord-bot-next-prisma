@@ -7,6 +7,7 @@ const command : SlashCommand = {
     command: new SlashCommandBuilder()
     .setName("partner")
     .setDescription("Change Bounty Reward")
+    .setDMPermission(false)
     .addStringOption(o => o.setName('cooldown').setDescription('Enter bot Coodlown message id').setRequired(true))
     .addStringOption(o => o.setName('leader').setDescription('Enter bot Leaderboard messageg id').setRequired(true))
     .addStringOption(o => o.setName('cd_channel').setDescription('Enter Coodlown channel id').setRequired(true))
