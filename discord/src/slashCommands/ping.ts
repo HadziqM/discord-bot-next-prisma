@@ -5,6 +5,7 @@ import { SlashCommand } from "../types";
 const command : SlashCommand = {
     command: new SlashCommandBuilder()
     .setName("ping")
+    .setDMPermission(false)
     .setDescription("Shows the bot's ping")
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     ,

@@ -7,6 +7,7 @@ import { SlashCommand } from "../types";
 const command : SlashCommand = {
     command: new SlashCommandBuilder()
     .setName("ch_gacha")
+    .setDMPermission(false)
     .setDescription("change gacha's event file")
     .addAttachmentOption(o=>o.setName('json').setDescription('send gacha.json file').setRequired(true))
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)

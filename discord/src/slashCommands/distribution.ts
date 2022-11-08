@@ -4,6 +4,7 @@ import Distribution from '../lib/bounty/distribution'
 const command : SlashCommand = {
     command: new SlashCommandBuilder()
     .setName("distribution")
+    .setDMPermission(false)
     .setDescription("distribute person their reward + bountycoin and ticket")
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     .addStringOption(o => o.setName('bounty').setDescription('pick category').setRequired(true).addChoices(

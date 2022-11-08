@@ -7,6 +7,7 @@ const prisma = new PrismaClient()
 const command : SlashCommand = {
     command: new SlashCommandBuilder()
     .setName("database_role")
+    .setDMPermission(false)
     .setDescription("update player role based on database")
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     ,

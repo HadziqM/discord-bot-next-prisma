@@ -4,6 +4,7 @@ import { SlashCommand } from "../types";
 const ClearCommand : SlashCommand = {
     command: new SlashCommandBuilder()
     .setName("clear")
+    .setDMPermission(false)
     .setDescription("Delets messages from the current channel.")
     .addIntegerOption(option => {
         return option

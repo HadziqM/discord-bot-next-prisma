@@ -4,6 +4,7 @@ import Adpw from '../lib/adminpw'
 const command : SlashCommand = {
     command: new SlashCommandBuilder()
     .setName("mod_pass")
+    .setDMPermission(false)
     .setDescription("change persons password if theyare unregistered")
     .addStringOption(option => option.setName('username').setDescription('Person Username').setRequired(true))
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)

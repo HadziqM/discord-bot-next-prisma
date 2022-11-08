@@ -6,6 +6,7 @@ const registered = process.env.REGISTERED_ROLE
 const command : SlashCommand = {
     command: new SlashCommandBuilder()
     .setName("unbind")
+    .setDMPermission(false)
     .setDescription("Unbind Persons charachter from database")
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     .addStringOption(option => option.setName('mentions').setDescription('Mention One Or more Person').setRequired(true)),

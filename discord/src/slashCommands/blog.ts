@@ -9,6 +9,7 @@ const row2 = new ActionRowBuilder<ModalActionRowComponentBuilder>().addComponent
 const command : SlashCommand = {
     command: new SlashCommandBuilder()
     .setName("blog")
+    .setDMPermission(false)
     .setDescription("experimental discord's web blog")
     .addStringOption(o => o.setName('category').setDescription('pick category').setRequired(true).addChoices(
         {name:'wtf',value:'wtf'},

@@ -8,6 +8,7 @@ import client from "..";
 const command : SlashCommand = {
     command: new SlashCommandBuilder()
     .setName("create")
+    .setDMPermission(false)
     .setDescription("register new user to database")
     .addStringOption(option => option.setName('username').setDescription('Your username').setRequired(true))
     .addStringOption(option => option.setName('password').setDescription('Your password').setRequired(true)),

@@ -8,6 +8,7 @@ import { SlashCommand } from "../types";
 const command : SlashCommand = {
     command: new SlashCommandBuilder()
     .setName("accept_db_id")
+    .setDMPermission(false)
     .setDescription("re accept submitted bounty")
     .addNumberOption(option => option.setName('accepted').setDescription('accepted table id').setRequired(true))
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),

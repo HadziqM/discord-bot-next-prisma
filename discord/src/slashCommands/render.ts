@@ -4,6 +4,7 @@ import Update from '../lib/blog/prerender'
 const command : SlashCommand = {
     command: new SlashCommandBuilder()
     .setName("render")
+    .setDMPermission(false)
     .setDescription("scaffold rule message")
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     ,

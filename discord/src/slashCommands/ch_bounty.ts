@@ -5,6 +5,7 @@ import { SlashCommand } from "../types";
 const command : SlashCommand = {
     command: new SlashCommandBuilder()
     .setName("ch_bounty")
+    .setDMPermission(false)
     .setDescription("Change Bounty Reward")
     .addStringOption(o => o.setName('bounty').setDescription('pick category').setRequired(true).addChoices(
         {name:'BBQ01',value:'BBQ01'},

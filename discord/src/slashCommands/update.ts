@@ -4,6 +4,7 @@ import Update from '../lib/update'
 const command : SlashCommand = {
     command: new SlashCommandBuilder()
     .setName("update")
+    .setDMPermission(false)
     .setDescription("scaffold rule message")
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     ,

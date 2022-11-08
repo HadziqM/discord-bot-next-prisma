@@ -4,6 +4,7 @@ import { SlashCommand } from "../types";
 const command : SlashCommand = {
     command: new SlashCommandBuilder()
     .setName("dw_gacha")
+    .setDMPermission(false)
     .setDescription("download gacha's .json")
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     ,

@@ -6,6 +6,7 @@ import client from '../index'
 const command : SlashCommand = {
     command: new SlashCommandBuilder()
     .setName("cooldown")
+    .setDMPermission(false)
     .setDescription("change bounty cd")
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     .addStringOption(o => o.setName('bounty').setDescription('pick category').setRequired(true).addChoices(

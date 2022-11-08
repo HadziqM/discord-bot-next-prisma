@@ -4,6 +4,7 @@ import Cooldown from '../lib/cooldown'
 const command : SlashCommand = {
     command: new SlashCommandBuilder()
     .setName("resetcd")
+    .setDMPermission(false)
     .setDescription("Reset persons cd to 0")
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     .addStringOption(option => option.setName('mentions').setDescription('Mention One Or more Person').setRequired(true)),

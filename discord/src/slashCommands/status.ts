@@ -6,6 +6,7 @@ import Status from '../lib/serverstatus'
 const command : SlashCommand = {
     command: new SlashCommandBuilder()
     .setName("status")
+    .setDMPermission(false)
     .setDescription("Show Server Status on database")
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
     execute: async interaction => {

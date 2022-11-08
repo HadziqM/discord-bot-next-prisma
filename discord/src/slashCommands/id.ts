@@ -5,6 +5,7 @@ import Embed from '../lib/char_embbed'
 const command : SlashCommand = {
     command: new SlashCommandBuilder()
     .setName("id")
+    .setDMPermission(false)
     .setDescription("show your hunter status")
     .addIntegerOption(o=> o.setName('cid').setDescription('Charachter id').setRequired(true))
     ,

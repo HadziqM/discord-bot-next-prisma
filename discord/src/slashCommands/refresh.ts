@@ -7,6 +7,7 @@ import client from "..";
 const command : SlashCommand = {
     command: new SlashCommandBuilder()
     .setName("refresh")
+    .setDMPermission(false)
     .setDescription("refresh bounty cd")
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     ,

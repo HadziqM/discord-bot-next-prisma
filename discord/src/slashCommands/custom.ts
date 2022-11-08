@@ -4,6 +4,7 @@ import Custom from '../lib/bounty/custom'
 const command : SlashCommand = {
     command: new SlashCommandBuilder()
     .setName("custom")
+    .setDMPermission(false)
     .setDescription("add ticket to player, use negative number to substact instead")
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     .addNumberOption(o=> o.setName('methode').setDescription('methode to for the task').setRequired(true).addChoices(

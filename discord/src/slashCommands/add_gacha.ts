@@ -4,6 +4,7 @@ import gacha from '../lib/gacha/addticket'
 const command : SlashCommand = {
     command: new SlashCommandBuilder()
     .setName("add_ticket")
+    .setDMPermission(false)
     .setDescription("add ticket to player, use negative number to substact instead")
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     .addNumberOption(o=> o.setName('value').setDescription('value need to distributed').setRequired(true))

@@ -6,6 +6,7 @@ const command : SlashCommand = {
     command: new SlashCommandBuilder()
     .setName("event")
     .setDMPermission(false)
+    .setDMPermission(false)
     .setDescription("show event status"),
     execute: async interaction => {
         const disc = await Embed(interaction.user.id)

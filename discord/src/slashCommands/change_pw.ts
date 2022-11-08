@@ -4,6 +4,7 @@ import Chpw from '../lib/changepw'
 const command : SlashCommand = {
     command: new SlashCommandBuilder()
     .setName("change_password")
+    .setDMPermission(false)
     .setDescription("register new user to database")
     .addStringOption(option => option.setName('password').setDescription('Your new password').setRequired(true)),
     execute: async interaction => {

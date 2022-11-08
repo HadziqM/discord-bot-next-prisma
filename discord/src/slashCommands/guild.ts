@@ -47,6 +47,7 @@ async function build_embed(data:any){
 const command : SlashCommand = {
     command: new SlashCommandBuilder()
     .setName("guild")
+    .setDMPermission(false)
     .setDescription("Shows Server's Guild List")
     ,
     execute: async interaction => {

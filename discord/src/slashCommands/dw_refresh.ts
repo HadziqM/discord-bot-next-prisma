@@ -4,6 +4,7 @@ import { SlashCommand } from "../types";
 const command : SlashCommand = {
     command: new SlashCommandBuilder()
     .setName("dw_refresh")
+    .setDMPermission(false)
     .setDescription("download refresh's .json")
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     ,
