@@ -162,10 +162,32 @@ const event : BotEvent = {
                 case "transmog":{if(interaction.user.id != interaction.message.interaction?.user.id){await interaction.reply({content:"this button isnt for you",ephemeral:true}).catch((e:any)=>console.log(e));return};await interaction.reply({content:"unlocked your transmog",ephemeral:true});await trans(interaction.user.id);return}
                 case "boost_on":{if(interaction.user.id != interaction.message.interaction?.user.id){await interaction.reply({content:"this button isnt for you",ephemeral:true}).catch((e:any)=>console.log(e));return};const boost = await Boost_on(interaction.user.id);boost[0]?interaction.reply({content:"Turn On Your Login Boost",ephemeral:true}):interaction.reply({content:`cooldown till <t:${boost[1]}:R>`,ephemeral:true});return}
                 case "boost_off":{if(interaction.user.id != interaction.message.interaction?.user.id){await interaction.reply({content:"this button isnt for you",ephemeral:true}).catch((e:any)=>console.log(e));return};await Boost_off(interaction.user.id);await interaction.reply({content:"Turn Off Your Login Boost",ephemeral:true});return}
-                case "save2":{await interaction.reply({content:"check your DM",ephemeral:true});(await get_save(interaction.user.id)).map(async (e:any) => (e !== "nothing") && await interaction.user.send({ files: [{ attachment: e[0],name:e[1] }] }).catch((e:any)=>console.log(e)));return}
-                case "transmog2":{await interaction.reply({content:"unlocked your transmog\nyou need to log out before using this, otherwise it wont work when re-login",ephemeral:true}).catch(e=>console.log(e));await trans(interaction.user.id);return}
-                case "boost_on2":{const boost = await Boost_on(interaction.user.id);boost[0]?interaction.reply({content:"Turn On Your Login Boost",ephemeral:true}).catch(e=>console.log(e)):interaction.reply({content:`cooldown till <t:${boost[1]}:R>`,ephemeral:true}).catch(e=>console.log(e));return}
-                case "boost_off2":{await Boost_off(interaction.user.id);await interaction.reply({content:"Turn Off Your Login Boost",ephemeral:true}).catch(e=>console.log(e));return}
+                case "save2":{
+                    const res = await Check(interaction.user.id)
+                    if(!res) return interaction.reply({content:"you need to bind your account to discord to be able to do this",ephemeral:true,components:[bindButton]}).catch(e=>console.log(e))
+                    await interaction.reply({content:"check your DM",ephemeral:true});
+                    (await get_save(interaction.user.id)).map(async (e:any) => (e !== "nothing") && await interaction.user.send({ files: [{ attachment: e[0],name:e[1] }] }).catch((e:any)=>console.log(e)));
+                    return
+                }
+                case "transmog2":{
+                    const res = await Check(interaction.user.id)
+                    if(!res) return interaction.reply({content:"you need to bind your account to discord to be able to do this",ephemeral:true,components:[bindButton]}).catch(e=>console.log(e))
+                    await interaction.reply({content:"unlocked your transmog\nyou need to log out before using this, otherwise it wont work when re-login",ephemeral:true}).catch(e=>console.log(e));
+                    return await trans(interaction.user.id)
+                }
+                case "boost_on2":{
+                    const res = await Check(interaction.user.id)
+                    if(!res) return interaction.reply({content:"you need to bind your account to discord to be able to do this",ephemeral:true,components:[bindButton]}).catch(e=>console.log(e))
+                    const boost = await Boost_on(interaction.user.id);
+                    boost[0]?interaction.reply({content:"Turn On Your Login Boost",ephemeral:true}).catch(e=>console.log(e)):interaction.reply({content:`cooldown till <t:${boost[1]}:R>`,ephemeral:true}).catch(e=>console.log(e))
+                    return
+                }
+                case "boost_off2":{
+                    const res = await Check(interaction.user.id)
+                    if(!res) return interaction.reply({content:"you need to bind your account to discord to be able to do this",ephemeral:true,components:[bindButton]}).catch(e=>console.log(e))
+                    await Boost_off(interaction.user.id);
+                    return await interaction.reply({content:"Turn Off Your Login Boost",ephemeral:true}).catch(e=>console.log(e))
+                }
                 case "import":{
                     const res = await Check(interaction.user.id)
                     if(!res) return interaction.reply({content:"you need to bind your account to discord to be able to do this",ephemeral:true,components:[bindButton]}).catch(e=>console.log(e))
