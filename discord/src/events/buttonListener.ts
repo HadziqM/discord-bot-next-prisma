@@ -172,6 +172,7 @@ const event : BotEvent = {
                     return interaction.reply({embeds:[embedTransfer],ephemeral:true,components:[bindChannelButton]}).catch(e=>console.log(e))
                 }
                 case "bind":{
+                    try{
                     const res = await Check(interaction.user.id)
                     if(res) return interaction.reply({content:"you already binded",ephemeral:true}).catch(e=>console.log(e))
                     interaction.showModal(bindModal).catch(e=>console.log(e))
@@ -259,9 +260,10 @@ const event : BotEvent = {
                             await prisma.$disconnect()
                             return interaction.reply({content:"pasword not match",ephemeral:true}).catch(e=>console.log(e))
                         }
-                    }
+                    }}catch(e){console.error}
                 }
                 case "create":{
+                    try{
                     const res = await Dcheck(interaction.user.id)
                     if(res) return interaction.reply({content:`you already have an account with charachter id ${res}`,ephemeral:true}).catch(e=>console.log(e))
                     const res2 = await CheckAcc(interaction.user.id)
@@ -278,7 +280,7 @@ const event : BotEvent = {
                             if (ch?.isTextBased()){ch.send(`${interaction.user.username}#${interaction.user.discriminator} created new account`).catch(e=>console.log(e))}
                             await Write(interaction.user.id,data)
                         }else{submitted.reply({content:"Username Already Exist",ephemeral:true}).catch(e=>console.log(e))}
-                    }
+                    }}catch(e){console.error}
                 }
                 case "member":{
                     const role = await interaction.guild?.roles.fetch(process.env.MEMBER_ROLE)
