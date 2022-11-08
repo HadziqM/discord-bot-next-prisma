@@ -165,7 +165,7 @@ const event : BotEvent = {
                 case "save2":{
                     const res = await Check(interaction.user.id)
                     if(!res) return interaction.reply({content:"you need to bind your account to discord to be able to do this",ephemeral:true,components:[bindButton]}).catch(e=>console.log(e))
-                    await interaction.reply({content:"check your DM",ephemeral:true});
+                    await interaction.reply({content:"check your DM",ephemeral:true}).catch(e=>console.log(e));
                     (await get_save(interaction.user.id)).map(async (e:any) => (e !== "nothing") && await interaction.user.send({ files: [{ attachment: e[0],name:e[1] }] }).catch((e:any)=>console.log(e)));
                     return
                 }
