@@ -14,7 +14,7 @@ export default async function Gjoin(name:string,char_id:number) {
     const Pid = prisma.guild_characters.aggregate({_max:{id:true}})
     const [order,ids] =await Promise.all([Porder,Pid])
     if (order._count.id >= 60 ){await prisma.$disconnect();return false}
-    await prisma.guild_characters.create({data:{character_id:char_id,guild_id:guild.id,id:Number(ids._max.id)+1,order_index:Number(order._max.order_index)+1,avoid_leadership:true}})
+    await prisma.guild_characters.create({data:{character_id:char_id,guild_id:guild.id,order_index:Number(order._max.order_index)+1}})
     await prisma.$disconnect()
     return true} catch{
         console.error
@@ -35,8 +35,8 @@ export async function fixOrder(){
                     await prisma.guild_characters.update({where:{character_id:order[i-2].character_id},data:{order_index:i}})
                 }
             }
-            await prisma.$disconnect()
         }))
+        await prisma.$disconnect()
         return true
     }catch(e){
         console.log(e)
