@@ -76,7 +76,7 @@ const command : SlashCommand = {
                     embed = await build_embed(data[state-1]);
                     await interaction.editReply({embeds:[embed],components:button})
                     i.deferUpdate()
-                    break
+                    return
                 }
                 case `n${interaction.user.id}`:{
                     state += 1;
@@ -85,7 +85,7 @@ const command : SlashCommand = {
                     embed = await build_embed(data[state-1]);
                     await interaction.editReply({embeds:[embed],components:button})
                     i.deferUpdate()
-                    break
+                    return
                 }
                 case `c${interaction.user.id}`:{
                     const res =await Newbie(data[state-1].name,interaction.user.id)
@@ -94,9 +94,8 @@ const command : SlashCommand = {
                     await interaction.editReply({components:[]})
                     if (!res){interaction.followUp({ephemeral:true,content:'command failed\n1. you might already claim once\n2. you need to be at range gr200-500\n3. connection to server timed out'})}
                     else{interaction.followUp('reward already distributed check it on game')}
-                    break
+                    return
                 }
-                default:{break}
             }
         });
 

@@ -304,6 +304,12 @@ const event : BotEvent = {
                         }else{submitted.reply({content:"Username Already Exist",ephemeral:true}).catch(e=>console.log(e))}
                     }}catch(e){console.error}
                 }
+                case "buy_ticket":{
+                    try{
+                        const res = await Check(interaction.user.id)
+                        if(!res) return interaction.reply({content:"you need to bind your account to discord to be able to do this",ephemeral:true,components:[bindButton]}).catch(e=>console.log(e))                        
+                    }catch(e){console.error}
+                }
                 case "member":{
                     const role = await interaction.guild?.roles.fetch(process.env.MEMBER_ROLE)
                     const member = await interaction.guild?.members.fetch(interaction.user.id)

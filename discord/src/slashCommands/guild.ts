@@ -67,7 +67,7 @@ const command : SlashCommand = {
                     embed = await build_embed(data[state-1])
                     await interaction.editReply({embeds:[embed],components:[button]})
                     await i.deferUpdate()
-                    break
+                    return
                 }
                 case `n${interaction.user.id}`:{
                     state += 1;
@@ -76,9 +76,8 @@ const command : SlashCommand = {
                     embed = await build_embed(data[state-1])
                     await interaction.editReply({embeds:[embed],components:[button]})
                     await i.deferUpdate()
-                    break
+                    return
                 }
-                default:{break}
             }
         });
 
