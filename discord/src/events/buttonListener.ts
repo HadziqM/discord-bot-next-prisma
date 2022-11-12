@@ -318,7 +318,8 @@ const event : BotEvent = {
                     interaction.reply({content:"Congrats you got member role now",ephemeral:true})
                     break
                 }
-        }}
+                default: return
+        }}else return
     }
 }
 export default event
